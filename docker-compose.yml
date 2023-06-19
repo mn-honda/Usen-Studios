@@ -67,6 +67,16 @@ services:
                 - ping
             retries: 3
             timeout: 5s
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links:
+            - mysql:mysql
+        ports:
+            - 8080:80
+        environment:
+            PMA_HOST: mysql
+        networks:
+            - sail
     meilisearch:
         image: 'getmeili/meilisearch:latest'
         ports:
