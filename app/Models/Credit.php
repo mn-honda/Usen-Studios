@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Credit extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'card_number' => 'encrypted',
+        'security_code' => 'encrypted',
+    ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
 }
