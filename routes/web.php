@@ -3,6 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,15 +47,22 @@ Route::get('admin/purchase_list', function(){
     return view('admin.purchase_list');
 })->middleware('auth');
 Route::post('admin/product_register', [AdminController::class, 'product_register'])->middleware('auth');
-Route::post('admin/purchase_register', [AdminController::class, 'purchase_register'])->middleware('auth');
+Route::get('admin/purchase_register', [AdminController::class, 'purchase_product']);
 
 
 // 平西君
 Route::get('/cart', [CartController::class, 'index'])->middleware('auth');
+Route::post('/cart/add', [CartController::class, 'index'])->middleware('auth');
 Route::post('/cart/update', [CartController::class, 'update'])->middleware('auth');
 Route::post('/cart/delete/{id}', [CartController::class, 'delete'])->middleware('auth');
 Route::get('/sale/confirm', [SaleController::class, 'index'])->middleware('auth');
 Route::get('/sale/complete', [SaleController::class, 'complete'])->middleware('auth');
 
+// 佐々木
+Route::get("/product/{id}",[ProductController::class, 'list_fits_category']);//->middleware('auth');
+Route::get("/product_detail/{id}",[ProductController::class, 'product_detail']);//->middleware('auth');
+
+// ほんだ　
+Route::get("/index",[CategoryController::class, 'pickup']);
 
 require __DIR__.'/auth.php';
