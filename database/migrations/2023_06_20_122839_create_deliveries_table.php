@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamp('date');
             $table->foreignId('sale_id')->constrained('sales');
-            $table->boolean('is_delivered');
+            $table->boolean('is_delivered')->default(false);
             $table->timestamps();
         });
     }
