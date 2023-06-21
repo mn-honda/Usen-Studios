@@ -13,7 +13,8 @@ class CartController extends Controller
     public function index() {
         $user_id = auth()->user()->id;
         $user = User::findOrFail($user_id);
-        return view('user.cart.index', compact('user'));
+        $cart = $this->findUserCart($user_id);
+        return view('user.cart.index', compact('cart'));
     }
 
     public function add(Request $request) {
@@ -62,12 +63,12 @@ class CartController extends Controller
     }
 
     private function findUserCart($user_id) {
-        $cart = Cart::where('user_id', $user_id);
-        if ( $cart == null ) {
-            $cart = new Cart();
-            $cart->user_id = $user_id;
+        $cart = Cart::where('user_id', $user_id)->get();
+        if ( $cart != null ) {
             return $cart;
         }
+        $cart = new Cart();
+        $cart->user_id = $user_id;
         return $cart;
     }
 
