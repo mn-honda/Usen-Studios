@@ -7,9 +7,10 @@
 </head>
 <body>
     <h1>アウター</h1>
+
     @foreach($products as $product)
-        <a href="product/detail/{{$product->id}}">
-            <img src="{{$product->images->filepath}}" alt="">
+        <a href="/product_detail/{{$product->id}}">
+            画像
             <p>{{$product->name}}</p>
             <p>{{$product->price}}</p>
         </a>
