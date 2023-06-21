@@ -14,6 +14,7 @@
             MenuClose.classList.toggle('active');
             WearMenu.classList.toggle('active');
 	});
+    </script>
 </head>
 <body>
     <header class="hedader">
