@@ -28,4 +28,30 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+// 奥田さん
+Route::get('admin/product_register', function(){
+    return view('admin.product_register');
+})->middleware('auth');
+Route::get('admin/stock_list', function(){
+    return view('admin.stock_list');
+})->middleware('auth');
+Route::get('admin/purchase_register', function(){
+    return view('admin.purchase_register');
+})->middleware('auth');
+Route::get('admin/purchase_list', function(){
+    return view('admin.purchase_list');
+})->middleware('auth');
+Route::post('admin/product_register', [AdminController::class, 'product_register'])->middleware('auth');
+Route::post('admin/purchase_register', [AdminController::class, 'purchase_register'])->middleware('auth');
+
+
+// 平西君
+Route::get('/cart', [CartController::class, 'index'])->middleware('auth');
+Route::post('/cart/update', [CartController::class, 'update'])->middleware('auth');
+Route::post('/cart/delete/{id}', [CartController::class, 'delete'])->middleware('auth');
+Route::get('/sale/confirm', [SaleController::class, 'index'])->middleware('auth');
+Route::get('/sale/complete', [SaleController::class, 'complete'])->middleware('auth');
+
+
 require __DIR__.'/auth.php';
