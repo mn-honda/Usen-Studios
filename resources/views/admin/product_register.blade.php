@@ -35,8 +35,8 @@
         備考欄：
         <textarea name="detail" cols="30" rows="5">{{old('detail')}}</textarea>
         <br>
-        前面写真：
-        <input type="file" name="image_front"><br>
+        写真：
+        <input type="file" name="image"><br>
         <input type="submit" value="登録">
         @csrf
     </form>

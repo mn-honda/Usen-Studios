@@ -23,62 +23,61 @@ class AdminController extends Controller
         $this->validate($request, [
             'name' => ['required'],
             'category' => ['required'],
-            'image_front' => 'required|max:1024|mimes:jpg,jpeg,png,gif',
+            'image' => 'required|max:1024|mimes:jpg,jpeg,png,gif',
         ]);
 
         if($request->gender=="メンズ"){
             switch($request->category){
                 case 1:
-                    $file_path1 = $request->image_front->store("images\M'outer", "public");
+                    $file_path1 = $request->image->store("images\M'outer", "public");
                     break;
                 case 2:
-                    $file_path1 = $request->image_front->store("public\images\M'sweat");
+                    $file_path1 = $request->image->store("public\images\M'sweat");
                     break;
                 case 3:
-                    $file_path1 = $request->image_front->store("public\images\M'knit");
+                    $file_path1 = $request->image->store("public\images\M'knit");
                     break;
                 case 4:
-                    $file_path1 = $request->image_front->store("public\images\M'Tshirt");
+                    $file_path1 = $request->image->store("public\images\M'Tshirt");
                     break;
                 case 5:
-                    $file_path1 = $request->image_front->store("public\images\M'jeans");
+                    $file_path1 = $request->image->store("public\images\M'jeans");
                     break;
                 case 6:
-                    $file_path1 = $request->image_front->store("public\images\M'shorts");
+                    $file_path1 = $request->image->store("public\images\M'shorts");
                     break;
                 case 7:
-                    $file_path1 = $request->image_front->store("public\images\M'trouser");
+                    $file_path1 = $request->image->store("public\images\M'trouser");
                     break;
             }
         }else{
             switch($request->category){
                 case 1:
-                    $file_path1 = $request->image_front->store("public\images\W'outer");
+                    $file_path1 = $request->image->store("public\images\W'outer");
                     break;
                 case 2:
-                    $file_path1 = $request->image_front->store("public\images\W'sweat");
+                    $file_path1 = $request->image->store("public\images\W'sweat");
                     break;
                 case 3:
-                    $file_path1 = $request->image_front->store("public\images\W'knit");
+                    $file_path1 = $request->image->store("public\images\W'knit");
                     break;
                 case 4:
-                    $file_path1 = $request->image_front->store("public\images\W'Tshirt");
+                    $file_path1 = $request->image->store("public\images\W'Tshirt");
                     break;
                 case 5:
-                    $file_path1 = $request->image_front->store("public\images\W'jeans");
+                    $file_path1 = $request->image->store("public\images\W'jeans");
                     break;
                 case 6:
-                    $file_path1 = $request->image_front->store("public\images\W'shorts");
+                    $file_path1 = $request->image->store("public\images\W'shorts");
                     break;
                 case 7:
-                    $file_path1 = $request->image_front->store("public\images\W'trouser");
+                    $file_path1 = $request->image->store("public\images\W'trouser");
                     break;
             }
         }
 
         $new_products = new Product();
         $new_images1 = new Image();
-        $new_images2 = new Image();
         $new_stocks = new Stock();
 
         $new_products->name = $request->name;
@@ -93,12 +92,8 @@ class AdminController extends Controller
         $new_images1->filepath = $request->image_front;
         $new_images1->explanation = "前面";
         $new_images1->product_id = $new_products->id;
-        /*$new_images2->filepath = $request->image_back;
-        $new_images2->explanation = "背面";
-        $new_images2->product_id = $new_products->id;*/
 
         $new_images1->save();
-        //$new_images2->save();
 
         $new_stocks->product_id = $new_products->id;
         $new_stocks->stock = "0";
@@ -120,6 +115,10 @@ class AdminController extends Controller
 
     public function purchase_register(Request $request)
     {
+        $this->validate($request, [
+            'name' => ['required'],
+            'quantity' => ['required']
+        ]);
         $new_purchases = new Purchase();
 
         $new_purchases->product_id = $request->product;
