@@ -34,10 +34,8 @@
         <input type="hidden" value="{{$product->id}}">
         @csrf
     </form>
-    <p>
-        ※消費税が含まれています
-        ※送料は別途発生します
-    </p>
+    <p>※消費税が含まれています</p>
+    <p>※送料は別途発生します</p>
 
 </body>
 </html>
