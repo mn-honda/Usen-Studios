@@ -82,7 +82,7 @@
         </p>
     </div>
 
-    <button onclick="loction.href='/sale/confirm'">購入画面へ</button>
+    <button onclick="location.href='/sale/confirm'">購入画面へ</button>
 
 
     {{-- フッターのインポート --}}

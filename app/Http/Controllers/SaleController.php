@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 use App\Models\User;
 use App\Models\Credit;
@@ -14,6 +15,12 @@ class SaleController extends Controller
 
     public function confirm() {
         $user_id = auth()->user()->id;
+        // クレジットカードの登録確認
+        $credit = Credit::where('user_id', '=', $user_id)->get();
+        if ( count($credit) <= 0 ) {
+            return redirect('/sale/registration_credit');
+        }
+
         $user = User::findOrFail($user_id);
         return view('user.sale.confirm', compact('user'));
     }
@@ -51,6 +58,7 @@ class SaleController extends Controller
 
     public function complete() {
         $user_id = auth()->user()->id;
+        
         // カートの中の商品を購入履歴に追加
         $this->move_cart_to_sale($user_id);
 
@@ -58,7 +66,10 @@ class SaleController extends Controller
         // 購入時の処理は時間があれば記述したい
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-        return view('user.sale.complete', compact('user'));
+        // いったん商品ページへリダイレクト
+        return redirect('/product/1');
+        // $user = User::find($user_id);
+        // return view('user.sale.complete', compact('user'));
 
     }
 
@@ -69,9 +80,10 @@ class SaleController extends Controller
         $cart_details = $cart->cart_details;
 
         $sale = new Sale();
-        $sale->date = strtotime('now');
+        $sale->date = Carbon::now();
         $sale->user_id = $user_id;
-        $total_amount = 0;
+        $sale->amount = 0;
+        $sale->save();
 
         foreach ( $cart_details as $cart_detail ) {
             $sale_detail = new SaleDetail();
@@ -82,13 +94,14 @@ class SaleController extends Controller
             $sale_detail->quantity = $cart_detail->quantity;
             $sale_detail->amount = $cart_detail->amount;
             $sale_detail->save();
-            $total_amount += $cart_detail->amount;
+            $sale->amount += $cart_detail->amount;
         }
         $length = count($cart_details);
         for ( $i = 0; $i < $length; $i++ ) {
             $cart_details[$i]->delete();
         }
-        $sale->amount = $total_amount;
+        $cart->amount = 0;
+        $cart->save();
         $sale->save();
     }
 
