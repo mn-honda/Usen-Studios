@@ -10,7 +10,9 @@
 
     @foreach($products as $product)
         <a href="/product_detail/{{$product->id}}">
-            画像
+            @foreach($product->image as $image)
+                <img src="{{$image->filepath}}" alt="">
+            @endforeach
             <p>{{$product->name}}</p>
             <p>{{$product->price}}</p>
         </a>

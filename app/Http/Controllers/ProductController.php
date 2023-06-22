@@ -16,7 +16,8 @@ class ProductController extends Controller
     }
 
     public function product_detail($product_id){
-        $product_detail = Product::where("id","=",$product_id);
+        $product_detail = Product::where("id","=",$product_id)->get();
+        
         return view("product.product_detail",compact("product_detail"));
     }
 }
