@@ -58,7 +58,7 @@ class SaleController extends Controller
         // 購入時の処理は時間があれば記述したい
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-        return redirect('/products');
+        return view('user.sale.complete', compact('user'));
 
     }
 
