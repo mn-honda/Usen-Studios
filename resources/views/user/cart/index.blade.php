@@ -26,7 +26,7 @@
                 </div>
                 <div>
                     {{-- <p> カラー: {{}} </p> --}}
-                    <p> サイズ: {{$cart_detail->size}} </p>
+                    <p> サイズ: {{$cart_detail->size->size}} </p>
                 </div>
                 <div>
                     <p>
