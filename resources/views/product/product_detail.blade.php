@@ -7,13 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="cart/add" method="post">
+    <form action="/cart/add" method="post">
         @foreach($product_detail as $product)
             @foreach($product->image as $image)
-                <img src="{{$image->filepath}}" alt="">
+                <img src="{{$image->filepath}}" alt="" width="300" height="500">
             @endforeach
-            <p>{{$product->name}}</p>
-            <p>{{$product->price}}</p>
+            <p>{{$product->name}}  
+            <p>￥@php echo number_format($product->price) @endphp</p>
 
             <p>商品詳細：<br>{{$product->detail}}</p>
             サイズ：<select name="size">
