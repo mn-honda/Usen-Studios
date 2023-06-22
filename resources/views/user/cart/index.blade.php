@@ -10,16 +10,23 @@
     {{-- < ショップに戻る --}}
     <a href='/'>ショップに戻る</a>
 
-    @if ( isset($cart->cart_detail) )
+    @if ( isset($cart->cart_details) )
         @foreach ($cart->cart_details as $cart_detail)
             <div>
                 <p>カートに入っている商品</p>
                 <div>
-                    <img src='{{asset($cart_detail->product->image->filepath)}}'>
+                    @if( isset($cart_detail->product->image->filepath) )
+                        <img src='{{asset($cart_detail->product->image->filepath)}}'>
+                    @else
+                        <div> 画像 </div>
+                    @endif
                 </div>
                 <div>
                     <div>
-                        <a href='/cart/delete/{{$cart_detail->id}}'>X</a>
+                        <form action='/cart/delete/{{$cart_detail->id}}' method='post'>
+                            @csrf
+                            <button type='submit'>X</button>
+                        </form>
                     </div>
                     <p> 商品名 </p>
                     <p> {{$cart_detail->product->name}} </p>
@@ -35,9 +42,9 @@
                         <select name='cart_detail_quantity'>
                             @for ($i = 1; $i <= 5; $i++)
                                 @if ($i == $cart_detail->quantity)
-                                    <option value='{{$i}}' selected>$i</option>
+                                    <option value='{{$i}}' selected>{{$i}}</option>
                                 @else
-                                    <option value='{{$i}}'>$i</option>
+                                    <option value='{{$i}}'>{{$i}}</option>
                                 @endif
                                 {{$cart_detail->quantity}}
                             @endfor
@@ -53,7 +60,7 @@
         <p>
             <span>小計</span>
                 @if ( isset($cart->amount) )
-                    <span>{{$user->cart->amount}}</span>
+                    <span>{{$cart->amount}}</span>
                 @else
                     <span>0</span>
                 @endif
@@ -64,7 +71,7 @@
         <p>
             <span>合計</span>
             @if ( isset($cart->amount) )
-                <span>￥{{$user->cart->amout + 800}}</span>
+                <span>￥{{$cart->amount + 800}}</span>
             @else
                 <span>￥800</span>
             @endif

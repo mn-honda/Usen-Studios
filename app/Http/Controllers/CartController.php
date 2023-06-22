@@ -12,7 +12,6 @@ class CartController extends Controller
 {
     public function index() {
         $user_id = auth()->user()->id;
-        $user = User::findOrFail($user_id);
         $cart = $this->findUserCart($user_id);
         return view('user.cart.index', compact('cart'));
     }
@@ -35,8 +34,8 @@ class CartController extends Controller
         return redirect("/product/detail/{$request->id}");
     }
 
-    public function update(Request $request) {
-        $cart_detail = CartDetail::findOrFail($request->cart_detail->id);
+    public function update(Request $request, $id) {
+        $cart_detail = CartDetail::findOrFail($request->cart_detail_id);
 
         $prev_cart_detail_amount = $cart_detail->amount;
         $cart_detail->quantity = $request->quantity;
@@ -63,9 +62,9 @@ class CartController extends Controller
     }
 
     private function findUserCart($user_id) {
-        $cart = Cart::where('user_id', $user_id)->get();
+        $cart = Cart::where('user_id', $user_id)->first();
         if ( $cart != null ) {
-            return $cart;
+            return Cart::find($cart->id);
         }
         $cart = new Cart();
         $cart->user_id = $user_id;
