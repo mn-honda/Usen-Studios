@@ -12,10 +12,11 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function product_list()
-    {
-        $products = Product::all();
-        return view('admin/product_register', compact('products'));
+    public function product(){
+        if(auth()->user()->is_admin != "1"){
+            return view("welcome");//商品一覧画面に戻す
+        }
+        return view("admin/product_register");
     }
     public function product_register(Request $request)
     {
@@ -109,6 +110,9 @@ class AdminController extends Controller
 
     public function purchase_product()
     {
+        if(auth()->user()->is_admin != "1"){
+            return view("welcome");//商品一覧画面に戻す
+        }
         $products = Product::all();
 
         return view('admin/purchase_register', compact('products'));
@@ -135,6 +139,9 @@ class AdminController extends Controller
 
     public function purchase_list()
     {
+        if(auth()->user()->is_admin != "1"){
+            return view("welcome");//商品一覧画面に戻す
+        }
         $purchases = Purchase::all();
 
         return view('admin/purchase_list', compact('purchases'));
@@ -142,6 +149,9 @@ class AdminController extends Controller
 
     public function stock_list()
     {
+        if(auth()->user()->is_admin != "1"){
+            return view("welcome");//商品一覧画面に戻す
+        }
         $stocks = stock::all();
 
         return view('admin/stock_list', compact('stocks'));
