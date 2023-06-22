@@ -10,14 +10,14 @@
     @foreach ($errors->all() as $error)
         <li> <span class="error">{{ $error }}</span></li>
     @endforeach
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         名前：
         <input type="text" name="name" value="{{old('name')}}"><br>
         カテゴリー：
         <select name="category">
             <option value="1">アウター</option>
-            <option value="3">スウェット</option>
-            <option value="2">ニット</option>
+            <option value="2">スウェット</option>
+            <option value="3">ニット</option>
             <option value="4">Tシャツ</option>
             <option value="5">ジーンズ</option>
             <option value="7">ショーツ</option>
@@ -25,8 +25,8 @@
         </select><br>
         性別：
         <select name="gender">
-            <option value="male">メンズ</option>
-            <option value="female">ウィメンズ</option>
+            <option value="メンズ">メンズ</option>
+            <option value="ウィメンズ">ウィメンズ</option>
         </select><br>
         値段：
         <input type="number" name="price" value="{{old('price')}}" min="1"><br>
@@ -37,8 +37,6 @@
         <br>
         前面写真：
         <input type="file" name="image_front"><br>
-        背面写真：
-        <input type="file" name="image_back"><br>
         <input type="submit" value="登録">
         @csrf
     </form>
