@@ -9,7 +9,9 @@
 <body>
     <form action="cart/add" method="post">
         @foreach($product_detail as $product)
-           
+            @foreach($product->image as $image)
+                <img src="{{$image->filepath}}" alt="">
+            @endforeach
             <p>{{$product->name}}</p>
             <p>{{$product->price}}</p>
 
