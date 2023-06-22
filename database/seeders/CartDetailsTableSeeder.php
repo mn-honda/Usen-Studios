@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Size;
 
 class CartDetailsTableSeeder extends Seeder
 {
@@ -15,24 +16,28 @@ class CartDetailsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $cart_length = Cart::all()->count();
-        for ( $cart_id = 1; $cart_id < $cart_length; $cart_id++ ) {
-            $cart = Cart::findOrFail($cart_id);
+        $carts = Cart::all();
+        // カートの数だけ繰り返す
+        foreach ( $carts as $cart ) {
+            // 一つのカートにどれだけの商品を追加するか
             $iterations_count = random_int(1, 5);
             for ( $index = 0; $index < $iterations_count; $index++ ) {
-                $product_length = Product::all()->count();
-                $product_id = random_int(1, $product_length);
+                // プロダクトテーブルの中から購入する商品をランダムに選ぶ
+                $product = Product::inRandomOrder()->first();
+                // サイズも同様
+                $size_id = Size::inRandomOrder()->first()->id;
+                // 数は1~5
                 $quantity = random_int(1, 5);
-                $product = Product::findOrFail($product_id);
-                $size_id = random_int(1, count($product->sizes));
-                $amount = Product::findOrFail('product_id') * $quantity;
+                // 合計金額を計算
+                $amount = $product->price * $quantity;
                 DB::table('cart_details')->insert([
-                    'cart_id' => $cart_id,
-                    'product_id' => $product_id,
+                    'cart_id' => $cart->id,
+                    'product_id' => $product->id,
                     'size_id' => $size_id,
                     'quantity' => $quantity,
                     'amount' => $amount,
                 ]);
+                // 所属するカートの合計金額を更新
                 $cart->amount += $amount;
             }
             $cart->save();

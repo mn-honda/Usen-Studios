@@ -14,10 +14,12 @@ class CartsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $user_length = User::all()->count();
-        for ( $user_id = 1; $user_id < $user_length; $user_id++ ) {
+        $users = User::all();
+        // ユーザの数だけカートテーブルを作成
+        // 合計金額の初期値は￥0
+        foreach ( $users as $user ) {
             DB::table('carts')->insert([
-                'user_id' => $user_id,
+                'user_id' => $user->id,
                 'amount' => 0,
             ]);
         }
