@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -7,26 +8,28 @@
 </head>
 <body>
     <form action="cart/add" method="post">
-            @foreach($product_detail->images as $image)
-                <img src="{{$images->image}}" alt="">
-            @endforeach
-            <p>{{$product_detail->name}}</p>
-            <p>{{$product_detail->price}}</p>
+        @foreach($product_detail as $product)
+           
+            <p>{{$product->name}}</p>
+            <p>{{$product->price}}</p>
 
-            <p>商品詳細：<br>{{$product_detail->name}}</p>
+            <p>商品詳細：<br>{{$product->detail}}</p>
             サイズ：<select name="size">
-            @foreach($product_detail->sizes as $size)
+                @php dump($product->sizes); 
+            @foreach($product->sizes as $size)
                 <option value="{{$size->size}}">{{$size->size}}</option>
             @endforeach
-            </select>
+            </select><br>
+            個数：
             <select name="quantity">
             @for($i = 1;$i <= 10;$i++)
                 <option value="{{$i}}">{{$i}}</option>
-            </select>
             @endfor
+            </select><br>
             
+        @endforeach
         <input type="submit" value="カートに入れる">
-        <input type="hidden" value="{{$product_detail->id}}">
+        <input type="hidden" value="{{$product->id}}">
         @csrf
     </form>
     <p>
