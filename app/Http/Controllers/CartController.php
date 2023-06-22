@@ -34,12 +34,12 @@ class CartController extends Controller
         return redirect("/product/detail/{$request->id}");
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request) {
         $cart_detail = CartDetail::findOrFail($request->cart_detail_id);
 
         $prev_cart_detail_amount = $cart_detail->amount;
-        $cart_detail->quantity = $request->quantity;
-        $cart_detail->amount = $request->quantity * $cart_detail->product->price;
+        $cart_detail->quantity = $request->cart_detail_quantity;
+        $cart_detail->amount = $cart_detail->quantity * $cart_detail->product->price;
         $cart_detail->save();
 
         $cart = $cart_detail->cart;

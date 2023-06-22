@@ -39,16 +39,20 @@
                     <p>
                         ￥ {{$cart_detail->amount}}
                         {{-- プルダウン --}}
-                        <select name='cart_detail_quantity'>
-                            @for ($i = 1; $i <= 5; $i++)
-                                @if ($i == $cart_detail->quantity)
-                                    <option value='{{$i}}' selected>{{$i}}</option>
-                                @else
-                                    <option value='{{$i}}'>{{$i}}</option>
-                                @endif
-                                {{$cart_detail->quantity}}
-                            @endfor
-                        </select>
+                        <form action='/cart/update' method='post'>
+                            <select name='cart_detail_quantity' onchange="submit(this.form)">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i == $cart_detail->quantity)
+                                        <option value='{{$i}}' selected>{{$i}}</option>
+                                    @else
+                                        <option value='{{$i}}'>{{$i}}</option>
+                                    @endif
+                                    {{$cart_detail->quantity}}
+                                @endfor
+                                <input type="hidden" name='cart_detail_id' value='{{$cart_detail->id}}'>
+                                @csrf
+                            </select>
+                        </form>
                     </p>
                 </div>
             </div>
