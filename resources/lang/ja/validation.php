@@ -157,6 +157,7 @@ return [
         'name' => '名前',
         'quantity' =>'個数',
         'image' => '画像',
+        'date' => '日付',
     ],
 
 ];

@@ -23,6 +23,8 @@ class AdminController extends Controller
         $this->validate($request, [
             'name' => ['required'],
             'category' => ['required'],
+            'gender' => ['required'],
+            'price' => ['required'],
             'image' => 'required|max:1024|mimes:jpg,jpeg,png,gif',
         ]);
 
@@ -116,8 +118,9 @@ class AdminController extends Controller
     public function purchase_register(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required'],
-            'quantity' => ['required']
+            'product' => ['required'],
+            'quantity' => ['required'],
+            'date' => ['required']
         ]);
         $new_purchases = new Purchase();
 
@@ -146,6 +149,57 @@ class AdminController extends Controller
         return view('admin/purchase_list', compact('purchases'));
     }
 
+    public function edit_purchase($id)
+    {
+        if(auth()->user()->is_admin != "1"){
+            return view("welcome");//商品一覧画面に戻す
+        }
+        $edit_purchase = Purchase::find($id);
+
+        $products = Product::all();
+
+        return view('admin/edit_purchase', compact('edit_purchase', 'products'));
+
+    }
+
+    public function update_purchase(Request $request)
+    {
+        $this->validate($request, [
+            'product' => ['required'],
+            'quantity' => ['required'],
+            'date' =>['required'],
+        ]);
+
+        $upload_purchase = Purchase::find($request->id);
+
+        $upload_purchase->product_id = $request->product;
+        $diff_quantity = $upload_purchase->quantity - $request->quantity;
+        $upload_purchase->quantity = $request->quantity;
+        $upload_purchase->date = $request->date;
+
+        $upload_purchase->save();
+
+        $stocks = Stock::whereProduct_id($request->product)->first();
+
+        $stocks->stock = $stocks->stock - $diff_quantity;
+
+        $stocks->save();
+
+        return redirect('admin/purchase_list');
+    }
+
+    public function delete_purchase(Request $request)
+    {
+        $delete_purchase = Purchase::find($request->id);
+        $stocks = Stock::whereProduct_id($request->product_id)->first();
+        $stocks->stock = $stocks->stock - $delete_purchase->quantity;
+        $stocks->save();
+
+        $delete_purchase->delete();
+
+        return redirect('admin/purchase_list');
+    }
+
     public function stock_list()
     {
         if(auth()->user()->is_admin != "1"){
@@ -155,4 +209,5 @@ class AdminController extends Controller
 
         return view('admin/stock_list', compact('stocks'));
     }
+
 }
