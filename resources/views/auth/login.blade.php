@@ -1,4 +1,5 @@
 <x-guest-layout class="text-center">
+    <div class="text-center text-xl">サインイン</div><br>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -44,6 +45,10 @@
             <x-primary-button class="ml-3">
                 {{ __('サインイン') }}
             </x-primary-button>
+        </div>
+        <br>
+        <div class="text-center">
+            <a href="/register">新規登録はこちら</a>
         </div>
     </form>
 </x-guest-layout>

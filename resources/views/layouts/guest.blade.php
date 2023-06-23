@@ -22,8 +22,7 @@
                 </a>
             </div>-->
             <div class="text-center text-9xl font-medium">U s e n  S t u d i o s</div>
-            <div><br><br><br><br></div>
-            <div class="text-center text-xl">サインイン</div>
+            <div><br><br><br></div>
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
