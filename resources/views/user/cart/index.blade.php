@@ -3,41 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>カート</title>
+    <link rel="stylesheet" href="/css/cart.css">
 </head>
 <body>
     {{-- ヘッダーのインポート --}}
 
     {{-- < ショップに戻る --}}
-    <a href='/'>ショップに戻る</a>
+    <a href='/'>
+        <input type="image" src= '/icon/keyboard_arrow_left.png'>
+        <span class='back_to_shop'> ショップに戻る </span>
+    </a>
 
     @if ( isset($cart->cart_details) )
         @foreach ($cart->cart_details as $cart_detail)
             <div>
-                <p>カートに入っている商品</p>
                 <div>
-                    @foreach( $cart_detail->product->image as $image )
-                        <img src='{{asset($image->filepath)}}' alt={{$image->explanation}}>
-                    @endforeach
-                </div>
-                <div>
-                    <div>
+                    <p class='product_in_cart'>カートに入っている商品</p>
+                    <div class='close'>
                         <form action='/cart/delete/{{$cart_detail->id}}' method='post'>
                             @csrf
-                            <button type='submit'>X</button>
+                            <input type="image" src= '/icon/close.png'>
                         </form>
                     </div>
-                    <p> 商品名 </p>
-                    <p> {{$cart_detail->product->name}} </p>
                 </div>
                 <div>
-                    {{-- <p> カラー: {{}} </p> --}}
-                    <p> サイズ: {{$cart_detail->size->size}} </p>
+                    <div class='product_image'>
+                        @foreach( $cart_detail->product->image as $image )
+                            <img src='{{asset($image->filepath)}}' alt={{$image->explanation}} class='inner_product_image'>
+                        @endforeach
+                    </div>
+                    <div class='product_detail'>
+                        <div>
+                            <p> 商品名 </p>
+                            <p> {{$cart_detail->product->name}} </p>
+                        </div>
+                        <div>
+                            {{-- <p> カラー: {{}} </p> --}}
+                            <p> サイズ: {{$cart_detail->size->size}} </p>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <p>
-                        ￥ {{$cart_detail->amount}}
+                        ￥{{$cart_detail->amount}}
                         {{-- プルダウン --}}
-                        <form action='/cart/update' method='post'>
+                        <form action='/cart/update' method='post' class='num_of_pulldown'>
                             <select name='cart_detail_quantity' onchange="submit(this.form)">
                                 @for ($i = 1; $i <= 10; $i++)
                                     @if ($i == $cart_detail->quantity)
@@ -58,7 +68,7 @@
     @endif
     
 
-    <div>
+    <div class='amount'>
         <p>
             <span>小計</span>
                 @if ( isset($cart->amount) )
@@ -81,7 +91,11 @@
     </div>
 
 
-    <button onclick="location.href='/sale/confirm'">購入画面へ</button>
+    <div class='href_button_rectangle'>
+        <button onclick="location.href='/sale/confirm'">
+            <span class='href_button_text'>購入画面へ</span>
+        </button>
+    <div>
 
     {{-- フッターのインポート --}}
 </body>
