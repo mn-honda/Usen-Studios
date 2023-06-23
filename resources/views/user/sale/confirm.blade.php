@@ -85,9 +85,8 @@
                         @if( isset($user->credit) && isset($user->credit->card_number) )
                             <input type='text' name='card_number' value='{{$user->credit->card_number}}' readonly>
                         @else
-                            <input type='text' name='card_numberh'>
+                            <input type='text' name='card_number'>
                         @endif
-                        {{-- <input type='text' name='card_number' value='{{$user->credit->card_number}}' readonly> --}}
                     </div>
                     <div>
                         <h3>カード名</h3>

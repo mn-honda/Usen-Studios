@@ -19,7 +19,7 @@ class SaleController extends Controller
         $credit = Credit::where('user_id', '=', $user_id)->get();
         if ( count($credit) <= 0 ) {
             // クレカ登録の進捗次第
-            // return redirect('/sale/registration_credit');
+            return redirect('/sale/registration_credit');
         }
 
         $user = User::findOrFail($user_id);
@@ -33,7 +33,9 @@ class SaleController extends Controller
     }
 
     public function registration_credit_into_DB(Request $request) {
-        // バリデート
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        // バリデート...
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
         $user_id = auth()->user()->id;
         $credit = Credit::where('user_id', '=', $user_id)->first();
@@ -43,11 +45,17 @@ class SaleController extends Controller
         }
 
         // カード情報各種
+        $credit->name = $request->card_name;
         $credit->card_number = $request->card_number;
         $credit->security_code = $request->security_code;
         // timestamp: $credit->expiration = strtotime('YY-MM-DD');
         $expiration = "{$request->expiration_yy}-{$request->expiration_mm}-00";
         $credit->expiration = strtotime($expiration);
+
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        // クレジットカードの情報が正しいかどうかの判定をどこかで追加したい
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
         $credit()->save();
 
         return redirect('/sale/confirm');
