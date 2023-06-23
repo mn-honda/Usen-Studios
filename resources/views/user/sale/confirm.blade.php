@@ -101,7 +101,10 @@
             </div>
         </div>
 
-    <button onclick="location.href='/sale/complete'">購入画面へ</button>
+    <form action="/sale/procedure" method="post">
+        @csrf
+        <button type="submit">購入画面へ</button>
+    </form>
 
 
     {{-- フッターのインポート --}}

@@ -50,7 +50,7 @@ class SaleController extends Controller
         $credit->expiration = strtotime($expiration);
         $credit()->save();
 
-        return redirect('/confirm');
+        return redirect('/sale/confirm');
 
     }
 
@@ -66,7 +66,7 @@ class SaleController extends Controller
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
         if ( $sale_flag ) {
-            return redirect('/complete');
+            return redirect('/sale/complete');
         }
         // 失敗時はその時の処理が必要になるかも
         return redirect('/cart');
