@@ -68,6 +68,8 @@ class CartController extends Controller
         }
         $cart = new Cart();
         $cart->user_id = $user_id;
+        $cart->amount = 0;
+        $cart->save();
         return $cart;
     }
 
