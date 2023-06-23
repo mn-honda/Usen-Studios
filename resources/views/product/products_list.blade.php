@@ -7,7 +7,13 @@
     <title>商品一覧</title>
 </head>
 <body>
-    <h1>{{$category->name}}</h1>
+    @if($category != "")
+        <h1>{{$category->name}}</h1>
+    @endif
+    @if($word != "")
+        <h1>検索：{{$word}}</h1>
+    @endif
+    
     <div class="container">
     @foreach($products as $product)
         <div class="box">
