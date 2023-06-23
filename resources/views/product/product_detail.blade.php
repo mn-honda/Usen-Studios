@@ -19,7 +19,7 @@
             サイズ：<select name="size">
                 @php dump($product->sizes); 
             @foreach($product->sizes as $size)
-                <option value="{{$size->size}}">{{$size->size}}</option>
+                <option value="{{$size->id}}">{{$size->size}}</option>
             @endforeach
             </select><br>
             個数：
@@ -31,7 +31,8 @@
             
         @endforeach
         <input type="submit" value="カートに入れる">
-        <input type="hidden" value="{{$product->id}}">
+        <input type="hidden" value="{{$product->id}}" name="product_id">
+
         @csrf
     </form>
     <p>※消費税が含まれています</p>
