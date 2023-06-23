@@ -7,7 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CateoryController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,10 +45,14 @@ Route::post('admin/purchase_register', [AdminController::class, 'purchase_regist
 
 // 平西君
 Route::get('/cart', [CartController::class, 'index'])->middleware('auth');
-Route::post('/cart/add', [CartController::class, 'index'])->middleware('auth');
+Route::post('/cart/add', [CartController::class, 'add'])->middleware('auth');
 Route::post('/cart/update', [CartController::class, 'update'])->middleware('auth');
 Route::post('/cart/delete/{id}', [CartController::class, 'delete'])->middleware('auth');
-Route::get('/sale/confirm', [SaleController::class, 'index'])->middleware('auth');
+
+Route::get('/sale/confirm', [SaleController::class, 'confirm'])->middleware('auth');
+Route::get('/sale/registration_credit', [SaleController::class, 'registration_credit'])->middleware('auth');
+Route::post('/sale/registration_credit', [SaleController::class, 'registration_credit_into_DB'])->middleware('auth');
+Route::post('/sale/procedure', [SaleController::class, 'procedure'])->middleware('auth');
 Route::get('/sale/complete', [SaleController::class, 'complete'])->middleware('auth');
 
 // 佐々木
