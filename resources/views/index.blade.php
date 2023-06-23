@@ -54,9 +54,13 @@
             </nav> -->
 
 
+<<<<<<< HEAD
             <div>
                 
             </div>
+=======
+            
+>>>>>>> main
             <!-- メニューバナーのナビゲーション -->
             <nav class="category_menu">
                 <ul>
