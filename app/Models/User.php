@@ -47,12 +47,12 @@ class User extends Authenticatable
         return $this->hasOne(Credit::class);
     }
 
-    public function inquiry() {
+    public function inquiries() {
         return $this->hasMany(Inquiry::class);
     }
 
-    public function carts() {
-        return $this->hasMany(Cart::class);
+    public function cart() {
+        return $this->hasOne(Cart::class);
     }
 
     public function sales() {
