@@ -18,7 +18,7 @@ class ProductsTableSeeder extends Seeder
             ['name' => "ディストレストレザージャケット",'price' => 275000,'category_id' => 1,'release_date' => new DateTime(),'detail' => 'Usen Studiosのブラックのジャケット。','gender' => 'メンズ'], 
             ['name' => "ルーズフィットデニムジャケット",'price' => 72600,'category_id' => 1,'release_date' => new DateTime(),'detail' => 'Usen Studiosのライトブルーデニムジャケット。','gender' => 'メンズ'], 
             ['name' => "グロウロゴセーター",'price' => 59400,'category_id' => 2,'release_date' => new DateTime(),'detail' => 'Usen Studiosのクルーネックセーター。','gender' => 'メンズ'], 
-            ['name' => "クルーネックスウェット",'price' => 46200,'category_id' => 2,'release_date' => new DateTime(),'detail' => 'Usen Studiosのクルーネックスウェット。','gender' => ''], 
+            ['name' => "クルーネックスウェット",'price' => 46200,'category_id' => 2,'release_date' => new DateTime(),'detail' => 'Usen Studiosのクルーネックスウェット。','gender' => 'メンズ'], 
             ['name' => "エンブロイダリーロゴセーター ",'price' => 68200,'category_id' => 3,'release_date' => new DateTime(),'detail' => 'Usen Studiosのダークブルークルーネックセーター。','gender' => 'メンズ'], 
             ['name' => "ジャカードロゴセーター",'price' => 64900,'category_id' => 3,'release_date' => new DateTime(),'detail' => 'Usen Studiosのセーター','gender' => 'メンズ'], 
             ['name' => "グロウプリントTシャツ ",'price' => 36300,'category_id' => 4,'release_date' => new DateTime(),'detail' => 'Usen StudiosのTシャツ。','gender' => 'メンズ'], 
