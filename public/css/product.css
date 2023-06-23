@@ -1,0 +1,29 @@
+html{
+    background-color: #fff
+}
+.box{
+    display: flex;
+
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-content: space-between;
+    /* grid-template-rows: 100px 100px 100px 100px; */
+    gap: 0px;
+    place-items: center;
+}
+
+/* .text{
+    display: flex;
+    flex-direction: column;
+    color: #000;
+    font-size: 20px;
+    font-family: Josefin Sans;
+    margin: 0px;
+} */
+
+.images{
+    
+}
