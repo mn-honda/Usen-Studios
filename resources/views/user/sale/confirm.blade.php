@@ -14,11 +14,9 @@
             @if ( isset($user->cart->cart_details) )
                 @foreach ($user->cart->cart_details as $cart_detail)
                     <div>
-                        @if( isset($cart_detail->product->image->filepath) )
-                            <img src='{{asset($cart_detail->product->image->filepath)}}'>
-                        @else
-                            <div> 画像 </div>
-                        @endif
+                        @foreach( $cart_detail->product->image as $image )
+                            <img src='{{asset($image->filepath)}}' alt="$image->explanation">
+                        @endforeach
                     </div>
                     <div>
                         <p> 商品名 </p>
