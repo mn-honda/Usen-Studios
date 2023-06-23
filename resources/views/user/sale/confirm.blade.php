@@ -85,12 +85,11 @@
                         @if( isset($user->credit) && isset($user->credit->card_number) )
                             <input type='text' name='card_number' value='{{$user->credit->card_number}}' readonly>
                         @else
-                            <input type='text' name='card_numberh'>
+                            <input type='text' name='card_number'>
                         @endif
-                        {{-- <input type='text' name='card_number' value='{{$user->credit->card_number}}' readonly> --}}
                     </div>
                     <div>
-                        <h3>カード名</h3>
+                        <h3>カード名義</h3>
                         @if( isset($user->credit) && isset($user->credit->card_name) )
                             <input type='text' name='card_name' value='{{$user->credit->card_name}}' readonly>
                         @else
@@ -101,7 +100,10 @@
             </div>
         </div>
 
-    <button onclick="location.href='/sale/complete'">購入画面へ</button>
+    <form action="/sale/procedure" method="post">
+        @csrf
+        <button type="submit">購入画面へ</button>
+    </form>
 
 
     {{-- フッターのインポート --}}

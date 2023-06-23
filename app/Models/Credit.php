@@ -12,6 +12,7 @@ class Credit extends Model
     protected $casts = [
         'card_number' => 'encrypted',
         'security_code' => 'encrypted',
+        'name' => 'encrypted',
     ];
 
     public function user() {

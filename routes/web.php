@@ -44,16 +44,18 @@ Route::post('admin/purchase_register', [AdminController::class, 'purchase_regist
 
 
 // 平西君
+// カート画面
 Route::get('/cart', [CartController::class, 'index'])->middleware('auth');
 Route::post('/cart/add', [CartController::class, 'add'])->middleware('auth');
 Route::post('/cart/update', [CartController::class, 'update'])->middleware('auth');
 Route::post('/cart/delete/{id}', [CartController::class, 'delete'])->middleware('auth');
-
-Route::get('/sale/confirm', [SaleController::class, 'confirm'])->middleware('auth');
+// クレカ登録画面
 Route::get('/sale/registration_credit', [SaleController::class, 'registration_credit'])->middleware('auth');
 Route::post('/sale/registration_credit', [SaleController::class, 'registration_credit_into_DB'])->middleware('auth');
+// 購入画面
+Route::get('/sale/confirm', [SaleController::class, 'confirm'])->middleware('auth');
 Route::post('/sale/procedure', [SaleController::class, 'procedure'])->middleware('auth');
-Route::get('/sale/complete', [SaleController::class, 'complete'])->middleware('auth');
+Route::get('/sale/complete/{id}', [SaleController::class, 'complete'])->middleware('auth');
 
 // 佐々木
 Route::get("/product/{id}",[ProductController::class, 'list_fits_category'])->middleware('auth');
