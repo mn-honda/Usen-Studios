@@ -1,3 +1,4 @@
+<title>会員登録</title>
 <x-guest-layout>
     <div class="text-center text-xl">新規登録</div><br>
     <form method="POST" action="{{ route('register') }}">
@@ -49,16 +50,24 @@
 
         <!-- Post　Cord -->
         <div>
-            <x-input-label for="post_code" :value="__('郵便番号（ハイフンなし）')" />
-            <x-text-input id="post_code" class="block mt-1 w-full" type="text" name="post_code" :value="old('post_code')" required autofocus autocomplete="post_code" />
+            <x-input-label for="post_code" :value="__('郵便番号')" />
+            <x-text-input id="post_code1" class="block mt-1 w-16" type="text" name="post_code1" :value="old('post_code1')" required autofocus autocomplete="post_code1" placeholder="123"/>-
+            <x-text-input id="post_code2" class="block mt-1 w-20" type="text" name="post_code2" :value="old('post_code2')" required autofocus autocomplete="post_code2" placeholder="4567"/>
             <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
         </div>
         <br>
         <!-- 住所 -->
         <div>
             <x-input-label for="address" :value="__('住所')" />
-            <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="address" />
+            <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="address" placeholder="例：東京都目黒区上大崎1-1-1"/>
             <x-input-error :messages="$errors->get('address')" class="mt-2" />
+        </div>
+        <br>
+
+        <div>
+            <x-input-label for="building_name" :value="__('建物名')" />
+            <x-text-input id="building_name" class="block mt-1 w-full" type="text" name="building_name" :value="old('building_name')" required autofocus autocomplete="building_name" placeholder="例：目黒セントラルスクエア"/>
+            <x-input-error :messages="$errors->get('building_name')" class="mt-2" />
         </div>
         <br>
 
