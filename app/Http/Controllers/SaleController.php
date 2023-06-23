@@ -59,11 +59,9 @@ class SaleController extends Controller
         // $credit->card_number = $request->card_number;
         $credit->card_number = $request->card_number_1 . $request->card_number_2 . $request->card_number_3 . $request->card_number_4;
         $credit->security_code = $request->security_code;
-        $credit->expiration = $request->expiration;
-        // timestamp: $credit->expiration = strtotime('YY-MM-DD');
-        // $expiration = "{$request->expiration_yy}-{$request->expiration_mm}-00 00:00:00";
-        // $credit->expiration = strtotime($expiration);
-        // $credit->expiration = $expira;
+        $expiration = $request->expiration . -01;
+        // $expiration->addMonth()->subDay();
+        $credit->expiration = $expiration;
 
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         // クレジットカードの情報が正しいかどうかの判定をどこかで追加したい

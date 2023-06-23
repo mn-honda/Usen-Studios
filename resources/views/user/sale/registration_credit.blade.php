@@ -37,11 +37,11 @@
                     <div>
                         <div> <h3>有効期限</h3> </div>
                             @if( old('expiration') != '' )
-                                <input type='date' name='expiration' value='{{old('expiration')}}'>
+                                <input type='month' name='expiration' value='{{old('expiration')}}'>
                             @elseif( isset($user->credit) && isset($user->credit->expiration) )
-                                <input type='date' name='expiration' value='{{$user->credit->expiration}}'>
+                                <input type='month' name='expiration' value='{{$user->credit->expiration}}'>
                             @else
-                                <input type='date' name='expiration'>
+                                <input type='month' name='expiration'>
                             @endif
                         <div> <h3>セキュリティコード</h3> </div>
                         @if( old('security_code') != '' )
