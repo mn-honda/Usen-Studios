@@ -20,9 +20,9 @@
                     <option value={{$product->id}}>{{$product->name}}</option>
                 @endforeach
             </select><br><br>
-            個数：　　
+            個数：
             <input type="number" name="quantity" value="" min="1"><br><br>
-            日付：　　　
+            日付：
             <input type="date" name="date"><br><br><br>
             <div class="text-center">
                 <input type="submit" value="登録" class="ml-2 rounded-lg bg-blue-500 p-2 text-white hover:bg-blue-600">

@@ -15,6 +15,8 @@
                 <th class="px-10 py-5">商品名</th>
                 <th class="px-10 py-5">個数</th>
                 <th class="px-10 py-5">日付</th>
+                <th class="px-10 py-5"></th>
+                <th class="px-10 py-5"></th>
             </tr>
             @foreach($purchases as $purchase)
                 <tr class="bg-gray-100 text-center border border-gray-600">
@@ -22,6 +24,19 @@
                     <td>{{$purchase->product->name}}</td>
                     <td>{{$purchase->quantity}}</td>
                     <td>{{$purchase->date->format('Y/m/d')}}</td>
+                    <td>
+                        <form action="edit_purchase/{{$purchase->id}}" method="post">
+                            <input type="hidden" name="id" value="{{$purchase->id}}">
+                            <input type="submit" value="編集" class="ml-2 rounded-lg bg-green-500 p-2 text-white hover:bg-green-600">
+                            @csrf
+                        </form>
+                    <td><form action="" method="post">
+                            <input type="hidden" name="id" value="{{$purchase->id}}">
+                            <input type="hidden" name="product_id" value="{{$purchase->product_id}}">
+                            <input type="submit" value="削除" class="ml-2 rounded-lg bg-red-500 p-2 text-white hover:bg-red-600">
+                            @csrf
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </table>
