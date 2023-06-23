@@ -28,10 +28,10 @@
                     <div>
                         <div> <h3>有効期限</h3> </div>
                             @if( old('expiration_yy') != '' && old('expiration_mm') != '' )
-                                <input type='number' name='expiration_yy' value='{{old('expiration_yy'))}}'>
-                                <input type='number' name='expiration_mm' value='{{old('expiration_mm'))}}'>
-                            @if( isset($user->credit) && isset($user->credit->expiration) )
-                                <input type='number' name='expiration_yy' value='{{date("yy", $user->credit->expiration)}}'>
+                                <input type='number' name='expiration_yy' value='{{old('expiration_yy')}}'>
+                                <input type='number' name='expiration_mm' value='{{old('expiration_mm')}}'>
+                            @elseif( isset($user->credit) && isset($user->credit->expiration) )
+                                <input type='number' name='expiration_yy' value='{{date("YY", $user->credit->expiration)}}'>
                                 <input type='number' name='expiration_mm' value='{{date("mm", $user->credit->expiration)}}'>
                             @else
                                 <input type='number' name='expiration_yy'>
@@ -50,7 +50,7 @@
                         <h3>カード名義</h3>
                         @if( old('card_name') != '' )
                             <input type='text' name='card_name' value='{{old('card_name')}}'>
-                        @if( isset($user->credit) && isset($user->credit->name) )
+                        @elseif( isset($user->credit) && isset($user->credit->name) )
                             <input type='text' name='card_name' value='{{$user->credit->name}}'>
                         @else
                             <input type='text' name='card_name'>
