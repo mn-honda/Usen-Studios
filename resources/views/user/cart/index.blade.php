@@ -15,11 +15,9 @@
             <div>
                 <p>カートに入っている商品</p>
                 <div>
-                    @if( isset($cart_detail->product->image->filepath) )
-                        <img src='{{asset($cart_detail->product->image->filepath)}}'>
-                    @else
-                        <div> 画像 </div>
-                    @endif
+                    @foreach( $cart_detail->product->image as $image )
+                        <img src='{{asset($image->filepath)}}' alt={{$image->explanation}}>
+                    @endforeach
                 </div>
                 <div>
                     <div>
@@ -41,7 +39,7 @@
                         {{-- プルダウン --}}
                         <form action='/cart/update' method='post'>
                             <select name='cart_detail_quantity' onchange="submit(this.form)">
-                                @for ($i = 1; $i <= 5; $i++)
+                                @for ($i = 1; $i <= 10; $i++)
                                     @if ($i == $cart_detail->quantity)
                                         <option value='{{$i}}' selected>{{$i}}</option>
                                     @else
@@ -81,6 +79,9 @@
             @endif
         </p>
     </div>
+
+
+    <button onclick="location.href='/sale/confirm'">購入画面へ</button>
 
     {{-- フッターのインポート --}}
 </body>

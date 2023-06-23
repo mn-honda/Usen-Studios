@@ -19,7 +19,7 @@
                 <td>{{$purchase->product_id}}</td>
                 <td>{{$purchase->product->name}}</td>
                 <td>{{$purchase->quantity}}</td>
-                <td>{{$purchase->date}}</td>
+                <td>{{$purchase->date->format('Y/m/d')}}</td>
             </tr>
         @endforeach
     </table>
