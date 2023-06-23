@@ -37,6 +37,15 @@ class SaleController extends Controller
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         // バリデート...
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        $this->validate($request, [
+            'card_number_1' => 'required|digits:4',
+            'card_number_2' => 'required|digits:4',
+            'card_number_3' => 'required|digits:4',
+            'card_number_4' => 'required|digits:4',
+            'expiration' => 'required',
+            'security_code' => 'required|between:3,4',
+            'card_name' => 'required',
+        ]);
 
         $user_id = auth()->user()->id;
         $credit = Credit::where('user_id', '=', $user_id)->first();
@@ -47,8 +56,10 @@ class SaleController extends Controller
 
         // カード情報各種
         $credit->name = $request->card_name;
-        $credit->card_number = $request->card_number;
+        // $credit->card_number = $request->card_number;
+        $credit->card_number = $request->card_number_1 . $request->card_number_2 . $request->card_number_3 . $request->card_number_4;
         $credit->security_code = $request->security_code;
+        $credit->expiration = $request->expiration;
         // timestamp: $credit->expiration = strtotime('YY-MM-DD');
         // $expiration = "{$request->expiration_yy}-{$request->expiration_mm}-00 00:00:00";
         // $credit->expiration = strtotime($expiration);
