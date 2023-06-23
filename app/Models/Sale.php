@@ -17,7 +17,7 @@ class Sale extends Model
         return $this->hasOne(Delivery::class);
     }
 
-    public function sail_details() {
+    public function sale_details() {
         return $this->hasMany(SaleDetail::class);
     }
 
