@@ -1,5 +1,6 @@
 
 .header_container{
+    float: left;
     background-color: #ffffff;
     display: block;
     position: fixed;
@@ -9,11 +10,21 @@
     height: 70px;
     margin: 0;
 }
+.menu_container{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
 .menu_open{
+    /* cursor: pointer; */
+    display: inline-block;
     width: 40px;
     height: 40px;
     flex-shrink: 0;
     position: absolute;
+}
+.menu_open:checked+div+.category_menu{
+    display: none;
 }
 .menu_close{
     width: 40px;
@@ -22,42 +33,13 @@
     position: relative;
     left: 30px;
 }
-.search_container{
-    top: 50%;
-    height: auto;
-}
-.searchForm{
-    margin: auto;
-    height: 40px;
-    width: 40px;
-    top: 5px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    
-    /* @include mq(md){
-      height: 40px; */
-}
-.text{
-    margin: auto;
-    height: 40px;
-    width: 40%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
-.search_icon{
-    height: 40px;
-    width: 40px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
+
 .category_menu{
+    /* display: inline-block; */
     width: 100%;
     height: 100px;
     flex-shrink: 0;
-
+    /* display: none; */
     background: rgba(142, 142, 142, 0.35);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
@@ -69,14 +51,14 @@
     flex-shrink: 0;
      */
     color: #000;
-    font-size: 10px;
+    font-size: 13px;
     font-family: Inter;
     display: flex;
 }
 .mens_category_list{
     display: flex;
     color: #000;
-    font-size: 10px;
+    font-size: 12px;
     font-family: Inter;
 }
 .womens_list{
@@ -87,31 +69,154 @@
     flex-shrink: 0;
      */
     color: #000;
-    font-size: 10px;
+    font-size: 13px;
     font-family: Inter;
     display: flex;
 }
 .womens_category_list{
     display: flex;
     color: #000;
-    font-size: 10px;
+    font-size: 12px;
     font-family: Inter;
 }
 
+.search_container{
+    margin-top: 5px;
+    width: 100%;
+    top: 50%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+.searchForm{
+    margin-left: 80px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 25px;
+    width: 50%;
+    /* top: 5px; */
+    /* position: relative; */
+    display: flex;
+    justify-content: center;
 
+    
+    /* @include mq(md){
+      height: 40px; */
+      
+}
 
-
-/* 検索ボックスのスタイル */
-.searchForm {
+/* .text{
     margin: auto;
-    height: 50px;
-    width: 80%;
-    max-width: 1000px;
+    height: 20px;
+    width: 40%;
     position: relative;
     display: flex;
     justify-content: center;
-    
-    @include mq(md){
-      height: 40px;
-    }
+} */
+.search_icon{
+    height: 15px;
+    width: 15px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.acount_container{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    top: 50%;
+    height: auto;
+}
+
+.acountIcon{
+    /* background-image: url(/icon/account_icon.png);
+    background-position: center left;
+    padding-right: 30px;
+    background-repeat: no-repeat; */
+    margin-right: 20px;
+    height: 25px;
+    width: 25px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.acountList{
+    /* display: flex; */
+    color: #000;
+    font-size: 10px;
+    /* font-family: Inter; */
+}
+
+.cart_container{
+    float: right;
+    top: 50%;
+    height: auto;
+}
+
+.cartIcon{
+    margin-right: 10px;
+    height: 25px;
+    width: 25px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.main_container{
+    margin-top: 200px;
+    text-align: center;
+}
+
+.logo_container{
+    height: 330px;
+    width: 300px;
+    margin: auto;
+}
+
+.U-logo{
+    height: 300px;
+    width: 250px;
+}
+
+.U-S{
+    font-size: 100px;
+    margin-top: 50px;
+}
+
+.USexp{
+    margin-top: 250px;
+}
+
+.USexp_message{
+    font-family: "MS Mincho";
+    font-size: 15px;
+    /* text-align: left; */
+    margin-left: 200px;
+    margin-right:200px;
+}
+
+.messageArea{
+    margin-top: 200px;
+}
+
+.messageLine{
+    font-family: "Yu Gothic Medium", "游ゴシック Medium", YuGothic, 游ゴシック体, "ヒラギノ角ゴ Pro W3", メイリオ, sans-serif;
+    font-size: 15px;
+    text-align: left;
+    margin-left: 380px;
+    margin-right:350px;
+}
+
+.footer{
+    font-family: "Yu Gothic Medium", "æ¸¸ã‚´ã‚·ãƒƒã‚¯ Medium", YuGothic, "æ¸¸ã‚´ã‚·ãƒƒã‚¯ä½“", "ãƒ’ãƒ©ã‚®ãƒŽè§’ã‚´ Pro W3", "ãƒ¡ã‚¤ãƒªã‚ª", sans-serif;
+    margin-top: 80px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.contact_container{
+    text-decoration: none;
 }
