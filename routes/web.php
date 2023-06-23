@@ -57,6 +57,7 @@ Route::get('/sale/complete', [SaleController::class, 'complete'])->middleware('a
 
 // 佐々木
 Route::get("/product/{id}",[ProductController::class, 'list_fits_category'])->middleware('auth');
+Route::get("/product",[ProductController::class, 'list_fits_word'])->middleware('auth');
 Route::get("/product_detail/{id}",[ProductController::class, 'product_detail'])->middleware('auth');
 
 // ほんだ　
