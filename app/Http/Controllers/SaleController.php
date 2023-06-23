@@ -18,7 +18,8 @@ class SaleController extends Controller
         // クレジットカードの登録確認
         $credit = Credit::where('user_id', '=', $user_id)->get();
         if ( count($credit) <= 0 ) {
-            return redirect('/sale/registration_credit');
+            // クレカ登録の進捗次第
+            // return redirect('/sale/registration_credit');
         }
 
         $user = User::findOrFail($user_id);
@@ -35,19 +36,16 @@ class SaleController extends Controller
         // バリデート
 
         $user_id = auth()->user()->id;
-
         $credit = Credit::where('user_id', '=', $user_id)->first();
         if ( $credit == null ) {
             $credit = new Credit();
             $credit->user_id = $user_id;
         }
 
-        // 暗号がしているからtext
+        // カード情報各種
         $credit->card_number = $request->card_number;
-        // 暗号がしているからtext
         $credit->security_code = $request->security_code;
-        // timestamp
-        // $credit->expiration = strtotime('YY-MM-DD');
+        // timestamp: $credit->expiration = strtotime('YY-MM-DD');
         $expiration = "{$request->expiration_yy}-{$request->expiration_mm}-00";
         $credit->expiration = strtotime($expiration);
         $credit()->save();
@@ -56,21 +54,29 @@ class SaleController extends Controller
 
     }
 
-    public function complete() {
+    public function procedure() {
         $user_id = auth()->user()->id;
-        
+
         // カートの中の商品を購入履歴に追加
         $this->move_cart_to_sale($user_id);
 
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         // 購入時の処理は時間があれば記述したい
+        $sale_flag = true;
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-        // いったん商品ページへリダイレクト
-        return redirect('/product/1');
-        // $user = User::find($user_id);
-        // return view('user.sale.complete', compact('user'));
+        if ( $sale_flag ) {
+            return redirect('/complete');
+        }
+        // 失敗時はその時の処理が必要になるかも
+        return redirect('/cart');
 
+    }
+
+    public function complete() {
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        return view('user.sale.complete', compact('user'));
     }
 
     private function move_cart_to_sale($user_id) {
