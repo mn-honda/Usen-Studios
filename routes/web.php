@@ -48,7 +48,8 @@ Route::get('/cart', [CartController::class, 'index'])->middleware('auth');
 Route::post('/cart/add', [CartController::class, 'index'])->middleware('auth');
 Route::post('/cart/update', [CartController::class, 'update'])->middleware('auth');
 Route::post('/cart/delete/{id}', [CartController::class, 'delete'])->middleware('auth');
-Route::get('/sale/confirm', [SaleController::class, 'index'])->middleware('auth');
+Route::get('/sale/confirm', [SaleController::class, 'confirm'])->middleware('auth');
+Route::get('/sale/registration_credit', [SaleController::class, 'registration_credit'])->middleware('auth');
 Route::get('/sale/complete', [SaleController::class, 'complete'])->middleware('auth');
 
 // 佐々木
