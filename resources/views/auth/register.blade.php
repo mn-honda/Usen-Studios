@@ -46,6 +46,22 @@
                 {{ __('Already registered?') }}
             </a>
         -->
+
+        <!-- Post　Cord -->
+        <div>
+            <x-input-label for="post_code" :value="__('郵便番号（ハイフンなし）')" />
+            <x-text-input id="post_code" class="block mt-1 w-full" type="text" name="post_code" :value="old('post_code')" required autofocus autocomplete="post_code" />
+            <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
+        </div>
+        <br>
+        <!-- 住所 -->
+        <div>
+            <x-input-label for="address" :value="__('住所')" />
+            <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="address" />
+            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+        </div>
+        <br>
+
         <div class="flex justify-center">
             <x-primary-button class="ml-4">
                 {{ __('登録') }}
