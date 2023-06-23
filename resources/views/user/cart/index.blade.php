@@ -8,7 +8,7 @@
     {{-- ヘッダーのインポート --}}
 
     {{-- < ショップに戻る --}}
-    <a href='/product/1'>ショップに戻る</a>
+    <a href='/'>ショップに戻る</a>
 
     @if ( isset($cart->cart_details) )
         @foreach ($cart->cart_details as $cart_detail)
@@ -80,8 +80,8 @@
         </p>
     </div>
 
-    <button onclick="location.href='/sale/confirm'">購入画面へ</button>
 
+    <button onclick="location.href='/sale/confirm'">購入画面へ</button>
 
     {{-- フッターのインポート --}}
 </body>

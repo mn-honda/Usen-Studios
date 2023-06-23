@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1>仕入れ登録</h1>
+    @foreach ($errors->all() as $error)
+        <li> <span class="error">{{ $error }}</span></li>
+    @endforeach
     <form action="" method="post">
         商品：
         <select name="product">

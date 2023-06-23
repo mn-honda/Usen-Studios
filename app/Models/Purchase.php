@@ -12,4 +12,7 @@ class Purchase extends Model
     public function product(){
         return $this->belongsTo(Product::class);
     }
+    protected $casts = [
+        'date' => 'datetime:Y-m-d',
+    ];
 }
