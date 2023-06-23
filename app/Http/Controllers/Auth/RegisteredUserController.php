@@ -34,18 +34,23 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'post_code1' => ['required', 'max:3','min:3'],
+            'post_code2' => ['required', 'max:4','min:4'],
+            'address' => ['required'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'post_code' => $request->post_code1 . $request->post_code2,
+            'address' => $request->address."　".$request->building_name
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect("/index");
     }
 }
