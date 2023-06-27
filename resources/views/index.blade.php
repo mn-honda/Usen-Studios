@@ -4,103 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/index.css">
+    
     <title>Top page</title>
 </head>
 <body>
-    <header>
-        <div class="header_container">
-        <!-- メニューアイコン -->
-        <div class="menu_container">
-            <div>
-                <img class="menu_open" src ="/icon/ham-menu-open.png">
-            </div>
-            <!-- <img class="menu_close" src="/icon/ham-menu-close.png"> -->
-        
-            <!-- 検索バナー -->
-            <div class="search_container">
-                <form action="/product" method="post" class="searchForm">
-                    <input type="text" name="search_word" class="text" placeholder="検索">
-                    <button type="submit" value="検索"><img class="search_icon" src="/icon/search-icon.png" alt="" wdth="10" height="10"></button>
-                    @csrf
-                </form>
-            </div>
-        
-            <div class="acount_container">
-                <!-- アカウントアイコン -->
-                <a href="">
-                    <img class="acountIcon" src="/icon/account_icon.png">
-                </a>
-
-                <!-- カートアイコン -->
-                <a href="/cart">
-                    <img class="cartIcon" src="/icon/cart_icon.png">
-                </a>
-            </div>
-        </div>
-
-            <!-- メニューバナーのナビゲーション -->
-            <nav class="category_menu">
-                <div class="A">
-                <ul>
-                    <li class="mens_list">メンズ
-                        @foreach ($all_categories as $category)
-                        <li class="mens_category_list"><a href="/product/{{$category -> id}}?gender=メンズ">
-                            {{$category -> name}}<br>
-                        </a></li>
-                        @endforeach
-                    </li>
-                </ul>
-                <ul>
-                    <li class="womens_list">ウィメンズ
-                        @foreach ($all_categories as $category)
-                        <li class="womens_category_list"><a href="/product/{{$category -> id}}?gender=ウィメンズ">
-                            {{$category -> name}}<br>
-                        </a></li>
-                        @endforeach
-                    </li>
-                </ul>
-                
-                <ul>
-                    @if(Auth::user() != NULL)
-                        <form action="{{route('logout')}}" method="post" name="form1">
-                            <li class="acountList"><a href="javascript:form1.submit()">サインアウト</a></li>
-                            @csrf
-                        </form>
-                    @else
-                        <form action="/index" method="post" name="form2">
-                            <li class="acountList"><a href="javascript:form2.submit()">サインイン</a></li>
-                            @csrf
-                        </form>
-                    @endif
-                </ul>
-                </div>    
-            </nav>
-
-            <!-- 検索バナー -->
-            <!-- <div class="search_container">
-                <form class="searchForm">
-                    <input type="search" class="text" placeholder="検索">
-                    <button type="submit" value="検索"><img class="search_icon" src="/icon/search-icon.png" alt="" wdth="10" height="10"></button>
-                </form>
-            </div> -->
-
-            <!-- アカウントアイコン -->
-            <!-- <div class="acount_container">
-                <a href="">
-                    <img class="acountIcon" src="/icon/account_icon.png">アカウント
-                </a>
-            </div> -->
-           
-
-            <!-- カートアイコン -->
-            <!-- <div class="cart_container">
-                <a href="/cart">
-                    <img class="cartIcon" src="/icon/cart_icon.png">カート
-                </a>
-            </div> -->
-        </div>
-    </header>
+    @include("/header.header",["all_categories" => $all_categories])
 
     <!-- 画面全体 div -->
     <div class="main_container">
@@ -167,43 +75,21 @@
                 <br>
                 ・クレジットカード決済
                 <br>
-                ・キャリア決済
-                <br>
                 ・銀行振込
                 <br>
                 ・コンビニ決済
-                <br>
-                ・PayPAL
+             
             </p>
         </div>
     </div>
 
     <footer class="footer">
-        <div class="lang">
-            <select name="select_language">
-                <optgroup label="language">
-                    <option value="ja">日本語</option>
-                    <option value="en">英語</option>
-                    <option value="kore">韓国語</option>
-                </optgroup>
-            </select>
-        </div>
-
         <div>
-            <a class="contact_container" href="">コンタクトフォーム</a>
+            <a class="contact_container" href="/inquiry">コンタクトフォーム</a>
         </div>
     </footer>
 
-    <script>
-        const MenuContainer = document.querySelector('.menu_container');
-        const MenuOpen = document.querySelector('.menu_open');
-        const MenuClose = document.querySelector('.menu_close');
-        const WearMenu = document.querySelector('.wear_menu');
-        MenuContainer.addEventListener('click', () => {
-            MenuOpen.classList.toggle('active');
-            MenuClose.classList.toggle('active');
-            WearMenu.classList.toggle('active');
-	});
-    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
