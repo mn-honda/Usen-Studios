@@ -227,7 +227,11 @@ class AdminController extends Controller
     public function sale_deliveried(Request $request)
     {
         $sale_deliveried = Delivery::whereSale_id($request->id)->first();
-        $sale_deliveried->is_delivered = "1";
+        if($request->deliveried){
+            $sale_deliveried->is_delivered = "1";
+        }else if($request->arrived){
+            $sale_deliveried->is_delivered = "2";
+        }
         $sale_deliveried->save();
 
         return redirect('admin/sale_list');

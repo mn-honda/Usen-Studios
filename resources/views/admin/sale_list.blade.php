@@ -18,7 +18,7 @@
                 <th class="px-10 py-5">個数</th>
                 <th class="px-10 py-5">サイズ</th>
                 <th class="px-10 py-5">金額</th>
-                <th class="px-10 py-5">配送有無</th>
+                <th class="px-10 py-5">配送状況</th>
                 <th class="px-10 py-5">配送切り替え</th>
             </tr>
             @php $total = 0; @endphp
@@ -39,17 +39,24 @@
                     </td>
                     <td>{{$sale->amount}}</td>
                     <td>
-                        @if($sale->sale->delivery->is_delivered== 1)
+                        @if($sale->sale->delivery->is_delivered == 0)
+                            配送前
+                        @elseif($sale->sale->delivery->is_delivered == 1)
                             配送済み
                         @else
-                            配送前
+                            到着済み
                         @endif
                     </td>
                     <td>
-                        <form action="" method="post">
-                        <input type="hidden" name="id" value="{{$sale->sale->id}}">
-                        <input type="submit" value="配送済み" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
-                        @csrf
+                        <form name="button" action="" method="post" id="btn">
+                            <input type="hidden" name="id" value="{{$sale->sale->id}}">
+                            @if($sale->sale->delivery->is_delivered == 0)
+                                <input type="submit" name="deliveried" value="配達済み" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
+                            @elseif($sale->sale->delivery->is_delivered == 1)
+                                <input type="submit" name="arrived" value="到着済み" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
+                            @else
+                            @endif
+                            @csrf
                         </form>
                     </td>
                 </tr>
