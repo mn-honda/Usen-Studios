@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InquiriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,6 +62,10 @@ Route::get('/sale/complete/{id}', [SaleController::class, 'complete'])->middlewa
 Route::get("/product/{id}",[ProductController::class, 'list_fits_category'])->middleware('auth');
 Route::get("/product",[ProductController::class, 'list_fits_word'])->middleware('auth');
 Route::get("/product_detail/{id}",[ProductController::class, 'product_detail'])->middleware('auth');
+Route::get("/inquiry",function(){
+    return view("user.inquiry.inquiry");
+})->middleware('auth');
+Route::post("/inquiry",[InquiriesController::class, 'send_inquiry'])->middleware('auth');
 
 // ほんだ　
 Route::get("/index",[CategoryController::class, 'pickup']);

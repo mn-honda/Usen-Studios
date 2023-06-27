@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Inquiry extends Model
 {
     use HasFactory;
+
+    public function sale_detail() {
+        return $this->belongsTo(SaleDetail::class);
+    }
 }
