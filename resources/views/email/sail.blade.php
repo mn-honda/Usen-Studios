@@ -13,8 +13,8 @@
             {{-- ご注文日時: {{ date('Y-m-d', $sale->date) }} --}}
         {{-- </div> --}}
         <div>
-            <h1>ご購入ありがとうございました。</h1>
-            ご注文概要
+            <h1>ご注文ありがとうございました。</h1>
+            ご注文内容
             @if ( isset($sale->sale_details) )
                 @foreach ($sale->sale_details as $sale_detail)
                     <div>

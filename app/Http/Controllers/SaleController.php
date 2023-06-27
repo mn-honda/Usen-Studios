@@ -86,26 +86,11 @@ class SaleController extends Controller
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
         if ( $sale_flag ) {
-            return redirect("/sale/mail/{$sale_id}");
+            return redirect("/sale/complete/{$sale_id}");
         }
         // 失敗時はその時の処理が必要になるかも
         return redirect('/cart');
 
-    }
-
-    public function send_mail($sale_id) {
-        $sale = Sale::find($sale_id);
-        $user = $sale->user;
-        $title = 'title';
-        $email = $user->email;
-
-         // メールの送信処理
-        Mail::send('email.sail', compact('user', 'sale'), function ($message) use ($email, $title) {
-            $message->to($email)->subject($title);
-        });
-
-        // 購入完了画面に遷移
-        return redirect("/sale/complete/{$sale_id}");
     }
 
     
@@ -115,8 +100,35 @@ class SaleController extends Controller
         $sale = Sale::find($id);
         // var_dump($sale->sale_details);
         // return;
-        // $this->send_mail($user_id, $sale);
+        $this->send_mail($user, $sale);
         return view('user.sale.complete', compact('user', 'sale'));
+    }
+    
+    
+    public function list() {
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        return view('user.sale.list', compact('user'));
+    }
+
+    public function detail($id) {
+        $sale = Sale::find($id);
+
+        return view('user.sale.detail', compact('sale'));
+    }
+
+    private function send_mail($user, $sale) {
+        $title = 'ご注文完了のお知らせ';
+        $email = $user->email;
+
+         // メールの送信処理
+        Mail::send('email.sail', [
+            'user' => $user,
+            'sale' => $sale,
+        ], function ($message) use ($email, $title) {
+            $message->to($email)->subject($title);
+        });
     }
 
     private function move_cart_to_sale($user_id) {
