@@ -5,6 +5,9 @@ use App\Models\Product;
 use App\Models\Image;
 use App\Models\Purchase;
 use App\Models\Stock;
+use App\Models\Size;
+use App\Models\SaleDetail;
+use App\Models\Delivery;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -205,9 +208,29 @@ class AdminController extends Controller
         if(auth()->user()->is_admin != "1"){
             return view("welcome");//商品一覧画面に戻す
         }
-        $stocks = stock::all();
+        $stocks = Stock::all();
 
         return view('admin/stock_list', compact('stocks'));
+    }
+
+    public function sale_list()
+    {
+        if(auth()->user()->is_admin != "1"){
+            return view("welcome");//商品一覧画面に戻す
+        }
+        $sales = SaleDetail::all();
+        $sizes = Size::all();
+
+        return view('admin/sale_list', compact('sales', 'sizes'));
+    }
+
+    public function sale_deliveried(Request $request)
+    {
+        $sale_deliveried = Delivery::whereSale_id($request->id)->first();
+        $sale_deliveried->is_delivered = "1";
+        $sale_deliveried->save();
+
+        return redirect('admin/sale_list');
     }
 
 }
