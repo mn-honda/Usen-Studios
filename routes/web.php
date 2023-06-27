@@ -36,12 +36,20 @@ Route::middleware('auth')->group(function () {
 
 
 // 奥田さん
-Route::get('admin/product_register', [AdminController::class, 'product'])->middleware('auth');
-Route::get('admin/stock_list', [adminController::class, 'stock_list'])->middleware('auth');
-Route::get('admin/purchase_register', [AdminController::class, 'purchase_product'])->middleware('auth');
-Route::get('admin/purchase_list', [adminController::class, 'purchase_list'])->middleware('auth');
-Route::post('admin/product_register', [AdminController::class, 'product_register'])->middleware('auth');
-Route::post('admin/purchase_register', [AdminController::class, 'purchase_register'])->middleware('auth');
+Route::get('admin/product_register', [AdminController::class, 'product'])->middleware('auth'); 
+Route::get('admin/stock_list', [adminController::class, 'stock_list'])->middleware('auth'); 
+Route::get('admin/purchase_register', [AdminController::class, 'purchase_product'])->middleware('auth'); 
+Route::get('admin/purchase_list', [adminController::class, 'purchase_list'])->middleware('auth'); 
+Route::post('admin/product_register', [AdminController::class, 'product_register'])->middleware('auth'); 
+Route::post('admin/purchase_register', [AdminController::class, 'purchase_register'])->middleware('auth'); 
+Route::get('admin/edit_purchase/{id}', [AdminController::class, 'edit_purchase'])->middleware('auth'); 
+Route::post('admin/edit_purchase/{id}', [AdminController::class, 'edit_purchase'])->middleware('auth'); 
+Route::post('admin/update_purchase/{id}', [AdminController::class, 'update_purchase'])->middleware('auth'); 
+Route::post('admin/purchase_list', [AdminController::class, 'delete_purchase'])->middleware('auth'); 
+Route::get('admin/sale_list', [AdminController::class, 'sale_list'])->middleware('auth'); 
+Route::post('admin/sale_list', [AdminController::class, 'sale_deliveried'])->middleware('auth'); 
+
+
 
 
 // 平西君
