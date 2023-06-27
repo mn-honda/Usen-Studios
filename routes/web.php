@@ -58,9 +58,10 @@ Route::post('/sale/procedure', [SaleController::class, 'procedure'])->middleware
 Route::get('/sale/complete/{id}', [SaleController::class, 'complete'])->middleware('auth');
 
 // 佐々木
-Route::get("/product/{id}",[ProductController::class, 'list_fits_category'])->middleware('auth');
-Route::get("/product",[ProductController::class, 'list_fits_word'])->middleware('auth');
-Route::get("/product_detail/{id}",[ProductController::class, 'product_detail'])->middleware('auth');
+Route::get("/product/{id}",[ProductController::class, 'list_fits_category']);
+Route::post("/product",[ProductController::class, 'list_fits_word']);
+Route::get("/product_detail/{id}",[ProductController::class, 'product_detail']);
+Route::post("/index",[CategoryController::class, 'pickup'])->middleware('auth');
 
 // ほんだ　
 Route::get("/index",[CategoryController::class, 'pickup']);
