@@ -83,7 +83,7 @@
         </div>
     </div>
 
-   
+    @include("/header_footer.footer")
 
 </body>
 </html>
