@@ -24,6 +24,7 @@
         </table>
     </div><br><br>
 
-    <a href="purchase_list" class="flex justify-center">▶仕入れ一覧</a>
+    <a href="purchase_list" class="flex justify-center">▶仕入れ一覧</a><br>
+    <a href="sale_list" class="flex justify-center">▶売上一覧</a><br>
 </body>
 </html>
