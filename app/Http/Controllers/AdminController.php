@@ -94,8 +94,8 @@ class AdminController extends Controller
 
         $new_products->save();
 
-        $new_images1->filepath = $request->image_front;
-        $new_images1->explanation = "前面";
+        $new_images1->filepath = $file_path1;
+        $new_images1->explanation = $request->gender;
         $new_images1->product_id = $new_products->id;
 
         $new_images1->save();

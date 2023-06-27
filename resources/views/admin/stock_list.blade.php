@@ -10,8 +10,8 @@
     <div><br><h1 class="text-3xl flex justify-center">在庫一覧</h1><br></div>
         <table class="flex justify-center">
             <tr class="bg-gray-300 border-b text-xl border border-gray-600">
-                <th class="px-10 py-5">プロダクトID</th>
-                <th class="px-10 py-5">プロダクト名</th>
+                <th class="px-10 py-5">商品ID</th>
+                <th class="px-10 py-5">商品名</th>
                 <th class="px-10 py-5">写真</th>
                 <th class="px-10 py-5">個数</th>
             </tr>

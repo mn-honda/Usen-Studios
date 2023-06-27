@@ -1,0 +1,34 @@
+.detailForm{
+    margin-top: 200px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.productImg{
+    text-align: center;
+}
+
+.productName{
+    text-align: center;
+}
+
+.textArea{
+    width: 225px;
+    margin-top: 30px;
+    margin-left: 100px;
+}
+
+.leftText{
+    text-align: left;
+    /* margin-left: 60px; */
+}
+
+.button{
+    margin-top: 30px;
+    background-color: black;
+    color: white;
+}
+
+.Annotation{
+    margin-top: 40px;
+}
