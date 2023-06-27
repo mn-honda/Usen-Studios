@@ -26,36 +26,19 @@
                 </form>
             </div>
         
-                        <!-- アカウントアイコン -->
             <div class="acount_container">
+                <!-- アカウントアイコン -->
                 <a href="">
                     <img class="acountIcon" src="/icon/account_icon.png">
                 </a>
 
+                <!-- カートアイコン -->
                 <a href="/cart">
                     <img class="cartIcon" src="/icon/cart_icon.png">
                 </a>
             </div>
-            <!-- カートアイコン -->
-            <!-- <div class="cart_container">
-                <a href="/cart">
-                    <img class="cartIcon" src="/icon/cart_icon.png">
-                </a>
-            </div> -->
         </div>
 
-            <!-- <nav class="acount">
-                <ul>
-                    <li class="acountList">
-                        <a href="">メンバー登録</a><br>
-                        <a href="">サインイン</a>
-                    </li>
-
-                </ul>
-            </nav> -->
-
-
-            
             <!-- メニューバナーのナビゲーション -->
             <nav class="category_menu">
                 <div class="A">
@@ -193,7 +176,7 @@
                 ・PayPAL
             </p>
         </div>
-    </dev>
+    </div>
 
     <footer class="footer">
         <div class="lang">
