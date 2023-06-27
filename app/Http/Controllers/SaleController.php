@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Stripe\Stripe;
+use Stripe\Charge;
+use Exception;
 
 use App\Models\User;
 use App\Models\Credit;
 use App\Models\Sale;
 use App\Models\SaleDetail;
-use DateTime;
 
 class SaleController extends Controller
 {
@@ -73,7 +75,7 @@ class SaleController extends Controller
 
     }
 
-    public function procedure() {
+    public function procedure(Request $request) {
         $user_id = auth()->user()->id;
 
         // カートの中の商品を購入履歴に追加
@@ -81,6 +83,7 @@ class SaleController extends Controller
 
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         // 購入時の処理は時間があれば記述したい
+        $this->payment($request);
         $sale_flag = true;
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -133,6 +136,21 @@ class SaleController extends Controller
         $sale->save();
 
         return $sale->id;
+    }
+
+    public function payment(Request $request) {
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        $charge = $user->charge($request->amount, $request->paymentMethodId);
+        // $charge = Charge::create([
+            // 'amount' => $request->amount,
+            // 'currency' => 'jpy',
+            // 'source' => $request->stripeToken,
+        // ]);
+
+        // return back();
     }
 
 }
