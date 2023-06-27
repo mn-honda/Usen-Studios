@@ -18,38 +18,38 @@
                     <div>
                         <h3>カード番号</h3>
                         @if( old('card_number_1') != '' || old('card_number_2') != '' || old('card_number_3') != '' || old('card_number_4') != '' )
-                            <input type='number' name='card_number_1' value='{{old('card_name_1')}}'> -
-                            <input type='number' name='card_number_2' value='{{old('card_name_2')}}'> -
-                            <input type='number' name='card_number_3' value='{{old('card_name_3')}}'> -
-                            <input type='number' name='card_number_4' value='{{old('card_name_4')}}'>
+                            <input type='text' name='card_number_1' value='{{old('card_name_1')}}'> -
+                            <input type='text' name='card_number_2' value='{{old('card_name_2')}}'> -
+                            <input type='text' name='card_number_3' value='{{old('card_name_3')}}'> -
+                            <input type='text' name='card_number_4' value='{{old('card_name_4')}}'>
                         @elseif( isset($user->credit) && isset($user->credit->card_number) )
-                            <input type='number' name='card_number_1' value='{{substr($user->credit->card_number, 0, 4)}}'> -
-                            <input type='number' name='card_number_2' value='{{substr($user->credit->card_number, 4, 8)}}'> -
-                            <input type='number' name='card_number_3' value='{{substr($user->credit->card_number, 8, 12)}}'> -
-                            <input type='number' name='card_number_4' value='{{substr($user->credit->card_number, 12, 16)}}'>
+                            <input type='text' name='card_number_1' value='{{substr($user->credit->card_number, 0, 4)}}'> -
+                            <input type='text' name='card_number_2' value='{{substr($user->credit->card_number, 4, 8)}}'> -
+                            <input type='text' name='card_number_3' value='{{substr($user->credit->card_number, 8, 12)}}'> -
+                            <input type='text' name='card_number_4' value='{{substr($user->credit->card_number, 12, 16)}}'>
                         @else
-                            <input type='number' name='card_number_1'> -
-                            <input type='number' name='card_number_2'> -
-                            <input type='number' name='card_number_3'> -
-                            <input type='number' name='card_number_4'>
+                            <input type='text' name='card_number_1'> -
+                            <input type='text' name='card_number_2'> -
+                            <input type='text' name='card_number_3'> -
+                            <input type='text' name='card_number_4'>
                         @endif
                     </div>
                     <div>
                         <div> <h3>有効期限</h3> </div>
                             @if( old('expiration') != '' )
-                                <input type='date' name='expiration' value='{{old('expiration')}}'>
+                                <input type='month' name='expiration' value='{{old('expiration')}}'>
                             @elseif( isset($user->credit) && isset($user->credit->expiration) )
-                                <input type='date' name='expiration' value='{{$user->credit->expiration}}'>
+                                <input type='month' name='expiration' value='{{$user->credit->expiration}}'>
                             @else
-                                <input type='date' name='expiration'>
+                                <input type='month' name='expiration'>
                             @endif
                         <div> <h3>セキュリティコード</h3> </div>
                         @if( old('security_code') != '' )
-                            <input type='number' name='security_code' value='{{old('security_code')}}'>
+                            <input type='text' name='security_code' value='{{old('security_code')}}'>
                         @elseif( isset($user->credit) && isset($user->credit->security_code) )
-                            <input type='number' name='security_code' value='{{$user->credit->security_code}}'>
+                            <input type='text' name='security_code' value='{{$user->credit->security_code}}'>
                         @else
-                            <input type='number' name='security_code'>
+                            <input type='text' name='security_code'>
                         @endif
                     </div>
                     <div>

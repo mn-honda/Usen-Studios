@@ -10,5 +10,5 @@ class CategoryController extends Controller
         $all_categories=Category::all();
         // dd($all_categories);
         return view('index', compact('all_categories'));
-    }    
+    }
 }

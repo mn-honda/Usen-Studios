@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DateTime;
 
 use App\Models\User;
 use App\Models\Credit;
 use App\Models\Sale;
 use App\Models\SaleDetail;
-use DateTime;
+use App\Models\Delivery;
 
 class SaleController extends Controller
 {
@@ -59,11 +60,9 @@ class SaleController extends Controller
         // $credit->card_number = $request->card_number;
         $credit->card_number = $request->card_number_1 . $request->card_number_2 . $request->card_number_3 . $request->card_number_4;
         $credit->security_code = $request->security_code;
-        $credit->expiration = $request->expiration;
-        // timestamp: $credit->expiration = strtotime('YY-MM-DD');
-        // $expiration = "{$request->expiration_yy}-{$request->expiration_mm}-00 00:00:00";
-        // $credit->expiration = strtotime($expiration);
-        // $credit->expiration = $expira;
+        $expiration = $request->expiration . -01;
+        // $expiration->addMonth()->subDay();
+        $credit->expiration = $expiration;
 
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         // クレジットカードの情報が正しいかどうかの判定をどこかで追加したい
@@ -80,6 +79,12 @@ class SaleController extends Controller
 
         // カートの中の商品を購入履歴に追加
         $sale_id = $this->move_cart_to_sale($user_id);
+        $sale = Sale::find($sale_id);
+        // deliveriesテーブルの作成
+        $deliveries = new Delivery();
+        $deliveries->date = $sale->date;;
+        $deliveries->sale_id = $sale_id;
+        $deliveries->save();
 
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         // 購入時の処理は時間があれば記述したい
