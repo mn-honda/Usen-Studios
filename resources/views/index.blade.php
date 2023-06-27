@@ -19,9 +19,10 @@
         
             <!-- 検索バナー -->
             <div class="search_container">
-                <form class="searchForm">
-                    <input type="search" class="text" placeholder="検索">
+                <form action="/product" method="post" class="searchForm">
+                    <input type="text" name="search_word" class="text" placeholder="検索">
                     <button type="submit" value="検索"><img class="search_icon" src="/icon/search-icon.png" alt="" wdth="10" height="10"></button>
+                    @csrf
                 </form>
             </div>
         
@@ -57,24 +58,40 @@
             
             <!-- メニューバナーのナビゲーション -->
             <nav class="category_menu">
+                <div class="A">
                 <ul>
-                    <li class="mens_list">メンズ</li>
-                    <li class="mens_category_list">
+                    <li class="mens_list">メンズ
                         @foreach ($all_categories as $category)
-                        <a href="/product/{{$category -> id}}?gender=メンズ">
+                        <li class="mens_category_list"><a href="/product/{{$category -> id}}?gender=メンズ">
                             {{$category -> name}}<br>
-                        </a>
-                        @endforeach
-                    </li>
-                    <li class="womens_list">ウィメンズ</li>
-                    <li class="womens_category_list">
-                        @foreach ($all_categories as $category)
-                        <a href="/product/{{$category -> id}}?gender=ウィメンズ">
-                            {{$category -> name}}<br>
-                        </a>
+                        </a></li>
                         @endforeach
                     </li>
                 </ul>
+                <ul>
+                    <li class="womens_list">ウィメンズ
+                        @foreach ($all_categories as $category)
+                        <li class="womens_category_list"><a href="/product/{{$category -> id}}?gender=ウィメンズ">
+                            {{$category -> name}}<br>
+                        </a></li>
+                        @endforeach
+                    </li>
+                </ul>
+                
+                <ul>
+                    @if(Auth::user() != NULL)
+                        <form action="{{route('logout')}}" method="post" name="form1">
+                            <li class="acountList"><a href="javascript:form1.submit()">サインアウト</a></li>
+                            @csrf
+                        </form>
+                    @else
+                        <form action="/index" method="post" name="form2">
+                            <li class="acountList"><a href="javascript:form2.submit()">サインイン</a></li>
+                            @csrf
+                        </form>
+                    @endif
+                </ul>
+                </div>    
             </nav>
 
             <!-- 検索バナー -->
@@ -91,15 +108,7 @@
                     <img class="acountIcon" src="/icon/account_icon.png">アカウント
                 </a>
             </div> -->
-
-            <nav class="acount">
-                <ul>
-                    <li class="acountList">
-                        <a href="">メンバー登録</a><br>
-                        <a href="">サインイン</a>
-                    </li>
-                </ul>
-            </nav>
+           
 
             <!-- カートアイコン -->
             <!-- <div class="cart_container">
