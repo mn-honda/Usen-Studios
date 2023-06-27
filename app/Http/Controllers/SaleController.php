@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DateTime;
 
 use App\Models\User;
 use App\Models\Credit;
 use App\Models\Sale;
 use App\Models\SaleDetail;
-use DateTime;
+use App\Models\Delivery;
 
 class SaleController extends Controller
 {
@@ -78,6 +79,12 @@ class SaleController extends Controller
 
         // カートの中の商品を購入履歴に追加
         $sale_id = $this->move_cart_to_sale($user_id);
+        $sale = Sale::find($sale_id);
+        // deliveriesテーブルの作成
+        $deliveries = new Delivery();
+        $deliveries->date = $sale->date;;
+        $deliveries->sale_id = $sale_id;
+        $deliveries->save();
 
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         // 購入時の処理は時間があれば記述したい
