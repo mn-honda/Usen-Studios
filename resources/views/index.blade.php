@@ -8,7 +8,7 @@
     <title>Top page</title>
 </head>
 <body>
-    @include("/header.header",["all_categories" => $all_categories])
+    @include("/header_footer.header",["all_categories" => $all_categories])
 
     <!-- 画面全体 div -->
     <div class="main_container">
@@ -83,11 +83,7 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <div>
-            <a class="contact_container" href="/inquiry">コンタクトフォーム</a>
-        </div>
-    </footer>
+    @include("/header_footer.footer")
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
     <script src="js/index.js"></script>
