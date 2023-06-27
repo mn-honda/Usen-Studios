@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 
 use App\Models\User;
@@ -85,19 +86,36 @@ class SaleController extends Controller
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
         if ( $sale_flag ) {
-            return redirect("/sale/complete/{$sale_id}");
+            return redirect("/sale/mail/{$sale_id}");
         }
         // 失敗時はその時の処理が必要になるかも
         return redirect('/cart');
 
     }
 
+    public function send_mail($sale_id) {
+        $sale = Sale::find($sale_id);
+        $user = $sale->user;
+        $title = 'title';
+        $email = $user->email;
+
+         // メールの送信処理
+        Mail::send('email.sail', compact('user', 'sale'), function ($message) use ($email, $title) {
+            $message->to($email)->subject($title);
+        });
+
+        // 購入完了画面に遷移
+        return redirect("/sale/complete/{$sale_id}");
+    }
+
+    
     public function complete($id) {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $sale = Sale::find($id);
         // var_dump($sale->sale_details);
         // return;
+        // $this->send_mail($user_id, $sale);
         return view('user.sale.complete', compact('user', 'sale'));
     }
 
