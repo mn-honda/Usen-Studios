@@ -13,6 +13,7 @@
             <tr class="bg-gray-300 border-b text-xl border border-gray-600">
                 <th class="px-10 py-5">商品ID</th>
                 <th class="px-10 py-5">商品名</th>
+                <th class="px-10 py-5">写真</th>
                 <th class="px-10 py-5">個数</th>
                 <th class="px-10 py-5">日付</th>
                 <th class="px-10 py-5"></th>
@@ -22,6 +23,10 @@
                 <tr class="bg-gray-100 text-center border border-gray-600">
                     <td>{{$purchase->product_id}}</td>
                     <td>{{$purchase->product->name}}</td>
+                    <td>@foreach($purchase->product->image as $image)
+                            <img src="{{$image->filepath}}" alt="" width=150 heght=300>
+                        @endforeach
+                    </td>
                     <td>{{$purchase->quantity}}</td>
                     <td>{{$purchase->date->format('Y/m/d')}}</td>
                     <td>
