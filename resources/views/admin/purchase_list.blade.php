@@ -30,7 +30,7 @@
                             <input type="submit" value="編集" class="ml-2 rounded-lg bg-green-500 p-2 text-white hover:bg-green-600">
                             @csrf
                         </form>
-                    <td><form action="" method="post">
+                    <td><form action="" method="post" onclick='return confirm_delete()'>
                             <input type="hidden" name="id" value="{{$purchase->id}}">
                             <input type="hidden" name="product_id" value="{{$purchase->product_id}}">
                             <input type="submit" value="削除" class="ml-2 rounded-lg bg-red-500 p-2 text-white hover:bg-red-600">
@@ -46,3 +46,14 @@
 
 </body>
 </html>
+
+<script>
+    function confirm_delete() {
+        var select = confirm("本当に削除しますか？");
+
+        if (!select) {
+            alert("削除をキャンセルしました");
+            return select;
+        }
+    }
+</script>
