@@ -61,6 +61,7 @@
                     </a></li>
                     @endforeach
             </ul>
+            <a href="/index" class="home">ホーム</a>
                 
             <ul>
                 @auth

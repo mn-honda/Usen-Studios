@@ -17,6 +17,19 @@
     /* background-color: #dcdcdc; */
     
 }
+.home{
+    color: #333;
+	text-decoration: none;
+	display: block;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+    margin-top: 10px;
+    margin-left: 50px;
+    font-weight: bold;
+    display: flex;
+    font-size: 15px;
+    font-family: "Yu Gothic Medium", "游ゴシック Medium", YuGothic, 游ゴシック体, "ヒラギノ角ゴ Pro W3", メイリオ, sans-serif;
+}
 
 .auth{
     display: flex;
