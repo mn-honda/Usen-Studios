@@ -130,7 +130,7 @@ class SaleController extends Controller
         $this->validate($request, [
             'name' => ['required'],
             'email' => ['required'],
-            'post_code' =>['required'],
+            'post_code' =>['required','regex:/^[0-9]{7}$/'],
             'address' =>['required'],
         ]);
 
