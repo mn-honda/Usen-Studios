@@ -113,16 +113,16 @@
                         <h4>クレジットカード</h4>
                         <div class="deliveryContainer">
                             <h4>カード番号</h4>
-                            @if( isset($user->credit) && isset($user->credit->card_number) )
-                                <input class="card" type='text' name='card_number' value='{{$user->credit->card_number}}' readonly>
+                            @if( isset($card["number"]) )
+                                <input class="card" type='text' name='card_number' value='{{$card["number"]}}' readonly>
                             @else
                                 <input class="card" type='text' name='card_number'>
                             @endif
                         </div>
                         <div class="deliveryContainer">
                             <h4>カード名義</h4>
-                            @if( isset($user->credit) && isset($user->credit->card_name) )
-                                <input class="cardName" type='text' name='card_name' value='{{$user->credit->card_name}}' readonly>
+                            @if( isset($card["name"]) )
+                                <input class="cardName" type='text' name='card_name' value='{{$card["name"]}}' readonly>
                             @else
                                 <input class="cardName" type='text' name='card_name'>
                             @endif
@@ -133,7 +133,7 @@
 
         <form action="/sale/procedure" method="post">
             @csrf
-            <button class="button" type="submit">購入確定</button>
+            <button type="submit">購入確定</button>
         </form>
     </div>
     {{-- フッターのインポート --}}

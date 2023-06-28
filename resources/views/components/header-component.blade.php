@@ -1,7 +1,8 @@
+<div>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="/css/index.css">
     <title>Top page</title>
 </head>
 <header>
@@ -30,7 +31,7 @@
             
             <div class="acount_container">
                 <!-- アカウントアイコン -->
-                <a href="">
+                <a href="/user/list">
                     <img class="acountIcon" src="/icon/account_icon.png">
                 </a>
 
@@ -60,6 +61,7 @@
                     </a></li>
                     @endforeach
             </ul>
+            <a href="/index" class="home">ホーム</a>
                 
             <ul>
                 @auth
@@ -79,3 +81,4 @@
         </nav>
         </div>
     </header>
+</div>
