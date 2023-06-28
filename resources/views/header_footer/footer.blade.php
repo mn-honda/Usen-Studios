@@ -6,7 +6,7 @@
 </head>
 <footer class="footer">
         <div>
-            <a class="contact_container" href="/inquiry">コンタクトフォーム</a>
+            <br><a class="contact_container" href="/inquiry">コンタクトフォーム</a><br><br>
         </div>
         Copyleft(C) Usen Studios All Rights Reserved.
 </footer>
