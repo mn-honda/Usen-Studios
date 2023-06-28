@@ -9,15 +9,19 @@
 <body>
         <div class="text-center text-9xl font-medium">UsenStudios</div><br><br>
         <p class="text-center text-3xl">ユーザー情報</p><br><br>
-        <div class="text-center text-xl">
-            お名前：{{$user->name}}<br>
-            Eメールアドレス：{{$user->email}}<br>
-            住所：{{$user->post_code}}<br>
-            　　{{$user->address}}<br>
+        <div class="flex justify-center">
+            <table>
+                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">お名前</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5">{{$user->name}}</td></tr>
+                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">Eメールアドレス</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5">{{$user->email}}</td></tr>
+                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">住所</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5">{{$user->post_code}}{{$user->address}}</td></tr>
+            </table>
+        </div>
+        <div class="flex justify-center">
             <form action="/user/edit_user" method="get">
                 <input type="submit" value="編集" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
             </form>
-        </div><br><br><br>
+        </div>
+        <br><br><br>
         <p class="text-center text-3xl">購入履歴</p><br><br>
         <div class="flex justify-center">
             <table>
@@ -55,7 +59,8 @@
                     </tr>
                 @endforeach
             </table>
-        </div>
+        </div><br><br>
+        <a href="/index" class="flex justify-center">戻る</a>
 </body>
 @include("/header_footer.footer")
 </html>

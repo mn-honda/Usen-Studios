@@ -14,13 +14,13 @@
     <br><br>
     <div class="font-medium flex justify-center">
         <form action="" method="post">
-            お名前：
-            <input type="text" name="name" value="{{$user->name}}"><br><br>
-            Eメールアドレス：
-            <input type="email" name="email" value="{{$user->email}}"><br><br>
-            住所：
-            <input type="text" name="post_code" value="{{$user->post_code}}"><br>　　　
-            <input type="text" name="address" value="{{$user->address}}"><br><br><br>
+            <table>
+                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">お名前</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><input type="text" name="name" value="{{$user->name}}"></td></tr>
+                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">Eメールアドレス</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><input type="email" name="email" value="{{$user->email}}"></td></tr>
+                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">住所</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><input type="text" name="post_code" value="{{$user->post_code}}"></td></tr>
+                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5"></th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><input type="text" name="address" value="{{$user->address}}"></td></tr>
+            </table>
+            <br><br><br>
             <div class="text-center">
                 <input type="submit" value="送信" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
             </div>
@@ -28,6 +28,6 @@
         </form>
     </div>
     <br><br>
-    <a href="/user/list" class="flex justify-center">メンバー情報に戻る</a>
+    <a href="/user/list" class="flex justify-center">ユーザー情報に戻る</a>
 </body>
 </html>
