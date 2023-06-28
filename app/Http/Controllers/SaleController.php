@@ -12,21 +12,21 @@ use App\Models\User;
 use App\Models\Credit;
 use App\Models\Sale;
 use App\Models\SaleDetail;
+use Stripe\Exception\CardException;
 
 class SaleController extends Controller
 {
 
     public function confirm() {
         $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $card = Credit::getDefaultCard($user);
         // クレジットカードの登録確認
-        $credit = Credit::where('user_id', '=', $user_id)->get();
-        if ( count($credit) <= 0 ) {
-            // クレカ登録の進捗次第
+        if ( $card == null ) {
             return redirect('/sale/registration_credit');
         }
 
-        $user = User::findOrFail($user_id);
-        return view('user.sale.confirm', compact('user'));
+        return view('user.sale.confirm', compact('user', 'card'));
     }
 
     public function registration_credit() {
@@ -77,21 +77,21 @@ class SaleController extends Controller
 
     public function procedure(Request $request) {
         $user_id = auth()->user()->id;
-
-        // カートの中の商品を購入履歴に追加
-        $sale_id = $this->move_cart_to_sale($user_id);
+        $user = User::find($user_id);
 
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         // 購入時の処理は時間があれば記述したい
-        $this->payment($request);
-        $sale_flag = true;
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        // 会計処理
+        // $this->payment($request->amount);
+        $this->payment($user->cart->amount+800);
+        // カートの中の商品を購入履歴に追加
+        $sale_id = $this->move_cart_to_sale($user_id);
 
-        if ( $sale_flag ) {
-            return redirect("/sale/complete/{$sale_id}");
-        }
-        // 失敗時はその時の処理が必要になるかも
-        return redirect('/cart');
+        return redirect("/sale/complete/{$sale_id}");
+        // 失敗時はその時の処理が必要
+        // ↑個々に実装
+        // return redirect('/cart');
 
     }
 
@@ -138,12 +138,24 @@ class SaleController extends Controller
         return $sale->id;
     }
 
-    public function payment(Request $request) {
+    // public function payment(Request $request) {
+    public function payment($amount) {
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
 
-        $charge = $user->charge($request->amount, $request->paymentMethodId);
+        try {
+            $charge = Charge::create([
+                'amount' => $amount,
+                'currency' => 'jpy',
+                'customer' => $user->stripe_id,
+            ]);
+        } catch (CardException $e) {
+            // 決済失敗
+            return redirect('/sale/confirm');
+        }
+
+        // $charge = $user->charge($request->amount, $request->paymentMethodId);
         // $charge = Charge::create([
             // 'amount' => $request->amount,
             // 'currency' => 'jpy',
@@ -151,6 +163,47 @@ class SaleController extends Controller
         // ]);
 
         // return back();
+    }
+
+    public function registration_credit_into_stripe(Request $request) {
+        $token = $request->stripeToken;
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $ret = null;
+        if ( !$token ) {
+            // サーバーのエラー
+            return redirect('/product');
+        }
+        if ( $user->stripe_id ) {
+            $default_card = Credit::getDefaultCard($user);
+            if ( isset($default_card['id']) ) {
+                Credit::deleteCard($user);
+            }
+            $result = Credit::updateCustomer($token, $user);
+            if ( !$result  ) {
+                // カード情報の不備
+                return redirect('/sale/registration_credit');
+            }
+        } else {
+            $result = Credit::setCustomer($token, $user);
+            if ( !$result ) {
+                // カード情報の不備
+                return redirect('/sale/registration_credit');
+            }
+        }
+        // カードの登録完了
+        return redirect('/sale/confirm');
+    }
+
+    public function delete_credit_information() {
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $result = Credit::deleteCard($user);
+        if ( $result ) {
+            // 成功
+        } else {
+            // 成功
+        }
     }
 
 }

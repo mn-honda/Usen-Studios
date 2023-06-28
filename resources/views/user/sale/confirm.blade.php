@@ -82,16 +82,16 @@
                     <h2>クレジットカード</h2>
                     <div>
                         <h3>カード番号</h3>
-                        @if( isset($user->credit) && isset($user->credit->card_number) )
-                            <input type='text' name='card_number' value='{{$user->credit->card_number}}' readonly>
+                        @if( isset($card["number"]) )
+                            <input type='text' name='card_number' value='{{$card["number"]}}' readonly>
                         @else
                             <input type='text' name='card_number'>
                         @endif
                     </div>
                     <div>
                         <h3>カード名義</h3>
-                        @if( isset($user->credit) && isset($user->credit->card_name) )
-                            <input type='text' name='card_name' value='{{$user->credit->card_name}}' readonly>
+                        @if( isset($card["name"]) )
+                            <input type='text' name='card_name' value='{{$card["name"]}}' readonly>
                         @else
                             <input type='text' name='card_name'>
                         @endif
@@ -99,16 +99,14 @@
                 </div>
             </div>
         </div>
+        
+        
+        <form action="/sale/procedure" method="POST">
+            @csrf
+            <button type="submit">購入確定</button>
+        </form>
 
-    {{-- <form action="/sale/procedure" method="post"> --}}
-        {{-- @csrf --}}
-        {{-- <button type="submit">購入画面へ</button> --}}
-    {{-- </form> --}}
-
-
-                {{-- <div class="col-6 card"> --}}
-                    {{-- <div class="card-header">Stripe決済</div> --}}
-                    {{-- <div class="card-body"> --}}
+{{-- 
                         <form id="card-form" action="/sale/procedure" method="POST">
                             <div>
                                 合計
@@ -134,8 +132,6 @@
     
                             <button class="mt-3 btn btn-primary">購入確定</button>
                         </form>
-            {{-- </div> --}}
-        {{-- </div> --}}
     
         <script src="https://js.stripe.com/v3/"></script>
         <script>
@@ -206,6 +202,7 @@
                 form.submit();
             }
         </script>
+--}}
 
 
     {{-- フッターのインポート --}}
