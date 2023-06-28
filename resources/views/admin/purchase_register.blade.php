@@ -14,22 +14,21 @@
     <br><br><br>
     <div class="flex justify-center">
         <form action="" method="post">
-            商品：
-            <select name="product">
-                @foreach ($products as $product)
-                    <option value={{$product->id}}>{{$product->name}}</option>
-                @endforeach
-            </select><br><br>
-            個数：
-            <input type="number" name="quantity" value="" min="1"><br><br>
-            日付：
-            <input type="date" name="date"><br><br><br>
+            <table>
+                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">商品</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><select name="product">
+                    @foreach ($products as $product)
+                        <option value={{$product->id}}>{{$product->name}}</option>
+                    @endforeach
+                </select></td></tr>
+                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">個数</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><input type="number" name="quantity" value="" min="1"></td></tr>
+                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">日付</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><input type="date" name="date"></td></tr>
+            </table><br><br>
             <div class="text-center">
-                <input type="submit" value="登録" class="ml-2 rounded-lg bg-blue-500 p-2 text-white hover:bg-blue-600">
+                <input type="submit" value="登録" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
             </div>
             @csrf
         </form>
-    </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <div class="text-center border divide-x">
         <a href="product_register">商品登録</a>
         <a href="purchase_list">　　仕入れ一覧</a>
