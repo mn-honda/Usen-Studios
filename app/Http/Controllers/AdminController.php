@@ -5,6 +5,9 @@ use App\Models\Product;
 use App\Models\Image;
 use App\Models\Purchase;
 use App\Models\Stock;
+use App\Models\Size;
+use App\Models\SaleDetail;
+use App\Models\Delivery;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -14,7 +17,7 @@ class AdminController extends Controller
 {
     public function product(){
         if(auth()->user()->is_admin != "1"){
-            return view("welcome");//商品一覧画面に戻す
+            return redirect("/product");//管理者出ない場合商品一覧画面に戻す
         }
         return view("admin/product_register");
     }
@@ -108,7 +111,7 @@ class AdminController extends Controller
     public function purchase_product()
     {
         if(auth()->user()->is_admin != "1"){
-            return view("welcome");//商品一覧画面に戻す
+            return redirect("/product");
         }
         $products = Product::all();
 
@@ -142,7 +145,7 @@ class AdminController extends Controller
     public function purchase_list()
     {
         if(auth()->user()->is_admin != "1"){
-            return view("welcome");//商品一覧画面に戻す
+            return redirect("/product");
         }
         $purchases = Purchase::all();
 
@@ -152,7 +155,7 @@ class AdminController extends Controller
     public function edit_purchase($id)
     {
         if(auth()->user()->is_admin != "1"){
-            return view("welcome");//商品一覧画面に戻す
+            return redirect("/product");
         }
         $edit_purchase = Purchase::find($id);
 
@@ -203,11 +206,35 @@ class AdminController extends Controller
     public function stock_list()
     {
         if(auth()->user()->is_admin != "1"){
-            return view("welcome");//商品一覧画面に戻す
+            return redirect("/product");
         }
-        $stocks = stock::all();
+        $stocks = Stock::all();
 
         return view('admin/stock_list', compact('stocks'));
+    }
+
+    public function sale_list()
+    {
+        if(auth()->user()->is_admin != "1"){
+            return redirect("/product");
+        }
+        $sales = SaleDetail::all();
+        $sizes = Size::all();
+
+        return view('admin/sale_list', compact('sales', 'sizes'));
+    }
+
+    public function sale_deliveried(Request $request)
+    {
+        $sale_deliveried = Delivery::whereSale_id($request->id)->first();
+        if($request->deliveried){
+            $sale_deliveried->is_delivered = "1";
+        }else if($request->arrived){
+            $sale_deliveried->is_delivered = "2";
+        }
+        $sale_deliveried->save();
+
+        return redirect('admin/sale_list');
     }
 
 }

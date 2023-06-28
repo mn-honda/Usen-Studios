@@ -20,5 +20,7 @@ class Sale extends Model
     public function sale_details() {
         return $this->hasMany(SaleDetail::class);
     }
-
+    protected $casts = [
+        'date' => 'datetime:Y-m-d',
+    ];
 }
