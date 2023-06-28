@@ -25,4 +25,8 @@ class SaleDetail extends Model
         return $this->belongsTo(Size::class);
     }
 
+    public function inquiry() {
+        return $this->hasOne(Inquiry::class);
+    }
+
 }

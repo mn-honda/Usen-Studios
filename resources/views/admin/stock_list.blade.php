@@ -12,18 +12,23 @@
             <tr class="bg-gray-300 border-b text-xl border border-gray-600">
                 <th class="px-10 py-5">商品ID</th>
                 <th class="px-10 py-5">商品名</th>
+                <th class="px-10 py-5">写真</th>
                 <th class="px-10 py-5">個数</th>
             </tr>
             @foreach($stocks as $stock)
                 <tr class="bg-gray-100 text-center border border-gray-600">
-                    <td class="py-2">{{$stock->product_id}}</td>
-                    <td class="py-2">{{$stock->product->name}}</td>
-                    <td class="py-2">{{$stock->stock}}</td>
+                    <td>{{$stock->product_id}}</td>
+                    <td>{{$stock->product->name}}</td>
+                    <td>@foreach($stock->product->image as $image)
+                        <img src="{{$image->filepath}}" alt="" width=150 heght=300>
+                    @endforeach</td>
+                    <td>{{$stock->stock}}</td>
                 </tr>
             @endforeach
         </table>
     </div><br><br>
 
-    <a href="purchase_list" class="flex justify-center">▶仕入れ一覧</a>
+    <a href="purchase_list" class="flex justify-center">▶仕入れ一覧</a><br>
+    <a href="sale_list" class="flex justify-center">▶売上一覧</a><br>
 </body>
 </html>

@@ -1,7 +1,6 @@
 
 .header_container{
     float: left;
-    background-color: #ffffff;
     display: block;
     position: fixed;
     top: 0;
@@ -14,7 +13,19 @@
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid #333;
+    /* background-color: #dcdcdc; */
+    
 }
+
+.auth{
+    display: flex;
+    width: 100px;
+    margin-top: -10px;
+    margin-bottom: -16px;
+    font-family: "Yu Gothic Medium", "游ゴシック Medium", YuGothic, 游ゴシック体, "ヒラギノ角ゴ Pro W3", メイリオ, sans-serif;
+}
+
 .menu_open{
     /* cursor: pointer; */
     display: inline-block;
@@ -34,50 +45,76 @@
     left: 30px;
 }
 
-.category_menu{
+#g-nav{
     /* display: inline-block; */
+    
     width: 100%;
-    height: 100px;
+    /* height: 170px; */
     flex-shrink: 0;
     /* display: none; */
     background: rgba(142, 142, 142, 0.35);
+    font-weight: bold;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+     /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
+     position: relative;
+     /* z-index: 999; */
+     /*ナビのスタート位置と形状*/
+     top:-500%;
+     left:0;
+     height: 150px;/*ナビの高さ*/
+     /* background:#999; */
+     /*動き*/
+     transition: all 0.6s;
+    
 }
-.mens_list{
-    /* display: flex;
+
+/*リストのレイアウト設定*/
+
+#g-nav li a{
+	color: #333;
+	text-decoration: none;
+	display: block;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	
+}
+
+/*アクティブクラスがついたら位置を0に*/
+#g-nav.panelactive{
+    top: 0;
+}
+/*========= ボタンのためのCSS ===============*/
+.openbtn1{
+    position:fixed;
+    z-index: 9999;
+    top:10px;
+    left: 10px;
+    cursor: pointer;
     width: 50px;
-    height: 150px;
-    flex-direction: column;
-    flex-shrink: 0;
-     */
-    color: #000;
-    font-size: 13px;
-    font-family: Inter;
-    display: flex;
+    height:50px;
 }
+  
+  
+
 .mens_category_list{
-    display: flex;
+    list-style: none;
     color: #000;
-    font-size: 12px;
+    font-size: 10px;
     font-family: Inter;
 }
-.womens_list{
-    /* display: flex;
-    width: 50px;
-    height: 150px;
-    flex-direction: column;
-    flex-shrink: 0;
-     */
-    color: #000;
-    font-size: 13px;
-    font-family: Inter;
-    display: flex;
-}
+
 .womens_category_list{
-    display: flex;
+    list-style: none;
     color: #000;
-    font-size: 12px;
+    font-size: 10px;
     font-family: Inter;
+
+}
+
+.A{
+    display: flex;
+    font-family: Inter;
+    font-size: 13px;
 }
 
 .search_container{
@@ -89,7 +126,7 @@
     justify-content: center;
 }
 .searchForm{
-    margin-left: 80px;
+    margin-left: 150px;
     margin-top: 5px;
     margin-bottom: 5px;
     height: 25px;
@@ -144,8 +181,11 @@
 
 .acountList{
     /* display: flex; */
+    list-style: none;
     color: #000;
-    font-size: 10px;
+    font-size: 15px;
+    position: absolute;
+    right: 10px;
     /* font-family: Inter; */
 }
 
@@ -211,12 +251,14 @@
 
 .footer{
     font-family: "Yu Gothic Medium", "æ¸¸ã‚´ã‚·ãƒƒã‚¯ Medium", YuGothic, "æ¸¸ã‚´ã‚·ãƒƒã‚¯ä½“", "ãƒ’ãƒ©ã‚®ãƒŽè§’ã‚´ Pro W3", "ãƒ¡ã‚¤ãƒªã‚ª", sans-serif;
-    margin-top: 80px;
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: space-between;
+    text-align: center;
+    margin: 0px;
+    border-top: 1px solid #333;
+    display: block;
 }
+
 
 .contact_container{
     text-decoration: none;
 }
+

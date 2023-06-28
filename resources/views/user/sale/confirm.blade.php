@@ -3,109 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <title>購入確認</title>
+    <link rel="stylesheet" href="/css/confirm.css">
 </head>
 <body>
     {{-- ヘッダーのインポート --}}
 
-    <h1>CONTACT</h1>
+    <div class="viewAll">
+        <h2>ご注文情報</h2>
 
-        <div>
-            ご注文概要
-            @if ( isset($user->cart->cart_details) )
-                @foreach ($user->cart->cart_details as $cart_detail)
-                    <div>
-                        @foreach( $cart_detail->product->image as $image )
-                            <img src='{{asset($image->filepath)}}' alt="$image->explanation">
-                        @endforeach
+        <p class="order">ご注文概要</p>
+            <div>
+                @if ( isset($user->cart->cart_details) )
+                    @foreach ($user->cart->cart_details as $cart_detail)
+                    <div class="overView">
+                        <div class="product_image">
+                            @foreach( $cart_detail->product->image as $image )
+                                <img class="img" src='{{asset($image->filepath)}}' alt="$image->explanation">
+                            @endforeach
+                        </div>
+                        <div class="product_detail">
+                            <div class="productName">
+                                <p class="product"> 商品名: {{$cart_detail->product->name}} </p>
+                                <!-- <p> {{$cart_detail->product->name}} </p> -->
+                            </div>
+                            <div>
+                                {{-- <p> カラー: {{}} </p> --}}
+                                <p> サイズ: {{$cart_detail->size->size}} </p>
+                                <p> 数量: {{$cart_detail->quantity}} </p>
+                            </div>
+                            <div>
+                                <p> ￥{{$cart_detail->amount}} </p>
+                            </div>
+                        </div>
+
                     </div>
-                    <div>
-                        <p> 商品名 </p>
-                        <p> {{$cart_detail->product->name}} </p>
-                    </div>
-                    <div>
-                        {{-- <p> カラー: {{}} </p> --}}
-                        <p> サイズ: {{$cart_detail->size->size}} </p>
-                        <p> 数量: {{$cart_detail->quantity}} </p>
-                    </div>
-                    <div>
-                        <p> ￥{{$cart_detail->amount}} </p>
-                    </div>
-                @endforeach
-            @endif
-        </div>
-        <div>
-            <p>
-                <span>小計</span>
-                    @if ( isset($user->cart->amount) )
-                        <span>{{$user->cart->amount}}</span>
-                    @else
-                        <span>0</span>
-                    @endif
-                <br>
-                <span>送料</span>
-                <span>￥800</span>
-            </p>
-            <p>
-                <span>合計</span>
-                @if ( isset($user->cart->amount) )
-                    <span>￥{{$user->cart->amount + 800}}</span>
-                @else
-                    <span>￥800</span>
+                    @endforeach
                 @endif
-            </p>
-        </div>
-
-        <div>
-            <div>
-                <h2>配送先情報</h2>
-                <div>
-                    <h3>郵便番号</h3>
-                    @if( isset($user->post_code) )
-                        <input type='text' name='post_code' value='{{$user->post_code}}' readonly>
-                    @else
-                        <input type='text' name='post_code'>
-                    @endif
+            </div>
+            
+            <div class='amount'>
+                <div class="Sub">
+                    <div class="subtotal">小計</div>
+                        @if ( isset($user->cart->amount) )
+                            <div>￥{{$user->cart->amount}}</div>
+                        @else
+                            <div>0</div>
+                        @endif
                 </div>
-                <div>
-                    <h3>郵便番号</h3>
-                    @if( isset($user->address) )
-                        <input type='text' name='address' value='{{$user->address}}' readonly>
+                <div class="Post">
+                    <div class="postage">送料</div>
+                    <div class="posNum">￥800</div>
+                </div>
+                <div class="Sum">
+                    <div class="sum">合計</div>
+                    @if ( isset($user->cart->amount) )
+                        <div class="sumNum">￥{{$user->cart->amount + 800}}</span>
                     @else
-                        <input type='text' name='address'>
+                        <div>￥800</div>
                     @endif
                 </div>
             </div>
+            <!-- <div>
+                <p>
+                    <span>小計</span>
+                        @if ( isset($user->cart->amount) )
+                            <span>{{$user->cart->amount}}</span>
+                        @else
+                            <span>0</span>
+                        @endif
+                    <br>
+                    <span>送料</span>
+                    <span>￥800</span>
+                </p>
+                <p>
+                    <span>合計</span>
+                    @if ( isset($user->cart->amount) )
+                        <span>￥{{$user->cart->amount + 800}}</span>
+                    @else
+                        <span>￥800</span>
+                    @endif
+                </p>
+            </div> -->
 
             <div>
-                <h2>お支払方法</h2>
                 <div>
-                    <h2>クレジットカード</h2>
-                    <div>
-                        <h3>カード番号</h3>
-                        @if( isset($user->credit) && isset($user->credit->card_number) )
-                            <input type='text' name='card_number' value='{{$user->credit->card_number}}' readonly>
+                    <h2>配送先情報</h2>
+                    <div class="deliveryContainer">
+                        <h4>郵便番号</h4>
+                        @if( isset($user->post_code) )
+                            <input class="postcode" type='text' name='post_code' value='{{$user->post_code}}' readonly>
                         @else
-                            <input type='text' name='card_number'>
+                            <input class="postcode" type='text' name='post_code'>
                         @endif
                     </div>
-                    <div>
-                        <h3>カード名義</h3>
-                        @if( isset($user->credit) && isset($user->credit->card_name) )
-                            <input type='text' name='card_name' value='{{$user->credit->card_name}}' readonly>
+                    <div class="deliveryContainer">
+                        <h4>住所</h4>
+                        @if( isset($user->address) )
+                            <input class="address" type='text' name='address' value='{{$user->address}}' readonly>
                         @else
-                            <input type='text' name='card_name'>
+                            <input class="address" type='text' name='address'>
                         @endif
                     </div>
                 </div>
+
+                <div>
+                    <h2>お支払情報</h2>
+                    <div>
+                        <h4>クレジットカード</h4>
+                        <div class="deliveryContainer">
+                            <h4>カード番号</h4>
+                            @if( isset($user->credit) && isset($user->credit->card_number) )
+                                <input class="card" type='text' name='card_number' value='{{$user->credit->card_number}}' readonly>
+                            @else
+                                <input class="card" type='text' name='card_number'>
+                            @endif
+                        </div>
+                        <div class="deliveryContainer">
+                            <h4>カード名義</h4>
+                            @if( isset($user->credit) && isset($user->credit->card_name) )
+                                <input class="cardName" type='text' name='card_name' value='{{$user->credit->card_name}}' readonly>
+                            @else
+                                <input class="cardName" type='text' name='card_name'>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-    <form action="/sale/procedure" method="post">
-        @csrf
-        <button type="submit">購入画面へ</button>
-    </form>
-
-
+        <form action="/sale/procedure" method="post">
+            @csrf
+            <button class="button" type="submit">購入確定</button>
+        </form>
+    </div>
     {{-- フッターのインポート --}}
 </body>
 </html>
