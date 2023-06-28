@@ -11,40 +11,40 @@
     @foreach ($errors->all() as $error)
         <li class="flex justify-center"> <span class="error">{{ $error }}</span></li>
     @endforeach
-    <br><br>
+    <br>
     <div class="flex justify-center">
         <form action="" method="post" enctype="multipart/form-data">
-            名前：
-            <input type="text" name="name" value="{{old('name')}}"><br><br>
-            カテゴリー：
-            <select name="category">
+        <table>
+            <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">名前</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><input type="text" name="name" value="{{old('name')}}"></td></tr>
+            <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">カテゴリー</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><select name="category">
                 <option value="1">アウター</option>
                 <option value="2">スウェット</option>
                 <option value="3">ニット</option>
                 <option value="4">Tシャツ</option>
                 <option value="5">ジーンズ</option>
-                <option value="7">ショーツ</option>
-                <option value="6">トラウザーズ</option>
-            </select><br><br>
-            性別：
-            <select name="gender">
+                <option value="6">ショーツ</option>
+                <option value="7">トラウザーズ</option>
+            </select></td></tr>
+            <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">性別</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><select name="gender">
                 <option value="メンズ">メンズ</option>
                 <option value="ウィメンズ">ウィメンズ</option>
-            </select><br><br>
-            値段：
-            <input type="number" name="price" value="{{old('price')}}" min="1"><br><br>
-            発売日：
-            <input type="date" name="release_date" value="{{old('release_date')}}"><br><br>
-            備考欄：
-            <textarea name="detail" cols="30" rows="5">{{old('detail')}}</textarea>
-            <br><br>
-            写真：
-            <input type="file" name="image"><br><br><br>
+            </select></td></tr>
+            <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">値段</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><input type="number" name="price" value="{{old('price')}}" min="1"></td></tr>
+            <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">発売日</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><input type="date" name="release_date" value="{{old('release_date')}}"></td></tr>
+            <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">備考欄</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><textarea name="detail" cols="30" rows="5">{{old('detail')}}</textarea></td></tr>
+            <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">写真</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5"><input type="file" name="image"></td></tr>
+        </table>
             <div class="text-center">
-                <input type="submit" value="登録" class="ml-2 rounded-lg bg-blue-500 p-2 text-white hover:bg-blue-600">
+                <input type="submit" value="登録" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
             </div>
             @csrf
         </form>
+    </div><br><br>
+    <div class="text-center border divide-x">
+        <a href="purchase_register">仕入れ登録</a>
+        <a href="purchase_list">　　仕入れ一覧</a>
+        <a href="stock_list">　　在庫一覧</a>
+        <a href="sale_list">　　売上一覧</a>
     </div>
 </body>
 </html>

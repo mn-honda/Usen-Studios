@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
-use DateTime;
+use Stripe\Stripe;
+use Stripe\Charge;
+use Exception;
 
 use App\Models\User;
 use App\Models\Credit;
 use App\Models\Sale;
 use App\Models\SaleDetail;
+use Stripe\Exception\CardException;
 use App\Models\Delivery;
 
 class SaleController extends Controller
@@ -18,15 +21,13 @@ class SaleController extends Controller
 
     public function confirm() {
         $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $card = Credit::getDefaultCard($user);
         // クレジットカードの登録確認
-        $credit = Credit::where('user_id', '=', $user_id)->get();
-        if ( count($credit) <= 0 ) {
-            // クレカ登録の進捗次第
+        if ( $card == null ) {
             return redirect('/sale/registration_credit');
         }
-
-        $user = User::findOrFail($user_id);
-        return view('user.sale.confirm', compact('user'));
+        return view('user.sale.confirm', compact('user', 'card'));
     }
 
     public function registration_credit() {
@@ -35,68 +36,29 @@ class SaleController extends Controller
         return view('user.sale.registration_credit', compact('user'));
     }
 
-    public function registration_credit_into_DB(Request $request) {
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        // バリデート...
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        $this->validate($request, [
-            'card_number_1' => 'required|digits:4',
-            'card_number_2' => 'required|digits:4',
-            'card_number_3' => 'required|digits:4',
-            'card_number_4' => 'required|digits:4',
-            'expiration' => 'required',
-            'security_code' => 'required|between:3,4',
-            'card_name' => 'required',
-        ]);
-
-        $user_id = auth()->user()->id;
-        $credit = Credit::where('user_id', '=', $user_id)->first();
-        if ( $credit == null ) {
-            $credit = new Credit();
-            $credit->user_id = $user_id;
-        }
-
-        // カード情報各種
-        $credit->name = $request->card_name;
-        // $credit->card_number = $request->card_number;
-        $credit->card_number = $request->card_number_1 . $request->card_number_2 . $request->card_number_3 . $request->card_number_4;
-        $credit->security_code = $request->security_code;
-        $expiration = $request->expiration . -01;
-        // $expiration->addMonth()->subDay();
-        $credit->expiration = $expiration;
-
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        // クレジットカードの情報が正しいかどうかの判定をどこかで追加したい
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-        $credit->save();
-
-        return redirect('/sale/confirm');
-
-    }
-
     public function procedure() {
         $user_id = auth()->user()->id;
+        $user = User::find($user_id);
 
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        // 購入時の処理は時間があれば記述したい
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        // 会計処理
+        $this->payment($user->cart->amount+800);
         // カートの中の商品を購入履歴に追加
         $sale_id = $this->move_cart_to_sale($user_id);
         $sale = Sale::find($sale_id);
+
         // deliveriesテーブルの作成
         $deliveries = new Delivery();
         $deliveries->date = $sale->date;;
         $deliveries->sale_id = $sale_id;
         $deliveries->save();
 
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        // 購入時の処理は時間があれば記述したい
-        $sale_flag = true;
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-        if ( $sale_flag ) {
-            return redirect("/sale/complete/{$sale_id}");
-        }
-        // 失敗時はその時の処理が必要になるかも
-        return redirect('/cart');
+        return redirect("/sale/complete/{$sale_id}");
+        // 失敗時はその時の処理が必要
+        // ↑個々に実装
+        // return redirect('/cart');
 
     }
 
@@ -105,9 +67,9 @@ class SaleController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $sale = Sale::find($id);
-        // var_dump($sale->sale_details);
-        // return;
+
         $this->send_mail($user, $sale);
+
         return view('user.sale.complete', compact('user', 'sale'));
     }
 
@@ -199,6 +161,51 @@ class SaleController extends Controller
         $sale->save();
 
         return $sale->id;
+    }
+
+    private function payment($amount) {
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        try {
+            $charge = Charge::create([
+                'amount' => $amount,
+                'currency' => 'jpy',
+                'customer' => $user->stripe_id,
+            ]);
+        } catch (CardException $e) {
+            // 決済失敗
+            return redirect('/sale/confirm');
+        }
+    }
+
+    public function registration_credit_into_stripe(Request $request) {
+        $token = $request->stripeToken;
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        if ( !$token ) {
+            // サーバーのエラー
+            return redirect('/index');
+        }
+        if ( $user->stripe_id ) {
+            $default_card = Credit::getDefaultCard($user);
+            if ( isset($default_card['id']) ) {
+                Credit::deleteCard($user);
+            }
+            $result = Credit::updateCustomer($token, $user);
+            if ( !$result  ) {
+                // カード情報の不備
+                return redirect('/sale/registration_credit');
+            }
+        } else {
+            $result = Credit::setCustomer($token, $user);
+            if ( !$result ) {
+                // カード情報の不備
+                return redirect('/sale/registration_credit');
+            }
+        }
+        // カードの登録完了
+        return redirect('/sale/confirm');
     }
 
 }

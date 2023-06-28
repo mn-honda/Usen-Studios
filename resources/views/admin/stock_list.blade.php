@@ -6,7 +6,13 @@
     <title>在庫一覧</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-medium">
+<body class="font-medium"><br>
+    <div class="text-right">
+        <a href="product_register">商品登録</a>
+        <a href="purchase_register">　仕入れ登録</a>
+        <a href="purchase_list">　仕入れ一覧</a>
+        <a href="sale_list">　売上一覧　</a>
+    </div>
     <div><br><h1 class="text-3xl flex justify-center">在庫一覧</h1><br></div>
         <table class="flex justify-center">
             <tr class="bg-gray-300 border-b text-xl border border-gray-600">
@@ -28,7 +34,11 @@
         </table>
     </div><br><br>
 
-    <a href="purchase_list" class="flex justify-center">▶仕入れ一覧</a><br>
-    <a href="sale_list" class="flex justify-center">▶売上一覧</a><br>
+    <div class="text-center border divide-x">
+        <a href="product_register">商品登録</a>
+        <a href="purchase_register">　　仕入れ登録</a>
+        <a href="purchase_list">　　仕入れ一覧</a>
+        <a href="sale_list">　　売上一覧</a>
+    </div><br>
 </body>
 </html>

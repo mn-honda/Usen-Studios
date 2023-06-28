@@ -34,49 +34,49 @@ class AdminController extends Controller
         if($request->gender=="メンズ"){
             switch($request->category){
                 case 1:
-                    $file_path1 = $request->image->store("images\M'outer", "public");
+                    $file_path1 = $request->image->store("/images/M'outer", "public");
                     break;
                 case 2:
-                    $file_path1 = $request->image->store("public\images\M'sweat");
+                    $file_path1 = $request->image->store("/images/M'sweat", "public");
                     break;
                 case 3:
-                    $file_path1 = $request->image->store("public\images\M'knit");
+                    $file_path1 = $request->image->store("/images/M'knit", "public");
                     break;
                 case 4:
-                    $file_path1 = $request->image->store("public\images\M'Tshirt");
+                    $file_path1 = $request->image->store("/images/M'Tshirt", "public");
                     break;
                 case 5:
-                    $file_path1 = $request->image->store("public\images\M'jeans");
+                    $file_path1 = $request->image->store("/images/M'jeans", "public");
                     break;
                 case 6:
-                    $file_path1 = $request->image->store("public\images\M'shorts");
+                    $file_path1 = $request->image->store("/images/M'shorts", "public");
                     break;
                 case 7:
-                    $file_path1 = $request->image->store("public\images\M'trouser");
+                    $file_path1 = $request->image->store("/images/M'trouser", "public");
                     break;
             }
         }else{
             switch($request->category){
                 case 1:
-                    $file_path1 = $request->image->store("public\images\W'outer");
+                    $file_path1 = $request->image->store("/images/W'outer", "public");
                     break;
                 case 2:
-                    $file_path1 = $request->image->store("public\images\W'sweat");
+                    $file_path1 = $request->image->store("/images/W'sweat", "public");
                     break;
                 case 3:
-                    $file_path1 = $request->image->store("public\images\W'knit");
+                    $file_path1 = $request->image->store("/images/W'knit", "public");
                     break;
                 case 4:
-                    $file_path1 = $request->image->store("public\images\W'Tshirt");
+                    $file_path1 = $request->image->store("/images/W'Tshirt", "public");
                     break;
                 case 5:
-                    $file_path1 = $request->image->store("public\images\W'jeans");
+                    $file_path1 = $request->image->store("/images/W'jeans", "public");
                     break;
                 case 6:
-                    $file_path1 = $request->image->store("public\images\W'shorts");
+                    $file_path1 = $request->image->store("/images/W'shorts", "public");
                     break;
                 case 7:
-                    $file_path1 = $request->image->store("public\images\W'trouser");
+                    $file_path1 = $request->image->store("/images/W'trouser", "public");
                     break;
             }
         }
@@ -94,7 +94,7 @@ class AdminController extends Controller
 
         $new_products->save();
 
-        $new_images1->filepath = $file_path1;
+        $new_images1->filepath = "/" . $file_path1;
         $new_images1->explanation = $request->gender;
         $new_images1->product_id = $new_products->id;
 

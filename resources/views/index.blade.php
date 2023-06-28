@@ -8,7 +8,7 @@
     <title>Top page</title>
 </head>
 <body>
-    @include("/header_footer.header",["all_categories" => $all_categories])
+<x-header-component></x-header-component>
 
     <!-- 画面全体 div -->
     <div class="main_container">
