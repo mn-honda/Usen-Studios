@@ -48,25 +48,24 @@ Route::post('admin/update_purchase/{id}', [AdminController::class, 'update_purch
 Route::post('admin/purchase_list', [AdminController::class, 'delete_purchase'])->middleware('auth'); 
 Route::get('admin/sale_list', [AdminController::class, 'sale_list'])->middleware('auth'); 
 Route::post('admin/sale_list', [AdminController::class, 'sale_deliveried'])->middleware('auth'); 
+Route::get('user/list', [SaleController::class, 'list'])->middleware('auth');
+Route::get('user/edit_user', [SaleController::class, 'edit_user'])->middleware('auth');
+Route::post('user/edit_user', [SaleController::class, 'update_user'])->middleware('auth');
 
-
-
-
-/// カート画面
+//平西
+// カート画面
 Route::get('/cart', [CartController::class, 'index'])->middleware('auth');
 Route::post('/cart/add', [CartController::class, 'add'])->middleware('auth');
 Route::post('/cart/update', [CartController::class, 'update'])->middleware('auth');
 Route::post('/cart/delete/{id}', [CartController::class, 'delete'])->middleware('auth');
 // クレカ登録画面
 Route::get('/sale/registration_credit', [SaleController::class, 'registration_credit'])->middleware('auth');
-Route::post('/sale/registration_credit', [SaleController::class, 'registration_credit_into_DB'])->middleware('auth');
+Route::post('/sale/registration_credit', [SaleController::class, 'registration_credit_into_stripe'])->middleware('auth');
 // 購入画面
 Route::get('/sale/confirm', [SaleController::class, 'confirm'])->middleware('auth');
 Route::post('/sale/procedure', [SaleController::class, 'procedure'])->middleware('auth');
 Route::get('/sale/complete/{id}', [SaleController::class, 'complete'])->middleware('auth');
-// 購入履歴一覧
-Route::get('/sale/list', [SaleController::class, 'list'])->middleware('auth');
-Route::get('/sale/list/{id}', [SaleController::class, 'detail'])->middleware('auth');
+
 
 // 佐々木
 Route::get("/product/{id}",[ProductController::class, 'list_fits_category'])->middleware('auth');
