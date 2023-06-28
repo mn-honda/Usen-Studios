@@ -73,8 +73,9 @@ Route::get("/product/{id}",[ProductController::class, 'list_fits_category'])->mi
 Route::post("/product",[ProductController::class, 'list_fits_word'])->middleware('auth');
 Route::get("/product_detail/{id}",[ProductController::class, 'product_detail'])->middleware('auth');
 Route::post("/index",[CategoryController::class, 'pickup'])->middleware('auth');
+Route::post("/inquiry",[InquiriesController::class, 'send_inquiry'])->middleware('auth');
 Route::get("/inquiry",function(){
-    return view("user.inquiry.inquiry");
+    return view("/user/contact/inquiry");
 })->middleware('auth');
 
 // ほんだ　
