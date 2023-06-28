@@ -17,7 +17,7 @@ class AdminController extends Controller
 {
     public function product(){
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");//管理者出ない場合商品一覧画面に戻す
+            return redirect("/index");//管理者出ない場合商品一覧画面に戻す
         }
         return view("admin/product_register");
     }
@@ -111,7 +111,7 @@ class AdminController extends Controller
     public function purchase_product()
     {
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");
+            return redirect("/index");
         }
         $products = Product::all();
 
@@ -145,7 +145,7 @@ class AdminController extends Controller
     public function purchase_list()
     {
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");
+            return redirect("/index");
         }
         $purchases = Purchase::all();
 
@@ -155,7 +155,7 @@ class AdminController extends Controller
     public function edit_purchase($id)
     {
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");
+            return redirect("/index");
         }
         $edit_purchase = Purchase::find($id);
 
@@ -206,7 +206,7 @@ class AdminController extends Controller
     public function stock_list()
     {
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");
+            return redirect("/index");
         }
         $stocks = Stock::all();
 
@@ -216,7 +216,7 @@ class AdminController extends Controller
     public function sale_list()
     {
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");
+            return redirect("/index");
         }
         $sales = SaleDetail::all();
         $sizes = Size::all();
