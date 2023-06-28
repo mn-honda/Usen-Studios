@@ -61,8 +61,7 @@
                 @endforeach
             </table>
         </div><br><br>
-        <a href="/index" class="flex justify-center">戻る</a>
-    @include("/header_footer.footer")  
+    @include("/header_footer.footer")
 </body>
 
 </html>
