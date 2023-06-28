@@ -6,7 +6,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>メンバー情報編集</title>
 </head>
-<body class="font-medium">
+<body>
     <x-header-component>
         <div><br><h1 class="text-3xl flex justify-center">メンバー情報編集</h1><br></div>
         @foreach ($errors->all() as $error)
@@ -32,4 +32,5 @@
         <a href="/user/list" class="flex justify-center">ユーザー情報に戻る</a>
     </x-header-component>
 </body>
+@include("/header_footer.footer")
 </html>
