@@ -8,6 +8,7 @@ use App\Models\Stock;
 use App\Models\Size;
 use App\Models\SaleDetail;
 use App\Models\Delivery;
+use App\Models\Inquiry;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -235,6 +236,13 @@ class AdminController extends Controller
         $sale_deliveried->save();
 
         return redirect('admin/sale_list');
+    }
+
+    public function contact_list()
+    {
+        $contacts = Inquiry::all();
+
+        return view('admin/contact_list', compact('contacts'));
     }
 
 }
