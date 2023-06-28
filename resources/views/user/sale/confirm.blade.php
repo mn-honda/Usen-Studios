@@ -121,7 +121,7 @@
                         <div class="deliveryContainer">
                             <h4>カード名義</h4>
                             @if( isset($card["name"]) )
-                                <input class="cardName" type='text' name='card_name' value='{{card["name"]}}' readonly>
+                                <input class="cardName" type='text' name='card_name' value='{{$card["name"]}}' readonly>
                             @else
                                 <input class="cardName" type='text' name='card_name'>
                             @endif

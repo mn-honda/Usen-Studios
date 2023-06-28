@@ -125,7 +125,7 @@ class SaleController extends Controller
         $user = User::find($user_id);
         if ( !$token ) {
             // サーバーのエラー
-            return redirect('/product');
+            return redirect('/index');
         }
         if ( $user->stripe_id ) {
             $default_card = Credit::getDefaultCard($user);

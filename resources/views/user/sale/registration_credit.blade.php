@@ -17,7 +17,8 @@
                 <div class="cashContainer">
                     <h2>クレジットカード</h2>
                     <div>
-                        <form id="card-from" action="" method="post">
+                        <form id="card-form" action="" method="post">
+                            @csrf
                             <div>
                                 <label for="card_number">カード番号</label>
                                 <div id="card-number" class="form-control">
@@ -49,7 +50,7 @@
                     @foreach ($user->cart->cart_details as $cart_detail)
                         <div>
                             @foreach( $cart_detail->product->image as $image )
-                                <img src='{{asset($image->filepath)}}' alt="$image->explanation" class="inner_product_image>
+                                <img src='{{asset($image->filepath)}}' alt="$image->explanation" class="inner_product_image">
                             @endforeach
                         </div>
                         <div>
