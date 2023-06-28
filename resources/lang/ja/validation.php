@@ -158,6 +158,9 @@ return [
         'quantity' =>'個数',
         'image' => '画像',
         'date' => '日付',
+        'post_code' => '郵便番号',
+        'address' => '住所',
+        'email' => 'Eメールアドレス'
     ],
 
 ];
