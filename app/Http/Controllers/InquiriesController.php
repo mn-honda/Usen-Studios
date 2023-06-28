@@ -7,14 +7,17 @@ use Datetime;
 class InquiriesController extends Controller
 {
     public function send_inquiry(Request $request){
-        $inquiry = Inquiry::findOrFail($request);
+        $inquiry = new Inquiry();
+        
         $inquiry->user_id = $request->user_id;
         $inquiry->detail = $request->detail;
         $inquiry->date = new Datetime();
-        $inquiry-> = $request->sale_detail_id;
-
+        $inquiry->sale_detail_id = $request->sale_detail_id;
+        $inquiry->title = $request->title;
         $inquiry->save();
         $message = "送信完了";
-        return view("user.inquiry.inquiry",compact("message"));
+        
+        // dd("きてる？");
+        return view("user.contact.inquiry",compact("message"));
     }
 }
