@@ -23,8 +23,8 @@
                 <option value="3">ニット</option>
                 <option value="4">Tシャツ</option>
                 <option value="5">ジーンズ</option>
-                <option value="7">ショーツ</option>
-                <option value="6">トラウザーズ</option>
+                <option value="6">ショーツ</option>
+                <option value="7">トラウザーズ</option>
             </select><br><br>
             性別：
             <select name="gender">
@@ -45,6 +45,12 @@
             </div>
             @csrf
         </form>
+    </div><br><br>
+    <div class="text-center border divide-x">
+        <a href="purchase_register">仕入れ登録</a>
+        <a href="purchase_list">　　仕入れ一覧</a>
+        <a href="stock_list">　　在庫一覧</a>
+        <a href="sale_list">　　売上一覧</a>
     </div>
 </body>
 </html>
