@@ -117,11 +117,11 @@ class SaleController extends Controller
     }
 
     private function send_mail($user, $sale) {
-        $title = 'ご注文完了のお知らせ';
+        $title = 'UsenStudios ご注文完了のお知らせ';
         $email = $user->email;
 
          // メールの送信処理
-        Mail::send('email.sail', [
+        Mail::send('email.sale', [
             'user' => $user,
             'sale' => $sale,
         ], function ($message) use ($email, $title) {
