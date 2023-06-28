@@ -8,10 +8,13 @@
     <title>Document</title>
 </head>
 <body>
+    {{-- ヘッダーのインポート --}}
+    <x-header-component></x-header-component>
+
     <form class="detailForm" action="/cart/add" method="post">
         @foreach($product_detail as $product)
             @foreach($product->image as $image)
-                <img src="{{$image->filepath}}" class="productImag" alt="" width="300" height="500">
+                <img src="{{$image->filepath}}" class="productImg" alt="" width="300" height="500">
             @endforeach
             <div class="textArea">
                 <div class="leftText">
@@ -47,5 +50,7 @@
 
             </div>
     </form>
+    {{-- フッターのインポート --}}
+    @include("/header_footer.footer")
 </body>
 </html>

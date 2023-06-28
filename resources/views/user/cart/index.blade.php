@@ -8,7 +8,8 @@
 <body>
     <div class="viewAll">
         {{-- ヘッダーのインポート --}}
-    
+        <x-header-component></x-header-component>
+
         {{-- < ショップに戻る --}}
         <a href='/product'>
             <input class="arrow_left" type="image" src= '/icon/keyboard_arrow_left.png'>
@@ -105,6 +106,7 @@
         <div>
         
         {{-- フッターのインポート --}}
+        @include("/header_footer.footer")
     </div>
 </body>
 </html>

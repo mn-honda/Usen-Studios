@@ -7,7 +7,8 @@
 </head>
 <body>
     {{-- ヘッダーのインポート --}}
-
+    <x-header-component></x-header-component>
+    
     <div class="viewAll">
         <h2>ご注文情報</h2>
 
@@ -136,5 +137,6 @@
         </form>
     </div>
     {{-- フッターのインポート --}}
+    @include("/header_footer.footer")
 </body>
 </html>
