@@ -1,3 +1,7 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="/js/post_api.js"></script>
 <title>会員登録</title>
 <x-guest-layout>
     <div class="text-center text-xl">新規登録</div><br>
@@ -50,16 +54,17 @@
 
         <!-- Post　Cord -->
         <div>
-            <x-input-label for="post_code" :value="__('郵便番号')" />
-            <x-text-input id="post_code1" class="block mt-1 w-16" type="text" name="post_code1" :value="old('post_code1')" required autofocus autocomplete="post_code1" placeholder="123"/>-
-            <x-text-input id="post_code2" class="block mt-1 w-20" type="text" name="post_code2" :value="old('post_code2')" required autofocus autocomplete="post_code2" placeholder="4567"/>
+            <x-input-label for="post_code" :value="__('郵便番号（半角数字ハイフンなし）')" />
+            
+            <x-text-input id="post_code" class="mt-1 w-20" type="text" name="post_code1" :value="old('post_code1')" required autofocus autocomplete="post_code1" placeholder="1234567"/>
+            <input type="button" value="住所検索" id="search_address_btn" class="ml-4 border-gray-400 border-2" >
             <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
         </div>
         <br>
         <!-- 住所 -->
         <div>
             <x-input-label for="address" :value="__('住所')" />
-            <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="address" placeholder="例：東京都目黒区上大崎1-1-1"/>
+            <x-text-input id="address" class="block mt-1 w-full"  type="text" name="address" :value="old('address')" required autofocus autocomplete="address" placeholder="例：東京都目黒区上大崎1-1-1"/>
             <x-input-error :messages="$errors->get('address')" class="mt-2" />
         </div>
         <br>
