@@ -12,4 +12,8 @@ class Inquiry extends Model
     public function sale_detail() {
         return $this->belongsTo(SaleDetail::class);
     }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }
