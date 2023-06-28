@@ -7,7 +7,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <x-header-component>
+    <x-header-component></x-header-component>
         <div class="text-center text-9xl font-medium">UsenStudios</div><br><br>
         <p class="text-center text-3xl">ユーザー情報</p><br>
         <div class="flex justify-center">
@@ -62,7 +62,7 @@
             </table>
         </div><br><br>
         <a href="/index" class="flex justify-center">戻る</a>
-    </x-header-component>
+    @include("/header_footer.footer")  
 </body>
-@include("/header_footer.footer")
+
 </html>
