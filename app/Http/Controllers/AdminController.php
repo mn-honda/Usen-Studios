@@ -9,6 +9,7 @@ use App\Models\Size;
 use App\Models\SaleDetail;
 use App\Models\Delivery;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
@@ -105,7 +106,7 @@ class AdminController extends Controller
 
         $new_stocks->save();
 
-      return view('admin/product_register', compact('request'));
+        return view('admin/product_register', compact('request'));
     }
 
     public function purchase_product()
@@ -227,14 +228,30 @@ class AdminController extends Controller
     public function sale_deliveried(Request $request)
     {
         $sale_deliveried = Delivery::whereSale_id($request->id)->first();
+        $sale = $sale_deliveried->sale;
+        $user = $sale->user;
         if($request->deliveried){
             $sale_deliveried->is_delivered = "1";
+            $this->send_mail($user, $sale);
         }else if($request->arrived){
             $sale_deliveried->is_delivered = "2";
         }
         $sale_deliveried->save();
 
         return redirect('admin/sale_list');
+    }
+
+    private function send_mail($user, $sale) {
+        $title = 'UsenStudios 発送完了のお知らせ';
+        $email = $user->email;
+
+         // メールの送信処理
+        Mail::send('email.send', [
+            'user' => $user,
+            'sale' => $sale,
+        ], function ($message) use ($email, $title) {
+            $message->to($email)->subject($title);
+        });
     }
 
 }
