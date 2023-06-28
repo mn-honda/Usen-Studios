@@ -25,7 +25,6 @@ class SaleController extends Controller
         if ( $card == null ) {
             return redirect('/sale/registration_credit');
         }
-
         return view('user.sale.confirm', compact('user', 'card'));
     }
 
@@ -35,47 +34,7 @@ class SaleController extends Controller
         return view('user.sale.registration_credit', compact('user'));
     }
 
-    public function registration_credit_into_DB(Request $request) {
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        // バリデート...
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        $this->validate($request, [
-            'card_number_1' => 'required|digits:4',
-            'card_number_2' => 'required|digits:4',
-            'card_number_3' => 'required|digits:4',
-            'card_number_4' => 'required|digits:4',
-            'expiration' => 'required',
-            'security_code' => 'required|between:3,4',
-            'card_name' => 'required',
-        ]);
-
-        $user_id = auth()->user()->id;
-        $credit = Credit::where('user_id', '=', $user_id)->first();
-        if ( $credit == null ) {
-            $credit = new Credit();
-            $credit->user_id = $user_id;
-        }
-
-        // カード情報各種
-        $credit->name = $request->card_name;
-        // $credit->card_number = $request->card_number;
-        $credit->card_number = $request->card_number_1 . $request->card_number_2 . $request->card_number_3 . $request->card_number_4;
-        $credit->security_code = $request->security_code;
-        $expiration = $request->expiration . -01;
-        // $expiration->addMonth()->subDay();
-        $credit->expiration = $expiration;
-
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        // クレジットカードの情報が正しいかどうかの判定をどこかで追加したい
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-        $credit->save();
-
-        return redirect('/sale/confirm');
-
-    }
-
-    public function procedure(Request $request) {
+    public function procedure() {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
 
@@ -99,8 +58,6 @@ class SaleController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $sale = Sale::find($id);
-        // var_dump($sale->sale_details);
-        // return;
         return view('user.sale.complete', compact('user', 'sale'));
     }
 
@@ -139,11 +96,10 @@ class SaleController extends Controller
     }
 
     // public function payment(Request $request) {
-    public function payment($amount) {
+    private function payment($amount) {
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-
         try {
             $charge = Charge::create([
                 'amount' => $amount,
@@ -154,22 +110,12 @@ class SaleController extends Controller
             // 決済失敗
             return redirect('/sale/confirm');
         }
-
-        // $charge = $user->charge($request->amount, $request->paymentMethodId);
-        // $charge = Charge::create([
-            // 'amount' => $request->amount,
-            // 'currency' => 'jpy',
-            // 'source' => $request->stripeToken,
-        // ]);
-
-        // return back();
     }
 
     public function registration_credit_into_stripe(Request $request) {
         $token = $request->stripeToken;
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        $ret = null;
         if ( !$token ) {
             // サーバーのエラー
             return redirect('/product');
@@ -193,17 +139,6 @@ class SaleController extends Controller
         }
         // カードの登録完了
         return redirect('/sale/confirm');
-    }
-
-    public function delete_credit_information() {
-        $user_id = auth()->user()->id;
-        $user = User::find($user_id);
-        $result = Credit::deleteCard($user);
-        if ( $result ) {
-            // 成功
-        } else {
-            // 成功
-        }
     }
 
 }
