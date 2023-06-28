@@ -56,7 +56,7 @@
         <div>
             <x-input-label for="post_code" :value="__('郵便番号（半角数字ハイフンなし）')" />
             
-            <x-text-input id="post_code" class="mt-1 w-20" type="text" name="post_code1" :value="old('post_code1')" required autofocus autocomplete="post_code1" placeholder="1234567"/>
+            <x-text-input id="post_code" class="mt-1 w-20" type="text" name="post_code" :value="old('post_code1')" required autofocus autocomplete="post_code" placeholder="1234567"/>
             <input type="button" value="住所検索" id="search_address_btn" class="ml-4 border-gray-400 border-2" >
             <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
         </div>
