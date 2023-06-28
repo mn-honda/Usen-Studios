@@ -7,42 +7,55 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <div class="flex justify-center">
-        <table>
-            <tr class="bg-gray-300 border-b text-xl border border-gray-600">
-                <th class="px-10 py-5">購入日時</th>
-                <th class="px-10 py-5">商品ID</th>
-                <th class="px-10 py-5">個数</th>
-                <th class="px-10 py-5">サイズ</th>
-                <th class="px-10 py-5">金額</th>
-                <th class="px-10 py-5">配送状況</th>
-            </tr>
-            @foreach($user->sales as $sale)
-                <tr class="bg-gray-100 text-center border border-gray-600">
-                    <td>{{$sale->date}}</td>
-                    <td>{{$sale->product_id}}</td>
-                    <td>{{$sale->quantity}}</td>
-                    <td>
-                        @if($sale->size_id==1)XS
-                        @elseif($sale->size_id==2)S
-                        @elseif($sale->size_id==3)M
-                        @elseif($sale->size_id==4)L
-                        @elseif($sale->size_id==5)XL
-                        @endif
-                    </td>
-                    <td>{{$sale->amount}}</td>
-                    <td>
-                        @if($sale->sale->delivery->is_delivered == 0)
-                            配送前
-                        @elseif($sale->sale->delivery->is_delivered == 1)
-                            配送済み
-                        @else
-                            到着済み
-                        @endif
-                    </td>
+        <div class="text-center text-9xl font-medium">UsenStudios</div><br><br>
+        <p class="text-center text-3xl">ユーザー情報</p><br><br>
+        <div class="text-center text-xl">
+            お名前：{{$user->name}}<br>
+            Eメールアドレス：{{$user->email}}<br>
+            住所：{{$user->post_code}}<br>
+            　　{{$user->address}}<br>
+            <form action="/user/edit_user" method="get">
+                <input type="submit" value="編集" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
+            </form>
+        </div><br><br><br>
+        <p class="text-center text-3xl">購入履歴</p><br><br>
+        <div class="flex justify-center">
+            <table>
+                <tr class="bg-gray-300 border-b text-xl border border-gray-600">
+                    <th class="px-10 py-5">購入日時</th>
+                    <th class="px-10 py-5">商品名</th>
+                    <th class="px-10 py-5">個数</th>
+                    <th class="px-10 py-5">サイズ</th>
+                    <th class="px-10 py-5">金額</th>
+                    <th class="px-10 py-5">配送状況</th>
                 </tr>
-            @endforeach
-        </table>
-    </div>
+                @foreach($user->sale_details as $sale_detail)
+                    <tr class="bg-gray-100 text-center border border-gray-600">
+                        <td>{{$sale_detail->sale->date->format('Y/m/d')}}</td>
+                            <td>{{$sale_detail->product->name}}</td>
+                            <td>{{$sale_detail->quantity}}</td>
+                            <td>
+                                @if($sale_detail->size_id==1)XS
+                                @elseif($sale_detail->size_id==2)S
+                                @elseif($sale_detail->size_id==3)M
+                                @elseif($sale_detail->size_id==4)L
+                                @elseif($sale_detail->size_id==5)XL
+                                @endif
+                            </td>
+                            <td>{{$sale_detail->amount}}</td>
+                        <td>
+                            @if($sale_detail->sale->delivery->is_delivered==0)
+                                準備中
+                            @elseif($sale_detail->sale->delivery->is_delivered==1)
+                                配達中
+                            @else
+                                到着済み
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
 </body>
+@include("/header_footer.footer")
 </html>

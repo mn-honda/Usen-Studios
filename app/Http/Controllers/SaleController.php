@@ -100,7 +100,7 @@ class SaleController extends Controller
 
     }
 
-    
+
     public function complete($id) {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
@@ -110,13 +110,42 @@ class SaleController extends Controller
         $this->send_mail($user, $sale);
         return view('user.sale.complete', compact('user', 'sale'));
     }
-    
-    
+
+
     public function list() {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
 
         return view('user.sale.list', compact('user'));
+    }
+
+    public function edit_user() {
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        return view('user.contact.edit_user', compact('user'));
+    }
+
+    public function update_user(Request $request) {
+        $this->validate($request, [
+            'name' => ['required'],
+            'email' => ['required'],
+            'post_code' =>['required'],
+            'address' =>['required'],
+        ]);
+
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->post_code = $request->post_code;
+        $user->address = $request->address;
+
+        $user->save();
+
+        return redirect('user/list');
+
     }
 
     public function detail($id) {
