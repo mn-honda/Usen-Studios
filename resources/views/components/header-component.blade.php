@@ -31,7 +31,7 @@
             
             <div class="acount_container">
                 <!-- アカウントアイコン -->
-                <a href="">
+                <a href="/user/list">
                     <img class="acountIcon" src="/icon/account_icon.png">
                 </a>
 
