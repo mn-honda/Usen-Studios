@@ -244,16 +244,22 @@ class AdminController extends Controller
 
     public function sale_deliveried(Request $request)
     {
+        $sale_id = $request->id;
+        $sale = Sale::find($sale_id);
+        $user = $sale->user;
         $sale_deliveried = Delivery::whereSale_id($request->id)->first();
         $stock = Stock::whereProduct_id($request->product_id)->first();
         if($request->deliveried){
             $sale_deliveried->is_delivered = "1";
         }else if($request->arrived){
             $sale_deliveried->is_delivered = "2";
+            $this->send_order_mail($user, $sale);
         }else if($request->returned){
             $sale_deliveried->is_delivered = "3";
             $stock->stock += $request->quantity;
             $stock->save();
+            $this->refund($sale_id);
+            $this->send_refund_mail($user, $sale);
         }
         $sale_deliveried->save();
 
@@ -268,7 +274,7 @@ class AdminController extends Controller
         return view('/admin/contact_list', compact('contacts'));
     }
 
-    private function send_mail($user, $sale) {
+    private function send_order_mail($user, $sale) {
         $title = 'UsenStudios 発送完了のお知らせ';
         $email = $user->email;
 
@@ -281,20 +287,31 @@ class AdminController extends Controller
         });
     }
 
-    public function refund($sale_id) {
+    private function send_refund_mail($user, $sale) {
+        $title = 'UsenStudios 返品完了のお知らせ';
+        $email = $user->email;
+
+         // メールの送信処理
+        Mail::send('email.refund', [
+            'user' => $user,
+            'sale' => $sale,
+        ], function ($message) use ($email, $title) {
+            $message->to($email)->subject($title);
+        });
+    }
+
+    private function refund($sale_id) {
         $sale = Sale::find($sale_id);
         if ( $sale == null ) {
             // 商品IDがない
-            return back()->with('msg', '購入データがありません。');
+            return false;
         }
         $charge_id = $sale->charge_id;
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-        $re = Refund::create(array(
+        $refund = Refund::create(array(
             "charge" => $charge_id,
         ));
-        return back();
+        return true;
     }
     
-
-
 }
