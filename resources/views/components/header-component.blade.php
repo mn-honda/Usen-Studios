@@ -22,12 +22,6 @@
                     @csrf
                 </form>
             </div>
-
-            @auth
-            <div class="auth">
-                <p>{{Auth::user()->name}}様</p>
-            </div>
-            @endauth
             
             <div class="acount_container">
                 <!-- アカウントアイコン -->
@@ -39,44 +33,56 @@
                 <a href="/cart">
                     <img class="cartIcon" src="/icon/cart_icon.png">
                 </a>
+                
+            </div>
+            <div class="auth">
+                @auth
+                    {{Auth::user()->name}}様
+                @endauth
             </div>
         </div>
 
         <!-- メニューバナーのナビゲーション -->
         <nav id="g-nav">
             <div class="A">
-            <ul>
-                メンズ
-                    @foreach ($all_categories as $category)
-                    <li class="mens_category_list"><a href="/product/{{$category -> id}}?gender=メンズ">
-                        {{$category -> name}}<br>
-                    </a></li>
-                    @endforeach
-            </ul>
-            <ul>
-                ウィメンズ
-                    @foreach ($all_categories as $category)
-                    <li class="womens_category_list"><a href="/product/{{$category -> id}}?gender=ウィメンズ">
-                        {{$category -> name}}<br>
-                    </a></li>
-                    @endforeach
-            </ul>
-            <a href="/index" class="home">ホーム</a>
-                
-            <ul>
-                @auth
-                    <form action="{{route('logout')}}" method="post" name="form1">
-                        <li class="acountList"><a href="javascript:form1.submit()">サインアウト</a></li>
-                        @csrf
-                    </form>
-                @endauth
-                @guest
-                    <form action="/index" method="post" name="form2">
-                        <li class="acountList"><a href="javascript:form2.submit()">サインイン</a></li>
-                        @csrf
-                    </form>
-                @endguest
-            </ul>
+                <div class="m_list">
+                    <ul>
+                        メンズ
+                            @foreach ($all_categories as $category)
+                            <li class="mens_category_list"><a href="/product/{{$category -> id}}?gender=メンズ">
+                                {{$category -> name}}<br>
+                            </a></li>
+                            @endforeach
+                    </ul>
+                </div>
+                <div class="w_list">
+                    <ul>
+                        ウィメンズ
+                            @foreach ($all_categories as $category)
+                            <li class="womens_category_list"><a href="/product/{{$category -> id}}?gender=ウィメンズ">
+                                {{$category -> name}}<br>
+                            </a></li>
+                            @endforeach
+                    </ul>
+                </div>
+                <a href="/index" class="home">ホーム</a>
+                <ul>
+                    @auth
+                        <form action="{{route('logout')}}" method="post" name="form1">
+                            <li class="acountList"><a href="javascript:form1.submit()">サインアウト</a></li>
+                            @csrf
+                        </form>
+                        @if(Auth::user()->is_admin == 1)
+                            <li class="acountList2"><a href="/admin">admin page</a></li>
+                        @endif
+                    @endauth
+                    @guest
+                        <form action="/index" method="post" name="form2">
+                            <li class="acountList"><a href="javascript:form2.submit()">サインイン</a></li>
+                            @csrf
+                        </form>
+                    @endguest
+                </ul>
             </div>    
         </nav>
         </div>
