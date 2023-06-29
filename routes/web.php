@@ -51,6 +51,8 @@ Route::post('admin/sale_list', [AdminController::class, 'sale_deliveried'])->mid
 Route::get('user/list', [SaleController::class, 'list'])->middleware('auth');
 Route::get('user/edit_user', [SaleController::class, 'edit_user'])->middleware('auth');
 Route::post('user/edit_user', [SaleController::class, 'update_user'])->middleware('auth');
+Route::get('admin/contact_list', [AdminController::class, 'contact_list'])->middleware('auth');
+Route::get('admin', function(){ return view('/admin/index'); });
 
 //平西
 // カート画面
