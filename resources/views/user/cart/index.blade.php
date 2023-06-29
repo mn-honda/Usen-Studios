@@ -52,7 +52,12 @@
                                         {{-- プルダウン --}}
                                         <form action='/cart/update' method='post' class='num_of_pulldown'>
                                             <select name='cart_detail_quantity' onchange="submit(this.form)">
-                                                @for ($i = 1; $i <= 10; $i++)
+                                                @if ( $cart_detail->quantity < 10 )
+                                                    {{ $length = 10 }}
+                                                @else
+                                                    {{ $length = $cart_detail->quantity }}
+                                                @endif
+                                                @for ($i = 1; $i <= $length; $i++)
                                                     @if ($i == $cart_detail->quantity)
                                                         <option value='{{$i}}' selected>{{$i}}</option>
                                                     @else
