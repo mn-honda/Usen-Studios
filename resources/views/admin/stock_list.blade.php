@@ -11,28 +11,25 @@
         <a href="product_register">商品登録</a>
         <a href="purchase_register">　仕入れ登録</a>
         <a href="purchase_list">　仕入れ一覧</a>
-        <a href="sale_list">　売上一覧</a>
-        <a href="contact_list">　お問い合わせ一覧　</a>
+        <a href="sale_list">　売上一覧　</a>
     </div>
     <div><br><h1 class="text-3xl flex justify-center">在庫一覧</h1><br></div>
         <table class="flex justify-center">
-            @php $num = 0; @endphp
+            <tr class="bg-gray-300 border-b text-xl border border-gray-600">
+                <th class="px-10 py-5">商品ID</th>
+                <th class="px-10 py-5">商品名</th>
+                <th class="px-10 py-5">写真</th>
+                <th class="px-10 py-5">個数</th>
+            </tr>
             @foreach($stocks as $stock)
-                @if($num%5==0)
-                    <tr class="bg-gray-100 border border-gray-600">
-                @endif
-                    <td class="border border-gray-600 text-center"><br>{{$stock->product_id}}
-                    {{$stock->product->name}}
-                    @foreach($stock->product->image as $image)
-                    <div class="flex justify-center">
+                <tr class="bg-gray-100 text-center border border-gray-600">
+                    <td>{{$stock->product_id}}</td>
+                    <td>{{$stock->product->name}}</td>
+                    <td>@foreach($stock->product->image as $image)
                         <img src="{{$image->filepath}}" alt="" width=150 heght=300>
-                    </div>
-                    @endforeach
-                    <div class="text-xl">{{$stock->stock}}個</div><br></td>
-                @if($num%5==4)
-                    </tr>
-                @endif
-                @php $num += 1; @endphp
+                    @endforeach</td>
+                    <td>{{$stock->stock}}</td>
+                </tr>
             @endforeach
         </table>
     </div><br><br>
@@ -42,8 +39,6 @@
         <a href="purchase_register">　　仕入れ登録</a>
         <a href="purchase_list">　　仕入れ一覧</a>
         <a href="sale_list">　　売上一覧</a>
-        <a href="contact_list">　　お問い合わせ一覧</a>
     </div><br>
 </body>
 </html>
-
