@@ -23,7 +23,6 @@
         
                     <p class="productdetail">商品詳細：<br>{{$product->detail}}</p>
                     サイズ：<select name="size">
-                        @php dump($product->sizes); 
                     @foreach($product->sizes as $size)
                         <option value="{{$size->id}}">{{$size->size}}</option>
                     @endforeach

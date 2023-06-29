@@ -11,7 +11,7 @@
         <x-header-component></x-header-component>
 
         {{-- < ショップに戻る --}}
-        <a href='/product'>
+        <a class="back" href='/product'>
             <input class="arrow_left" type="image" src= '/icon/keyboard_arrow_left.png'>
             <span class='back_to_shop'> ショップに戻る </span>
         </a>
