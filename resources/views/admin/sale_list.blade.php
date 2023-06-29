@@ -38,24 +38,7 @@
                     <td>{{$saledetail->sale->date->format('Y/m/d')}}</td>
                     <td>{{$saledetail->product_id}}</td>
                     <td>{{$saledetail->quantity}}</td>
-                    <td>
-
-                        @if($saledetail->size_id==1)XS
-                        @elseif($saledetail->size_id==2)S
-                        @elseif($saledetail->size_id==3)M
-                        @elseif($saledetail->size_id==4)L
-                        @elseif($saledetail->size_id==5)XL
-                        @endif
-
-                        {{$sale->size->size}}
-                        {{-- @if($sale->size_id==1)XS --}}
-                        {{-- @elseif($sale->size_id==2)S --}}
-                        {{-- @elseif($sale->size_id==3)M --}}
-                        {{-- @elseif($sale->size_id==4)L --}}
-                        {{-- @elseif($sale->size_id==5)XL --}}
-                        {{-- @endif --}}
-
-                    </td>
+                    <td>{{$saledetail->size->size}}</td>
                     <td>{{$saledetail->amount}}</td>
                     <td>
                         @if($saledetail->sale->delivery->is_delivered == 0)
@@ -112,7 +95,6 @@
         </div>
 
     </div><br><br>
-    <p class="flex justify-center text-xl">合計売上金額:{{$total}}円</p><br><br>
 
     <div class="text-center border divide-x">
         <a href="product_register">商品登録</a>
