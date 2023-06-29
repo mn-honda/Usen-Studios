@@ -8,7 +8,6 @@ use App\Models\Stock;
 use App\Models\Size;
 use App\Models\Sale;
 use App\Models\SaleDetail;
-use App\Models\Sale;
 use App\Models\Delivery;
 use App\Models\Inquiry;
 
@@ -227,8 +226,6 @@ class AdminController extends Controller
         $sizes = Size::all();
         $sales = Sale::all();
 
-        return view('/admin/sale_list', compact('saledetails', 'sizes', 'sales'));
-
         if ( $request->sale_year != null ) {
             $year = $request->sale_year;
         } else {
@@ -240,7 +237,7 @@ class AdminController extends Controller
             'year'=> $year,
         ];
 
-        return view('admin/sale_list', compact('sales', 'sizes', 'sale_graph'));
+        return view('admin/sale_list', compact('saledetails', 'sales', 'sizes', 'sale_graph'));
     }
 
     public function sale_deliveried(Request $request)
@@ -265,6 +262,7 @@ class AdminController extends Controller
         $contacts = Inquiry::all();
 
         return view('/admin/contact_list', compact('contacts'));
+    }
 
     private function send_mail($user, $sale) {
         $title = 'UsenStudios 発送完了のお知らせ';
