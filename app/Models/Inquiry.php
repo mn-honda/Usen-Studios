@@ -16,8 +16,4 @@ class Inquiry extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
-
-    protected $casts = [
-        'date' => 'datetime:Y-m-d',
-    ];
 }
