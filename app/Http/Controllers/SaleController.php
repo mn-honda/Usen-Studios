@@ -52,9 +52,9 @@ class SaleController extends Controller
             // カートに商品がない
             return redirect('/index');
         }
-        $this->payment($user->cart->amount+800);
+        $charge_id = $this->payment($user->cart->amount+800);
         // カートの中の商品を購入履歴に追加
-        $sale_id = $this->move_cart_to_sale($user_id);
+        $sale_id = $this->move_cart_to_sale($user_id, $charge_id);
         $sale = Sale::find($sale_id);
         $this->send_mail($user, $sale);
 
@@ -129,7 +129,7 @@ class SaleController extends Controller
         });
     }
 
-    private function move_cart_to_sale($user_id) {
+    private function move_cart_to_sale($user_id, $charge_id) {
         $user = User::find($user_id);
 
         $cart = $user->cart;
@@ -139,6 +139,7 @@ class SaleController extends Controller
         $sale->date = Carbon::now();
         $sale->user_id = $user_id;
         $sale->amount = 0;
+        $sale->charge_id = $charge_id;
         $sale->save();
 
         foreach ( $cart_details as $cart_detail ) {
@@ -177,6 +178,7 @@ class SaleController extends Controller
             // 決済失敗
             return redirect('/sale/confirm');
         }
+        return $charge->id;
     }
 
     public function registration_credit_into_stripe(Request $request) {
