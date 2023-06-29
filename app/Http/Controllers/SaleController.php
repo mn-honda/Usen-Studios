@@ -23,6 +23,10 @@ class SaleController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $card = Credit::getDefaultCard($user);
+        // カートの中身確認
+        if ( $user->cart->amount <= 0 ) {
+            return redirect('/cart')->with('message', 'カートが空です。');
+        }
         // クレジットカードの登録確認
         if ( $card == null ) {
             return redirect('/sale/registration_credit');
@@ -44,10 +48,15 @@ class SaleController extends Controller
         // 購入時の処理は時間があれば記述したい
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         // 会計処理
+        if ( $user->cart->amount <= 0 ) {
+            // カートに商品がない
+            return redirect('/index');
+        }
         $this->payment($user->cart->amount+800);
         // カートの中の商品を購入履歴に追加
         $sale_id = $this->move_cart_to_sale($user_id);
         $sale = Sale::find($sale_id);
+        $this->send_mail($user, $sale);
 
         // deliveriesテーブルの作成
         $deliveries = new Delivery();
@@ -67,9 +76,6 @@ class SaleController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $sale = Sale::find($id);
-
-        $this->send_mail($user, $sale);
-
         return view('user.sale.complete', compact('user', 'sale'));
     }
 
@@ -110,18 +116,12 @@ class SaleController extends Controller
 
     }
 
-    public function detail($id) {
-        $sale = Sale::find($id);
-
-        return view('user.sale.detail', compact('sale'));
-    }
-
     private function send_mail($user, $sale) {
-        $title = 'ご注文完了のお知らせ';
+        $title = 'UsenStudios ご注文完了のお知らせ';
         $email = $user->email;
 
          // メールの送信処理
-        Mail::send('email.sail', [
+        Mail::send('email.sale', [
             'user' => $user,
             'sale' => $sale,
         ], function ($message) use ($email, $title) {

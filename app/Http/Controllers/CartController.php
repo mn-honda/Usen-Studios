@@ -31,7 +31,8 @@ class CartController extends Controller
         $cart->amount += $cart_detail->amount;
         $cart->save();
 
-        return redirect("/product_detail/{$request->product_id}");
+        // return redirect("/product_detail/{$request->product_id}");
+        return back();
     }
 
     public function update(Request $request) {

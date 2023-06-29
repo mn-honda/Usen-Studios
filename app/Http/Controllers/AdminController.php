@@ -8,9 +8,11 @@ use App\Models\Stock;
 use App\Models\Size;
 use App\Models\Sale;
 use App\Models\SaleDetail;
+use App\Models\Sale;
 use App\Models\Delivery;
 use App\Models\Inquiry;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
@@ -108,6 +110,7 @@ class AdminController extends Controller
         $new_stocks->save();
 
       return view('/admin/product_register', compact('request'));
+
     }
 
     public function purchase_product()
@@ -215,7 +218,7 @@ class AdminController extends Controller
         return view('/admin/stock_list', compact('stocks'));
     }
 
-    public function sale_list()
+    public function sale_list(Request $request)
     {
         if(auth()->user()->is_admin != "1"){
             return redirect("/index");
@@ -225,13 +228,29 @@ class AdminController extends Controller
         $sales = Sale::all();
 
         return view('/admin/sale_list', compact('saledetails', 'sizes', 'sales'));
+
+        if ( $request->sale_year != null ) {
+            $year = $request->sale_year;
+        } else {
+            $year = 2023;
+        }
+        $sale_array = Sale::sale_month_list($year);
+        $sale_graph = [
+            'array'=> array_values($sale_array),
+            'year'=> $year,
+        ];
+
+        return view('admin/sale_list', compact('sales', 'sizes', 'sale_graph'));
     }
 
     public function sale_deliveried(Request $request)
     {
         $sale_deliveried = Delivery::whereSale_id($request->id)->first();
+        $sale = $sale_deliveried->sale;
+        $user = $sale->user;
         if($request->deliveried){
             $sale_deliveried->is_delivered = "1";
+            $this->send_mail($user, $sale);
         }else if($request->arrived){
             $sale_deliveried->is_delivered = "2";
         }
@@ -240,11 +259,24 @@ class AdminController extends Controller
         return redirect('admin/sale_list');
     }
 
+
     public function contact_list()
     {
         $contacts = Inquiry::all();
 
         return view('/admin/contact_list', compact('contacts'));
+
+    private function send_mail($user, $sale) {
+        $title = 'UsenStudios 発送完了のお知らせ';
+        $email = $user->email;
+
+         // メールの送信処理
+        Mail::send('email.send', [
+            'user' => $user,
+            'sale' => $sale,
+        ], function ($message) use ($email, $title) {
+            $message->to($email)->subject($title);
+        });
     }
 
 }
