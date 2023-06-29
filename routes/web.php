@@ -71,7 +71,7 @@ Route::get('/sale/complete/{id}', [SaleController::class, 'complete'])->middlewa
 
 // 佐々木
 Route::get("/product/{id}",[ProductController::class, 'list_fits_category']);
-Route::post("/product",[ProductController::class, 'list_fits_word']);
+Route::get("/product",[ProductController::class, 'list_fits_word']);
 Route::get("/product_detail/{id}",[ProductController::class, 'product_detail']);
 Route::post("/index",[CategoryController::class, 'pickup'])->middleware('auth');
 Route::post("/inquiry",[InquiriesController::class, 'send_inquiry'])->middleware('auth');

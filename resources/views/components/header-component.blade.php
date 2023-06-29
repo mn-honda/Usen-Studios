@@ -16,12 +16,18 @@
         
             <!-- 検索バナー -->
             <div class="search_container">
-                <form action="/product" method="post" class="searchForm">
+                <form action="/product" method="get" class="searchForm">
                     <input type="text" name="search_word" class="text" placeholder="検索">
                     <button type="submit" value="検索"><img class="search_icon" src="/icon/search-icon.png" alt="" wdth="10" height="10"></button>
                     @csrf
                 </form>
             </div>
+
+            @auth
+            <div class="auth">
+                {{Auth::user()->name}}様
+            </div>
+            @endauth
             
             <div class="acount_container">
                 <!-- アカウントアイコン -->
