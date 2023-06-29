@@ -7,66 +7,66 @@
 </head>
 <body>
     {{-- ヘッダーのインポート --}}
-
-    <div class="viewAll">
+    <x-header-component></x-header-component>
+    
+    <div>
         <h1>ご注文情報</h1>
         <h2>お支払方法</h2>
 
-        <div>
-            <form id="card-form" action="" method="post">
-                <div class="cashElement">
+        <div class="All">
+            <form class="viewAll" id="card-form" action="" method="post">
+                <div class="cash">
                     <div class="cashContainer">
-                        <h2>クレジットカード</h2>
-                        <div>
+                            <p>クレジットカード</p>
                             <div>
-                                <label for="card_number">カード番号</label>
-                                <div id="card-number" class="form-control">
-                            </div>
-                            <div>
-                                <label for="card_expiry">有効期限</label>
-                                <div id="card-expiry" class="form-control">
-                            </div>
-                            <div>
-                                <label for="card_cvc">セキュリティコード</label>
-                                <div id="card-cvc" class="form-control">
-                            </div>
-                            <div>
-                                <label for="card_name">カード名義</label>
-                                <br>
-                                <input type="text" name="cardName" id="card-name" class="form-control" value="" placeholder="(例) 田中 太郎">
-                            </div>
-                            <div id="card-errors" class="text-danger"></div>
-                        </div>
-                    </div>
-
-                    <div class="orderContainer">
-                        <div>
-                            <div>
-                                ご注文概要
-                                @if ( isset($user->cart->cart_details) )
-                                    @foreach ($user->cart->cart_details as $cart_detail)
-                                        <div>
-                                            @foreach( $cart_detail->product->image as $image )
-                                                <img src='{{asset($image->filepath)}}' alt="$image->explanation" class="inner_product_image">
-                                            @endforeach
-                                        </div>
-                                        <div>
-                                            <p> 商品名 </p>
-                                            <p> {{$cart_detail->product->name}} </p>
-                                        </div>
-                                        <div>
-                                            {{-- <p> カラー: {{}} </p> --}}
-                                            <p> サイズ: {{$cart_detail->size->size}} </p>
-                                            <p> 数量: {{$cart_detail->quantity}} </p>
-                                        </div>
-                                        <div>
-                                            <p> ￥{{$cart_detail->amount}} </p>
-                                        </div>
-                                    @endforeach
-                                @endif
+                                <div>
+                                    <label for="card_number">カード番号</label>
+                                    <div id="card-number" class="form-control">
+                                </div>
+                                <div>
+                                    <div>
+                                        <label for="card_expiry">有効期限</label>
+                                        <div id="card-expiry" class="form-control">
+                                    </div>
+                                    <div>
+                                        <label for="card_cvc">セキュリティコード</label>
+                                        <div id="card-cvc" class="form-control">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="card_name">カード名義</label>
+                                    <br>
+                                    <input type="text" name="cardName" id="card-name" class="form-control" value="" placeholder="(例) 田中 太郎">
+                                </div>
+                                <div id="card-errors" class="text-danger"></div>
                             </div>
                         </div>
-                        <div>
+    
+                        <!-- <div class="orderContainer">
+                            ご注文概要
+                            @if ( isset($user->cart->cart_details) )
+                                @foreach ($user->cart->cart_details as $cart_detail)
+                                    <div>
+                                        @foreach( $cart_detail->product->image as $image )
+                                            <img src='{{asset($image->filepath)}}' alt="$image->explanation" class="inner_product_image">
+                                        @endforeach
+                                    </div>
+                                    <div>
+                                        <p> 商品名 </p>
+                                        <p> {{$cart_detail->product->name}} </p>
+                                    </div>
+                                    <div>
+                                        {{-- <p> カラー: {{}} </p> --}}
+                                        <p> サイズ: {{$cart_detail->size->size}} </p>
+                                        <p> 数量: {{$cart_detail->quantity}} </p>
+                                    </div>
+                                    <div>
+                                        <p> ￥{{$cart_detail->amount}} </p>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                        <div class="total">
                             <p>
                                 <span>小計</span>
                                 @if ( isset($user->cart->amount) )
@@ -86,9 +86,11 @@
                                     <span>￥800</span>
                                 @endif
                             </p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
+                <div class="cashEle">
+
                 @csrf
                 <button class="mt-3 btn btn-primary">購入確認画面へ</button>
             </form>
@@ -168,6 +170,6 @@
     }
 </script>
     {{-- フッターのインポート --}}
-
+    @include("/header_footer.footer")
 </body>
 </html>

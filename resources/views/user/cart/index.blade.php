@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="/css/cart.css">
 </head>
 <body>
+    {{-- ヘッダーのインポート --}}
+    <x-header-component></x-header-component>
+    
     <div class="viewAll">
-        {{-- ヘッダーのインポート --}}
-
         {{-- < ショップに戻る --}}
-        <a href='/product'>
+        <a class="back" href='/product'>
             <input class="arrow_left" type="image" src= '/icon/keyboard_arrow_left.png'>
             <span class='back_to_shop'> ショップに戻る </span>
         </a>
@@ -109,6 +110,7 @@
     
         
         {{-- フッターのインポート --}}
+        @include("/header_footer.footer")
     </div>
 </body>
 </html>
