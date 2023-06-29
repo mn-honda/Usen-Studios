@@ -32,7 +32,7 @@
                 $charges = 0;
             @endphp
             @foreach($saledetails as $saledetail)
-                <tr class="bg-gray-100 text-center border border-gray-600">
+                <tr class="bg-gray-100 text-center border border-gray-600 @if($saledetail->sale->delivery->is_delivered == 3)line-through @endif">
                     <td>{{$saledetail->sale->id}}</td>
                     <td>{{$saledetail->sale->user_id}}</td>
                     <td>{{$saledetail->sale->date->format('Y/m/d')}}</td>
@@ -45,30 +45,40 @@
                             配送前
                         @elseif($saledetail->sale->delivery->is_delivered == 1)
                             配送済み
-                        @else
+                        @elseif($saledetail->sale->delivery->is_delivered == 2)
                             到着済み
+                        @else
+                            返品対応済み
                         @endif
                     </td>
                     <td>
                         <form name="button" action="" method="post" id="btn">
                             <input type="hidden" name="id" value="{{$saledetail->sale->id}}">
+                            <input type="hidden" name="product_id" value="{{$saledetail->product_id}}">
+                            <input type="hidden" name="quantity" value="{{$saledetail->quantity}}">
                             @if($saledetail->sale->delivery->is_delivered == 0)
                                 <input type="submit" name="deliveried" value="配達済み" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
                             @elseif($saledetail->sale->delivery->is_delivered == 1)
                                 <input type="submit" name="arrived" value="到着済み" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
+                            @elseif($saledetail->sale->delivery->is_delivered == 2)
+                                <input type="submit" name="returned" value="返品対応" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
                             @else
                             @endif
                             @csrf
                         </form>
                     </td>
                 </tr>
-                @php $total = $total + $saledetail->amount @endphp
+                @if(($saledetail->sale->delivery->is_delivered != 3))
+                    @php $total = $total + $saledetail->amount @endphp
+                @endif
             @endforeach
         </table>
     </div><br><br>
 
     @foreach($sales as $sale)
-        @php $charges += 800 @endphp
+        @if(($sale->delivery->is_delivered != 3))
+            @php $charges += 800 @endphp
+        @endif
     @endforeach
     <p class="flex justify-center text-xl">合計売上金額:{{$total}}円</p><br>
     <p class="flex justify-center text-xl">（送料込み）合計金額:{{$total+$charges}}円</p><br>
