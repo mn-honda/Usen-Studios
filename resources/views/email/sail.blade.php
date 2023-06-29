@@ -3,25 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>購入完了</title>
-    <link rel="stylesheet" href="/css/complete.css">
 </head>
 <body>
     {{-- ヘッダーのインポート --}}
 
-    <div>
-        <h1 class="U-S">UsenStudios</h1>
-        <h2>ご購入ありがとうございました！</h1>
-        <br>
-        <br>
-        <h2>またのご利用お待ちしております！</h1>
-    </div>
-
+    <h1>CONTACT</h1>
 
         {{-- <div> --}}
             {{-- ご注文日時: {{ date('Y-m-d', $sale->date) }} --}}
         {{-- </div> --}}
-        <!-- <div>
-            ご注文概要
+        <div>
+            <h1>ご注文ありがとうございました。</h1>
+            ご注文内容
             @if ( isset($sale->sale_details) )
                 @foreach ($sale->sale_details as $sale_detail)
                     <div>
@@ -65,7 +58,7 @@
                 @endif
             </p>
         </div>
- -->
+
     {{-- フッターのインポート --}}
 </body>
 </html>

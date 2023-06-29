@@ -33,7 +33,6 @@
                     <th class="px-10 py-5">サイズ</th>
                     <th class="px-10 py-5">金額</th>
                     <th class="px-10 py-5">配送状況</th>
-                    <th class="px-10 py-5">もう一度買う</th>
                 </tr>
                 @foreach($user->sale_details as $sale_detail)
                     <tr class="bg-gray-100 text-center border border-gray-600">
@@ -41,13 +40,12 @@
                             <td>{{$sale_detail->product->name}}</td>
                             <td>{{$sale_detail->quantity}}</td>
                             <td>
-                                {{$sale_detail->size->size}}
-                                {{-- @if($sale_detail->size_id==1)XS --}}
-                                {{-- @elseif($sale_detail->size_id==2)S --}}
-                                {{-- @elseif($sale_detail->size_id==3)M --}}
-                                {{-- @elseif($sale_detail->size_id==4)L --}}
-                                {{-- @elseif($sale_detail->size_id==5)XL --}}
-                                {{-- @endif --}}
+                                @if($sale_detail->size_id==1)XS
+                                @elseif($sale_detail->size_id==2)S
+                                @elseif($sale_detail->size_id==3)M
+                                @elseif($sale_detail->size_id==4)L
+                                @elseif($sale_detail->size_id==5)XL
+                                @endif
                             </td>
                             <td>{{$sale_detail->amount}}</td>
                         <td>
@@ -58,16 +56,6 @@
                             @else
                                 到着済み
                             @endif
-                        </td>
-                        <td>
-                            <form action="/cart/add" method="post">
-                                @csrf
-                                <input type="hidden" value="{{$sale_detail->product->id}}" name="product_id">
-                                <input type="hidden" value="{{$sale_detail->size_id}}" name="size">
-                                <input type="hidden" value="{{$sale_detail->quantity}}" name="quantity">
-                                <button type="submit">もう一度買う</button>
-                                {{-- <input class="button" type="submit" value="もう一度買う"> --}}
-                            </form>
                         </td>
                     </tr>
                 @endforeach

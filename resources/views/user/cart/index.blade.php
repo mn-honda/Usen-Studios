@@ -8,7 +8,7 @@
 <body>
     <div class="viewAll">
         {{-- ヘッダーのインポート --}}
-
+    
         {{-- < ショップに戻る --}}
         <a href='/product'>
             <input class="arrow_left" type="image" src= '/icon/keyboard_arrow_left.png'>
@@ -103,10 +103,6 @@
                 <div class='href_button_text'>購入画面へ</div>
             </button>
         <div>
-        @if ( session('message') != null )
-            <div> {{ session('message') }} <div>
-        @endif
-    
         
         {{-- フッターのインポート --}}
     </div>

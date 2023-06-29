@@ -94,7 +94,11 @@
             </form>
         </div>
     </div>
-
+        {{-- @csrf --}}
+        {{-- <button onclick="location.href='/sale/confirm'">購入確認画面へ</button> --}}
+        {{-- <button type="submit">購入確認画面へ</button> --}}
+    {{-- </form> --}}
+{{-- </div> --}}
 
 
 <script src="https://js.stripe.com/v3/"></script>
