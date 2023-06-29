@@ -14,6 +14,9 @@
         {{-- </div> --}}
         <div>
             <h1>ご注文ありがとうございました。</h1>
+            <div>
+                    注文ID：#{{$sale->id}}
+            </div>
             ご注文内容
             @if ( isset($sale->sale_details) )
                 @foreach ($sale->sale_details as $sale_detail)
@@ -21,6 +24,9 @@
                         @foreach( $sale_detail->product->image as $image )
                             <img src='{{asset($image->filepath)}}' alt="$image->explanation">
                         @endforeach
+                    </div>
+                    <div>
+                        注文詳細ID：{{$sale_detail->id}}
                     </div>
                     <div>
                         <p> 商品名 </p>
