@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Cart;
+use App\Models\Stock;
 use App\Models\CartDetail;
 
 class CartController extends Controller
@@ -13,6 +14,8 @@ class CartController extends Controller
     public function index() {
         $user_id = auth()->user()->id;
         $cart = $this->findUserCart($user_id);
+        // $stocks = Stock::all();
+        // return view('user.cart.index', compact('cart', 'stocks'));
         return view('user.cart.index', compact('cart'));
     }
 

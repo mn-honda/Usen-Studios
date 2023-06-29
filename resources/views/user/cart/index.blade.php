@@ -69,6 +69,9 @@
                                                 @csrf
                                             </select>
                                         </form>
+                                        @if( $cart_detail->product->stock->stock < $cart_detail->quantity )
+                                            <div class="error_message"> 在庫が不足しています </div>
+                                        @endif
                                     </p>
                                 </div>
                             </div>
