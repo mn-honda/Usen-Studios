@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
+use Stripe\Stripe;
+use Stripe\Refund;
 
 class AdminController extends Controller
 {
@@ -276,5 +278,21 @@ class AdminController extends Controller
             $message->to($email)->subject($title);
         });
     }
+
+    public function refund($sale_id) {
+        $sale = Sale::find($sale_id);
+        if ( $sale == null ) {
+            // 商品IDがない
+            return back()->with('msg', '購入データがありません。');
+        }
+        $charge_id = $sale->charge_id;
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        $re = Refund::create(array(
+            "charge" => $charge_id,
+        ));
+        return back();
+    }
+    
+
 
 }
