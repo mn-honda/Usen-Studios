@@ -7,6 +7,7 @@ use App\Models\Purchase;
 use App\Models\Stock;
 use App\Models\Size;
 use App\Models\SaleDetail;
+use App\Models\Sale;
 use App\Models\Delivery;
 
 use Illuminate\Support\Facades\Storage;
@@ -105,7 +106,7 @@ class AdminController extends Controller
 
         $new_stocks->save();
 
-      return view('admin/product_register', compact('request'));
+        return view('admin/product_register', compact('request'));
     }
 
     public function purchase_product()
@@ -213,7 +214,7 @@ class AdminController extends Controller
         return view('admin/stock_list', compact('stocks'));
     }
 
-    public function sale_list()
+    public function sale_list(Request $request)
     {
         if(auth()->user()->is_admin != "1"){
             return redirect("/product");
@@ -221,7 +222,18 @@ class AdminController extends Controller
         $sales = SaleDetail::all();
         $sizes = Size::all();
 
-        return view('admin/sale_list', compact('sales', 'sizes'));
+        if ( $request->sale_year != null ) {
+            $year = $request->sale_year;
+        } else {
+            $year = 2023;
+        }
+        $sale_array = Sale::sale_month_list($year);
+        $sale_graph = [
+            'array'=> array_values($sale_array),
+            'year'=> $year,
+        ];
+
+        return view('admin/sale_list', compact('sales', 'sizes', 'sale_graph'));
     }
 
     public function sale_deliveried(Request $request)
