@@ -11,3 +11,13 @@
 .a{
     margin: 50px;
 }
+
+.b{
+    width: 400px;
+    background-color: rgba(242, 242, 242);
+}
+.c{
+    height: 10rem;
+    width: 400px;
+    background-color: rgba(242, 242, 242);
+}
