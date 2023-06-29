@@ -243,13 +243,15 @@ class AdminController extends Controller
     public function sale_deliveried(Request $request)
     {
         $sale_deliveried = Delivery::whereSale_id($request->id)->first();
-        $sale = $sale_deliveried->sale;
-        $user = $sale->user;
+        $stock = Stock::whereProduct_id($request->product_id)->first();
         if($request->deliveried){
             $sale_deliveried->is_delivered = "1";
-            $this->send_mail($user, $sale);
         }else if($request->arrived){
             $sale_deliveried->is_delivered = "2";
+        }else if($request->returned){
+            $sale_deliveried->is_delivered = "3";
+            $stock->stock += $request->quantity;
+            $stock->save();
         }
         $sale_deliveried->save();
 

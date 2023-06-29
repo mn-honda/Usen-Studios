@@ -27,11 +27,13 @@ class Sale extends Model
     ];
 
     public static function sale_month_list($year) {
-        $origin_data = Sale::whereYear('created_at', $year)->orderBy('created_at')->get()->groupBy(function ($row) {
+        $origin_datas = Sale::whereYear('created_at', $year);
+        foreach($origin_datas as $origin_data){
+            $origin_data->delivery->where('is_delivered', '!=', '3')->orderBy('created_at')->get()->groupBy(function ($row) {
             return $row->created_at->format('m');
         })->map(function ($month) {
             return $month->sum('amount');
-        });
+        });}
         $sale_list = [];
         for ( $i = 1; $i <= 12; $i++ ) {
             $origin_index = $i;
