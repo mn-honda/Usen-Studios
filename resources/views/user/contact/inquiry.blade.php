@@ -8,10 +8,11 @@
 </head>
 <body>
 <x-header-component></x-header-component>
+    <div class="container">
     @if(!empty($message))
         <p>{{$message}}</p>
     @endif
-    <div class="container">
+    
         <h1>contact</h1>
         <p>お問い合わせ内容を入力してください</p>
 
@@ -26,7 +27,7 @@
             <input type="text" name="title" required><br>
             </div>
             <div class="a">
-            注文ID <br>
+            注文詳細ID <br>
             <input type="sale_detail_id" name="sale_detail_id"><br>
             </div>
             <div class="a">
