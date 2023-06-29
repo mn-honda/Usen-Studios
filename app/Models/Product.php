@@ -20,6 +20,10 @@ class Product extends Model
     public function purchase(){
         return $this->hasMany(Purchase::class);
     }
+
+    public function stock(){
+        return $this->hasOne(Purchase::class);
+    }
     
     public function sizes(){
         return $this->belongsToMany(Size::class);
