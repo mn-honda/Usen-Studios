@@ -21,7 +21,7 @@ class AdminController extends Controller
         if(auth()->user()->is_admin != "1"){
             return redirect("/index");//管理者出ない場合商品一覧画面に戻す
         }
-        return view("admin/product_register");
+        return view("/admin/product_register");
     }
     public function product_register(Request $request)
     {
@@ -107,7 +107,7 @@ class AdminController extends Controller
 
         $new_stocks->save();
 
-      return view('admin/product_register', compact('request'));
+      return view('/admin/product_register', compact('request'));
     }
 
     public function purchase_product()
@@ -117,7 +117,7 @@ class AdminController extends Controller
         }
         $products = Product::all();
 
-        return view('admin/purchase_register', compact('products'));
+        return view('/admin/purchase_register', compact('products'));
     }
 
     public function purchase_register(Request $request)
@@ -141,7 +141,7 @@ class AdminController extends Controller
 
         $stocks->save();
 
-        return redirect('admin/purchase_register');
+        return redirect('/admin/purchase_register');
     }
 
     public function purchase_list()
@@ -151,7 +151,7 @@ class AdminController extends Controller
         }
         $purchases = Purchase::all();
 
-        return view('admin/purchase_list', compact('purchases'));
+        return view('/admin/purchase_list', compact('purchases'));
     }
 
     public function edit_purchase($id)
@@ -163,7 +163,7 @@ class AdminController extends Controller
 
         $products = Product::all();
 
-        return view('admin/edit_purchase', compact('edit_purchase', 'products'));
+        return view('/admin/edit_purchase', compact('edit_purchase', 'products'));
 
     }
 
@@ -190,7 +190,7 @@ class AdminController extends Controller
 
         $stocks->save();
 
-        return redirect('admin/purchase_list');
+        return redirect('/admin/purchase_list');
     }
 
     public function delete_purchase(Request $request)
@@ -202,7 +202,7 @@ class AdminController extends Controller
 
         $delete_purchase->delete();
 
-        return redirect('admin/purchase_list');
+        return redirect('/admin/purchase_list');
     }
 
     public function stock_list()
@@ -212,7 +212,7 @@ class AdminController extends Controller
         }
         $stocks = Stock::all();
 
-        return view('admin/stock_list', compact('stocks'));
+        return view('/admin/stock_list', compact('stocks'));
     }
 
     public function sale_list()
@@ -224,7 +224,7 @@ class AdminController extends Controller
         $sizes = Size::all();
         $sales = Sale::all();
 
-        return view('admin/sale_list', compact('saledetails', 'sizes', 'sales'));
+        return view('/admin/sale_list', compact('saledetails', 'sizes', 'sales'));
     }
 
     public function sale_deliveried(Request $request)
@@ -244,7 +244,7 @@ class AdminController extends Controller
     {
         $contacts = Inquiry::all();
 
-        return view('admin/contact_list', compact('contacts'));
+        return view('/admin/contact_list', compact('contacts'));
     }
 
 }
