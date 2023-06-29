@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="/css/cart.css">
 </head>
 <body>
+    {{-- ヘッダーのインポート --}}
+    <x-header-component></x-header-component>
+    
     <div class="viewAll">
-        {{-- ヘッダーのインポート --}}
-        <x-header-component></x-header-component>
-
         {{-- < ショップに戻る --}}
         <a class="back" href='/product'>
             <input class="arrow_left" type="image" src= '/icon/keyboard_arrow_left.png'>
@@ -104,6 +104,10 @@
                 <div class='href_button_text'>購入画面へ</div>
             </button>
         <div>
+        @if ( session('message') != null )
+            <div> {{ session('message') }} <div>
+        @endif
+    
         
         {{-- フッターのインポート --}}
         @include("/header_footer.footer")

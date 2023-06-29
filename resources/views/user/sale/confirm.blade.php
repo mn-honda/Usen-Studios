@@ -64,27 +64,6 @@
                     @endif
                 </div>
             </div>
-            <!-- <div>
-                <p>
-                    <span>小計</span>
-                        @if ( isset($user->cart->amount) )
-                            <span>{{$user->cart->amount}}</span>
-                        @else
-                            <span>0</span>
-                        @endif
-                    <br>
-                    <span>送料</span>
-                    <span>￥800</span>
-                </p>
-                <p>
-                    <span>合計</span>
-                    @if ( isset($user->cart->amount) )
-                        <span>￥{{$user->cart->amount + 800}}</span>
-                    @else
-                        <span>￥800</span>
-                    @endif
-                </p>
-            </div> -->
 
             <div>
                 <div>

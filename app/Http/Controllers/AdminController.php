@@ -6,9 +6,12 @@ use App\Models\Image;
 use App\Models\Purchase;
 use App\Models\Stock;
 use App\Models\Size;
+use App\Models\Sale;
 use App\Models\SaleDetail;
 use App\Models\Delivery;
+use App\Models\Inquiry;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
@@ -17,9 +20,9 @@ class AdminController extends Controller
 {
     public function product(){
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");//管理者出ない場合商品一覧画面に戻す
+            return redirect("/index");//管理者出ない場合商品一覧画面に戻す
         }
-        return view("admin/product_register");
+        return view("/admin/product_register");
     }
     public function product_register(Request $request)
     {
@@ -105,17 +108,18 @@ class AdminController extends Controller
 
         $new_stocks->save();
 
-      return view('admin/product_register', compact('request'));
+      return view('/admin/product_register', compact('request'));
+
     }
 
     public function purchase_product()
     {
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");
+            return redirect("/index");
         }
         $products = Product::all();
 
-        return view('admin/purchase_register', compact('products'));
+        return view('/admin/purchase_register', compact('products'));
     }
 
     public function purchase_register(Request $request)
@@ -139,29 +143,29 @@ class AdminController extends Controller
 
         $stocks->save();
 
-        return redirect('admin/purchase_register');
+        return redirect('/admin/purchase_register');
     }
 
     public function purchase_list()
     {
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");
+            return redirect("/index");
         }
         $purchases = Purchase::all();
 
-        return view('admin/purchase_list', compact('purchases'));
+        return view('/admin/purchase_list', compact('purchases'));
     }
 
     public function edit_purchase($id)
     {
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");
+            return redirect("/index");
         }
         $edit_purchase = Purchase::find($id);
 
         $products = Product::all();
 
-        return view('admin/edit_purchase', compact('edit_purchase', 'products'));
+        return view('/admin/edit_purchase', compact('edit_purchase', 'products'));
 
     }
 
@@ -188,7 +192,7 @@ class AdminController extends Controller
 
         $stocks->save();
 
-        return redirect('admin/purchase_list');
+        return redirect('/admin/purchase_list');
     }
 
     public function delete_purchase(Request $request)
@@ -200,41 +204,77 @@ class AdminController extends Controller
 
         $delete_purchase->delete();
 
-        return redirect('admin/purchase_list');
+        return redirect('/admin/purchase_list');
     }
 
     public function stock_list()
     {
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");
+            return redirect("/index");
         }
         $stocks = Stock::all();
 
-        return view('admin/stock_list', compact('stocks'));
+        return view('/admin/stock_list', compact('stocks'));
     }
 
-    public function sale_list()
+    public function sale_list(Request $request)
     {
         if(auth()->user()->is_admin != "1"){
-            return redirect("/product");
+            return redirect("/index");
         }
-        $sales = SaleDetail::all();
+        $saledetails = SaleDetail::all();
         $sizes = Size::all();
+        $sales = Sale::all();
 
-        return view('admin/sale_list', compact('sales', 'sizes'));
+        if ( $request->sale_year != null ) {
+            $year = $request->sale_year;
+        } else {
+            $year = 2023;
+        }
+        $sale_array = Sale::sale_month_list($year);
+        $sale_graph = [
+            'array'=> array_values($sale_array),
+            'year'=> $year,
+        ];
+
+        return view('admin/sale_list', compact('saledetails', 'sales', 'sizes', 'sale_graph'));
     }
 
     public function sale_deliveried(Request $request)
     {
         $sale_deliveried = Delivery::whereSale_id($request->id)->first();
+        $sale = $sale_deliveried->sale;
+        $user = $sale->user;
         if($request->deliveried){
             $sale_deliveried->is_delivered = "1";
+            $this->send_mail($user, $sale);
         }else if($request->arrived){
             $sale_deliveried->is_delivered = "2";
         }
         $sale_deliveried->save();
 
         return redirect('admin/sale_list');
+    }
+
+
+    public function contact_list()
+    {
+        $contacts = Inquiry::all();
+
+        return view('/admin/contact_list', compact('contacts'));
+    }
+
+    private function send_mail($user, $sale) {
+        $title = 'UsenStudios 発送完了のお知らせ';
+        $email = $user->email;
+
+         // メールの送信処理
+        Mail::send('email.send', [
+            'user' => $user,
+            'sale' => $sale,
+        ], function ($message) use ($email, $title) {
+            $message->to($email)->subject($title);
+        });
     }
 
 }

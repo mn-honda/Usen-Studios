@@ -71,7 +71,7 @@
 
         <div>
             <x-input-label for="building_name" :value="__('建物名')" />
-            <x-text-input id="building_name" class="block mt-1 w-full" type="text" name="building_name" :value="old('building_name')" required autofocus autocomplete="building_name" placeholder="例：目黒セントラルスクエア"/>
+            <x-text-input id="building_name" class="block mt-1 w-full" type="text" name="building_name" :value="old('building_name')"  autofocus autocomplete="building_name" placeholder="例：目黒セントラルスクエア"/>
             <x-input-error :messages="$errors->get('building_name')" class="mt-2" />
         </div>
         <br>

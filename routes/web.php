@@ -51,6 +51,8 @@ Route::post('admin/sale_list', [AdminController::class, 'sale_deliveried'])->mid
 Route::get('user/list', [SaleController::class, 'list'])->middleware('auth');
 Route::get('user/edit_user', [SaleController::class, 'edit_user'])->middleware('auth');
 Route::post('user/edit_user', [SaleController::class, 'update_user'])->middleware('auth');
+Route::get('admin/contact_list', [AdminController::class, 'contact_list'])->middleware('auth');
+Route::get('admin', function(){ return view('/admin/index'); });
 
 //平西
 // カート画面
@@ -69,7 +71,7 @@ Route::get('/sale/complete/{id}', [SaleController::class, 'complete'])->middlewa
 
 // 佐々木
 Route::get("/product/{id}",[ProductController::class, 'list_fits_category']);
-Route::post("/product",[ProductController::class, 'list_fits_word']);
+Route::get("/product",[ProductController::class, 'list_fits_word']);
 Route::get("/product_detail/{id}",[ProductController::class, 'product_detail']);
 Route::post("/index",[CategoryController::class, 'pickup'])->middleware('auth');
 Route::post("/inquiry",[InquiriesController::class, 'send_inquiry'])->middleware('auth');
