@@ -113,7 +113,7 @@
             </button>
         </div>
         @if ( session('message') != null )
-            <div> {{ session('message') }} </div>
+            <div class='error_message'> {{ session('message') }} </div>
         @endif
 
     </div>
