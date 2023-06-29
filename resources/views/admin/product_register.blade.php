@@ -45,7 +45,6 @@
         <a href="purchase_list">　　仕入れ一覧</a>
         <a href="stock_list">　　在庫一覧</a>
         <a href="sale_list">　　売上一覧</a>
-        <a href="contact_list">　　お問い合わせ一覧</a>
     </div>
 </body>
 </html>
