@@ -12,6 +12,9 @@
         <h2>ご購入いただきました商品を発送いたしました！</h1>
         <br>
         <h2>到着まで今しばらくお待ちください！</h1>
+        <div>
+            注文ID：#{{$sale->id}}
+        </div>
     </div>
     <div class="viewAll">
         <p class="order">ご注文情報</p>
@@ -26,6 +29,9 @@
                         </div>
                         <div class="product_detail">
                             <div class="productName">
+                                <div>
+                                    注文詳細ID：{{$sale_detail->id}}
+                                </div>
                                 <p class="product"> 商品名: {{$sale_detail->product->name}} </p>
                                 <!-- <p> {{$sale_detail->product->name}} </p> -->
                             </div>
