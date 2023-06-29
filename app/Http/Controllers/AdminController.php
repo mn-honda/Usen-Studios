@@ -6,6 +6,7 @@ use App\Models\Image;
 use App\Models\Purchase;
 use App\Models\Stock;
 use App\Models\Size;
+use App\Models\Sale;
 use App\Models\SaleDetail;
 use App\Models\Delivery;
 use App\Models\Inquiry;
@@ -219,10 +220,11 @@ class AdminController extends Controller
         if(auth()->user()->is_admin != "1"){
             return redirect("/product");
         }
-        $sales = SaleDetail::all();
+        $saledetails = SaleDetail::all();
         $sizes = Size::all();
+        $sales = Sale::all();
 
-        return view('admin/sale_list', compact('sales', 'sizes'));
+        return view('admin/sale_list', compact('saledetails', 'sizes', 'sales'));
     }
 
     public function sale_deliveried(Request $request)
