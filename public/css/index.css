@@ -12,6 +12,7 @@
 .menu_container{
     margin-top: 10px;
     display: flex;
+    position: relative;
     justify-content: space-between;
     border-bottom: 1px solid #333;
     /* background-color: #dcdcdc; */
@@ -33,8 +34,10 @@
 
 .auth{
     display: flex;
+    position: absolute;
     width: 100px;
-    margin-bottom: -16px;
+    top: 10px;
+    right: 10px;
     font-family: "Yu Gothic Medium", "游ゴシック Medium", YuGothic, 游ゴシック体, "ヒラギノ角ゴ Pro W3", メイリオ, sans-serif;
 }
 
@@ -113,6 +116,7 @@
     color: #000;
     font-size: 10px;
     font-family: Inter;
+    position: relative;
 }
 
 .womens_category_list{
@@ -127,6 +131,7 @@
     display: flex;
     font-family: Inter;
     font-size: 13px;
+    position: relative;
 }
 
 .search_container{
@@ -171,11 +176,10 @@
 }
 
 .acount_container{
-    margin-top: 5px;
-    margin-bottom: 5px;
+    position: relative;
+    top: 10px;
+    right: 120px;
     display: flex;
-    top: 50%;
-    height: auto;
 }
 
 .acountIcon{
@@ -198,6 +202,17 @@
     font-size: 15px;
     position: absolute;
     right: 10px;
+    /* font-family: Inter; */
+}
+
+.acountList2{
+    /* display: flex; */
+    list-style: none;
+    color: #000;
+    font-size: 15px;
+    position: absolute;
+    right: 10px;
+    top: 50px;
     /* font-family: Inter; */
 }
 
@@ -264,7 +279,7 @@
 .footer{
     font-family: "Yu Gothic Medium", "æ¸¸ã‚´ã‚·ãƒƒã‚¯ Medium", YuGothic, "æ¸¸ã‚´ã‚·ãƒƒã‚¯ä½“", "ãƒ’ãƒ©ã‚®ãƒŽè§’ã‚´ Pro W3", "ãƒ¡ã‚¤ãƒªã‚ª", sans-serif;
     text-align: center;
-    margin: 0px;
+    margin-top: 50px;
     border-top: 1px solid #333;
     display: block;
 }

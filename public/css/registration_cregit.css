@@ -1,29 +1,49 @@
-.viewAll{
-    margin-top: 200px;
-    text-align: center;
-}
-
 h1{
-    font-size: 50px;
+    text-align: center;
+    margin-top: 200px;
 }
 
 h2{
-    font-size: 20px;
+    text-align: center;
+    /* font-size: small; */
 }
 
-.cashElement{
+/* .cashContainer{
     display: flex;
     justify-content: center;
+    margin-top: 200px;
+    text-align: center;
+} */
+
+/* .All{
+    display: inline;
+    justify-content: center;
+} */
+
+/* .viewAll{
+    display: flex;
+    justify-content: center;
+} */
+
+.cash{
+    /* display: flex;
+    justify-content: center; */
+    text-align: center;
 }
 
-
-.cashContainer{
-
+.orderContainer{
+    /* text-align: right; */
+    /* float: left; */
 }
 
+.orderContainer{
+    /* float: right; */
+}
 
+.total{
+    /* text-align: center; */
+}
 
-.inner_product_image{
-    width: 300px;
-    height: 400px;
+.form-control{
+    /* text-align: center; */
 }

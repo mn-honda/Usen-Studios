@@ -7,6 +7,9 @@
     <title>商品一覧</title>
 </head>
 <body>
+    {{-- ヘッダーのインポート --}}
+    <x-header-component></x-header-component>
+
     <div class="all">
         @if($category != "")
             <h1>{{$category->name}}</h1>
@@ -34,5 +37,7 @@
         @endforeach
         </div>
     </div>
+    {{-- フッターのインポート --}}
+    @include("/header_footer.footer")
 </body>
 </html>
