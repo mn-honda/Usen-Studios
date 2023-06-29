@@ -14,7 +14,7 @@
     <form class="detailForm" action="/cart/add" method="post">
         @foreach($product_detail as $product)
             @foreach($product->image as $image)
-                <img src="{{$image->filepath}}" class="productImg" alt="" width="300" height="500">
+                <img src="{{$image->filepath}}" class="productImg" alt="No Image" width="300" height="500">
             @endforeach
             <div class="textArea">
                 <div class="leftText">
@@ -29,8 +29,13 @@
                     </select><br>
                     個数：
                     <select name="quantity">
-                    @for($i = 1;$i <= 10;$i++)
-                        <option value="{{$i}}">{{$i}}</option>
+                    @for($i = 1;$i <= $product->stock->quantity;$i++)
+                        @if($i != 0)
+                            <option value="{{$i}}">{{$i}}</option>
+                        @elseif($i == NULL)
+                            <p>在庫切れ</p>
+                        @endif
+                        
                     @endfor
                     </select><br>
     

@@ -24,7 +24,7 @@
                 <a href="/product_detail/{{$product->id}}">
                     <div class="images">
                         @foreach($product->image as $image)
-                            <img class="img" src="{{$image->filepath}}" alt="">
+                            <img class="img" src="{{$image->filepath}}" alt="No Image">
                             <!-- <img src="{{$image->filepath}}" alt="" width=373 heght=600> -->
                         @endforeach
                     </div>
