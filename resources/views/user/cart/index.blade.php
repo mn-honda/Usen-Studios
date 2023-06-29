@@ -103,14 +103,15 @@
             <button class="button" onclick="location.href='/sale/confirm'">
                 <div class='href_button_text'>購入画面へ</div>
             </button>
-        <div>
+        </div>
         @if ( session('message') != null )
-            <div> {{ session('message') }} <div>
+            <div> {{ session('message') }} </div>
         @endif
-    
-        
+
+    </div>
+    </div>    
         {{-- フッターのインポート --}}
         @include("/header_footer.footer")
-    </div>
+    
 </body>
 </html>
