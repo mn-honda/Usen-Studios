@@ -39,8 +39,8 @@
             </div>
             @csrf
         </form>
-    </div><br><br>
-    <div class="text-center border divide-x">
+    </div><br>
+    <div class="text-center border divide-x mb-4">
         <a href="purchase_register">仕入れ登録</a>
         <a href="purchase_list">　　仕入れ一覧</a>
         <a href="stock_list">　　在庫一覧</a>
