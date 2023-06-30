@@ -22,7 +22,7 @@ class Product extends Model
     }
 
     public function stock(){
-        return $this->hasOne(Purchase::class);
+        return $this->hasOne(Stock::class);
     }
     
     public function sizes(){
