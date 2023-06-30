@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/product_detail.css">
     <link rel="stylesheet" href="/css/product_detail.css">
-    <title>Document</title>
+    <title>商品詳細</title>
 </head>
 <body>
     {{-- ヘッダーのインポート --}}
@@ -18,12 +18,12 @@
         <script>
             (function() {
                 'use strict';
-            
+
                 // フラッシュメッセージのfadeout
                 $(function(){
                     $('.message').fadeOut(3000);
                 });
-            
+
             })();
         </script>
 
@@ -34,9 +34,9 @@
                 @endforeach
                 <div class="textArea">
                     <div class="leftText">
-                        <p>{{$product->name}}  
+                        <p>{{$product->name}}
                         <p>￥@php echo number_format($product->price) @endphp</p>
-            
+
                         <p class="productdetail">商品詳細：<br>{{$product->detail}}</p>
                         サイズ：<select name="size">
                         @foreach($product->sizes as $size)
@@ -52,18 +52,18 @@
                             @for($i = 1;$i <= $product->stock->stock;$i++)
                                     <option value="{{$i}}">{{$i}}</option>
                                     @if ($i == 10)
-                                        @php break; @endphp                                      
+                                        @php break; @endphp
                                     @endif
                             @endfor
                             </select>
-                            
+
                         @else
                             <p class="alert">在庫切れ</p>
                         @endif
-                            
-                        
+
+
                         <br>
-        
+
                         <p class="Annotation">
                             ※消費税が含まれています
                             <br>
@@ -71,14 +71,14 @@
                         </p>
                     </div>
 
-                    
+
                     @endforeach
-                    
+
                     <input class="button" type="submit" value="カートに入れる"
                     @if($product->stock->stock == 0)
                         disabled
                     @endif >
-        
+
                     <input type="hidden" value="{{$product->id}}" name="product_id">
                     @csrf
 
