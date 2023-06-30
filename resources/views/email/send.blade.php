@@ -78,17 +78,17 @@
             <div class="deliveryContainer">
                 <h4>郵便番号</h4>
                 @if( isset($user->post_code) )
-                    <input class="postcode" type='text' name='post_code' value='{{$user->post_code}}' readonly>
+                    <p class="postcode" type='text' name='post_code'  readonly>{{$user->post_code}}</p>
                 @else
-                    <input class="postcode" type='text' name='post_code'>
+                    <p class="postcode" type='text' name='post_code'>
                 @endif
             </div>
             <div class="deliveryContainer">
                 <h4>住所</h4>
                 @if( isset($user->address) )
-                    <input class="address" type='text' name='address' value='{{$user->address}}' readonly>
+                    <p class="address" type='text' name='address' readonly>{{$user->address}}</p>
                 @else
-                    <input class="address" type='text' name='address'>
+                    <p class="address" type='text' name='address'>
                 @endif
             </div>
         </div>
