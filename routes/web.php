@@ -65,6 +65,7 @@ Route::post('/sale/registration_credit', [SaleController::class, 'registration_c
 Route::get('/sale/confirm', [SaleController::class, 'confirm'])->middleware('auth');
 Route::post('/sale/procedure', [SaleController::class, 'procedure'])->middleware('auth');
 Route::get('/sale/complete/{id}', [SaleController::class, 'complete'])->middleware('auth');
+Route::post('/sale/receipt/{id}', [SaleController::class, 'receipt'])->middleware('auth');
 
 
 // 佐々木

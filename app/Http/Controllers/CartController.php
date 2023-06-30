@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Cart;
+use App\Models\Stock;
 use App\Models\CartDetail;
 
 class CartController extends Controller
@@ -13,12 +14,23 @@ class CartController extends Controller
     public function index() {
         $user_id = auth()->user()->id;
         $cart = $this->findUserCart($user_id);
+        // $stocks = Stock::all();
+        // return view('user.cart.index', compact('cart', 'stocks'));
         return view('user.cart.index', compact('cart'));
     }
 
     public function add(Request $request) {
         $user_id = auth()->user()->id;
         $cart = $this->findUserCart($user_id);
+
+        $cart_details = $cart->cart_details;
+        foreach ( $cart_details as $cart_detail ) {
+            if ( $cart_detail->product->id == $request->product_id) {
+                $this->updateCart($cart_detail->id, $cart_detail->quantity + $request->quantity);
+                return back();
+            }
+        }
+
         $cart_detail = new CartDetail();
 
         $cart_detail->cart_id = $cart->id;
@@ -35,19 +47,23 @@ class CartController extends Controller
         return back()->with("message","カートに追加しました");
     }
 
+
     public function update(Request $request) {
-        $cart_detail = CartDetail::findOrFail($request->cart_detail_id);
+        $this->updateCart($request->cart_detail_id, $request->cart_detail_quantity);
+        return back();
+    }
+
+    private function updateCart($cart_detail_id, $quantity) {
+        $cart_detail = CartDetail::findOrFail($cart_detail_id);
 
         $prev_cart_detail_amount = $cart_detail->amount;
-        $cart_detail->quantity = $request->cart_detail_quantity;
+        $cart_detail->quantity = $quantity;
         $cart_detail->amount = $cart_detail->quantity * $cart_detail->product->price;
         $cart_detail->save();
 
         $cart = $cart_detail->cart;
         $cart->amount += $cart_detail->amount - $prev_cart_detail_amount;
         $cart->save();
-
-        return redirect("/cart");
     }
 
     public function delete($id) {
