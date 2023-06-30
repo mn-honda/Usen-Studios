@@ -21,7 +21,7 @@
                     <tr><th style="background-color: rgb(219, 216, 216); padding: 20px"></th><td style="background-color: rgb(241, 238, 238); padding: 20px"><input type="text" name="address" value="{{$user->address}}"></td></tr>
                 </table>
                 <br>
-                    <input type="submit" value="送信" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
+                    <input type="submit" value="送信" style="border: 2px solid gray;">
                 @csrf
             </form>
             <br><br>

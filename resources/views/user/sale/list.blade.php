@@ -18,7 +18,7 @@
         </div><br>
         <div style="text-align: center">
             <form action="/user/edit_user" method="get">
-                <input type="submit" value="編集" style="border: 2px solid black; ">
+                <input type="submit" value="編集" style="border: 2px solid gray; ">
             </form>
         </div>
         <br>
