@@ -17,6 +17,13 @@
         <h2>またのご利用お待ちしております！</h1>
     </div>
 
+    <div>
+        <form action='/sale/receipt/{{$sale_id}}' method='post'>
+            @csrf
+            <button type='submit'>領収書</button>
+        </form>
+    </div>
+
     {{-- フッターのインポート --}}
     @include("/header_footer.footer")
 </body>

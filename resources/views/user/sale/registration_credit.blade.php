@@ -10,8 +10,8 @@
     <x-header-component></x-header-component>
     
     <div>
-        <h1>ご注文情報</h1>
-        <h2>お支払方法</h2>
+        <!-- <h1>ご注文情報</h1> -->
+        <h1>お支払方法</h1>
 
         <div class="All">
             <form class="viewAll" id="card-form" action="" method="post">
@@ -26,19 +26,19 @@
                                 <div>
                                     <div>
                                         <label for="card_expiry">有効期限</label>
-                                        <div id="card-expiry" class="form-control">
+                                        <div id="card-expiry" class="limit">
                                     </div>
                                     <div>
                                         <label for="card_cvc">セキュリティコード</label>
-                                        <div id="card-cvc" class="form-control">
+                                        <div id="card-cvc" class="security">
                                     </div>
                                 </div>
                                 <div>
                                     <label for="card_name">カード名義</label>
                                     <br>
-                                    <input type="text" name="cardName" id="card-name" class="form-control" value="" placeholder="(例) 田中 太郎">
+                                    <input type="text" name="cardName" id="card-name" value="" placeholder="(例) 田中 太郎">
                                 </div>
-                                <div id="card-errors" class="text-danger"></div>
+                                <div id="card-errors" class="text-danger">
                             </div>
                         </div>
     
@@ -89,10 +89,10 @@
                         </div> -->
                     </div>
                 </div>
-                <div class="cashEle">
+                <div class="cashEle"></div>
 
                 @csrf
-                <button class="mt-3 btn btn-primary">購入確認画面へ</button>
+                <button class="mt">購入確認画面へ</button>
             </form>
         </div>
     </div>

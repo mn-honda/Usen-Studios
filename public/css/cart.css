@@ -107,3 +107,7 @@
     width: 120px;
     height: 40px;
 }
+
+.error_message {
+    color:crimson;
+}

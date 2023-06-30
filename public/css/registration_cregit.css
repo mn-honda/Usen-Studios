@@ -8,12 +8,14 @@ h2{
     /* font-size: small; */
 }
 
-/* .cashContainer{
-    display: flex;
-    justify-content: center;
-    margin-top: 200px;
+
+.cashContainer{
+    /* display: flex;
+    justify-content: center; */
+    /* margin-top: 200px; */
     text-align: center;
-} */
+    margin-bottom: 145px;
+}
 
 /* .All{
     display: inline;
@@ -31,19 +33,27 @@ h2{
     text-align: center;
 }
 
-.orderContainer{
-    /* text-align: right; */
-    /* float: left; */
-}
 
-.orderContainer{
-    /* float: right; */
-}
 
-.total{
-    /* text-align: center; */
+.card-name{
+    text-align: center;
 }
 
 .form-control{
-    /* text-align: center; */
+    margin-left: 670px;
+}
+
+.limit{
+    margin-left: 723px;
+}
+
+.security{
+    margin-left: 683px;
+}
+
+.mt{
+    /* height: 10000px; */
+    margin-top: 30px;
+    background-color: black;
+    color: white;
 }
