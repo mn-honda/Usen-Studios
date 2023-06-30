@@ -24,7 +24,8 @@ class AdminController extends Controller
         if(auth()->user()->is_admin != "1"){
             return redirect("/index");//管理者出ない場合商品一覧画面に戻す
         }
-        return view("/admin/product_register");
+        $success_message = null;
+        return view("/admin/product_register", compact("success_message"));
     }
     public function product_register(Request $request)
     {
@@ -110,7 +111,9 @@ class AdminController extends Controller
 
         $new_stocks->save();
 
-      return view('/admin/product_register', compact('request'));
+        $success_message = "商品を登録しました。";
+
+      return view('/admin/product_register', compact('request', 'success_message'));
 
     }
 
@@ -120,8 +123,9 @@ class AdminController extends Controller
             return redirect("/index");
         }
         $products = Product::all();
+        $success_message = null;
 
-        return view('/admin/purchase_register', compact('products'));
+        return view('/admin/purchase_register', compact('products', 'success_message'));
     }
 
     public function purchase_register(Request $request)
@@ -145,7 +149,11 @@ class AdminController extends Controller
 
         $stocks->save();
 
-        return redirect('/admin/purchase_register');
+        $success_message = "仕入れを登録しました。";
+
+        $products = Product::all();
+
+        return view('/admin/purchase_register', compact('products', 'success_message'));
     }
 
     public function purchase_list()
@@ -313,5 +321,5 @@ class AdminController extends Controller
         ));
         return true;
     }
-    
+
 }

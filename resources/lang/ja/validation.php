@@ -160,7 +160,8 @@ return [
         'date' => '日付',
         'post_code' => '郵便番号',
         'address' => '住所',
-        'email' => 'Eメールアドレス'
+        'email' => 'Eメールアドレス',
+        'price' => '値段'
     ],
 
 ];
