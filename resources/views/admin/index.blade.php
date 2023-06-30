@@ -31,6 +31,9 @@
                     <td class="px-10 py-5"><a href="/admin/contact_list">　お問い合わせ一覧　</a></td>
                 </tr>
         </table>
-    </div>
+    </div><br><br>
+    <div class="text-center border divide-x">
+        <a href="/index">トップページ</a>
+    </div><br>
 </body>
 </html>

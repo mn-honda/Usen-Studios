@@ -44,6 +44,10 @@
         <a href="sale_list">　　売上一覧</a>
         <a href="contact_list">　　お問い合わせ一覧</a>
     </div><br>
+    <div class="text-center border divide-x">
+        <a href="/index">トップページへ</a>
+        <a href="/admin">　　管理者トップへ</a>
+    </div><br>
 </body>
 </html>
 
