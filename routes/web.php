@@ -20,9 +20,7 @@ use App\Http\Controllers\InquiriesController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[CategoryController::class, 'pickup']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
