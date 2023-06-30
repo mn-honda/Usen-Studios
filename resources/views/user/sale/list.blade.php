@@ -33,7 +33,7 @@
                     <th style="padding: 20px">金額</th>
                     <th style="padding: 20px">配送状況</th>
                     <th style="padding: 20px">領収書</th>
-                    <th style="padding: 20px">もう一度買う</th>
+                    <th style="padding: 20px">再度購入</th>
                 </tr>
                 @foreach($user->sale_details as $sale_detail)
                     <tr style="background-color: rgb(241, 238, 238)">
@@ -53,19 +53,23 @@
                                 返品済み
                             @endif
                         </td>
-                        <td style="padding: 20px">
+                        <td style="padding: 0px">
                             <form action="/sale/receipt/{{$sale_detail->sale_id}}" method="post">
                                 @csrf
-                                <button type="submit">領収書</button>
+                                <button type="submit">
+                                <img style="height: 20px; width: 20px" src="/icon/レシートの無料イラスト.png">
+                                </button>
                             </form>
                         </td>
-                        <td style="padding: 20px">
+                        <td style="padding: 0px">
                             <form action="/cart/add" method="post">
                                 @csrf
                                 <input type="hidden" value="{{$sale_detail->product->id}}" name="product_id">
                                 <input type="hidden" value="{{$sale_detail->size_id}}" name="size">
                                 <input type="hidden" value="{{$sale_detail->quantity}}" name="quantity">
-                                <button type="submit">もう一度買う</button>
+                                <button type="submit">
+                                <img style="height: 20px; width: 20px" src="/icon/unnamed.png">
+                                </button>
                                 {{-- <input class="button" type="submit" value="もう一度買う"> --}}
                             </form>
                         </td>

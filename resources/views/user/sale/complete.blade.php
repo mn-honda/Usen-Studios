@@ -20,7 +20,7 @@
     <div>
         <form action='/sale/receipt/{{$sale_id}}' method='post'>
             @csrf
-            <button type='submit'>領収書</button>
+            <!-- <button type='submit'>領収書</button> -->
         </form>
     </div>
 
