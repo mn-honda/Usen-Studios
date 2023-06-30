@@ -22,6 +22,7 @@
             </form>
         </div>
         <br>
+        @if($user->sale_details->first() != null)
         <p style="text-align: center; font-size:20px">購入履歴</p>
         <div style="text-align: center">
             <table border=1 style="margin-left: auto; margin-right: auto">
@@ -76,7 +77,29 @@
                     </tr>
                 @endforeach
             </table>
-        </div><br><br>
+        </div>
+        @endif
+        <br><br>
+        @if($user->inquiries->first() != null)
+            <p style="text-align: center; font-size:20px">お問い合わせ履歴</p>
+            <div style="text-align: center">
+                <table border=1 style="margin-left: auto; margin-right: auto">
+                    <tr style="background-color: rgb(219, 216, 216)">
+                        <th style="padding: 20px">送信日時</th>
+                        <th style="padding: 20px">タイトル</th>
+                        <th style="padding: 20px">詳細</th>
+                    </tr>
+                    @foreach($user->inquiries as $inquiry)
+                        <tr style="background-color: rgb(241, 238, 238)">
+                            <td style="padding: 20px">{{$inquiry->date->format('Y/m/d')}}</td>
+                            <td style="padding: 20px">{{$inquiry->title}}</td>
+                            <td style="padding: 20px">{{$inquiry->detail}}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        @endif
+        <br><br>
     @include("/header_footer.footer")
 </body>
 
