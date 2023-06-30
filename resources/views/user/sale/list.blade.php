@@ -4,62 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ユーザー画面</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <x-header-component></x-header-component>
-        <div class="text-center text-9xl font-medium mt-16">UsenStudios</div><br><br>
-        <p class="text-center text-3xl">ユーザー情報</p><br>
-        <div class="flex justify-center">
-            <table>
-                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">お名前</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5">{{$user->name}}</td></tr>
-                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">Eメールアドレス</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5">{{$user->email}}</td></tr>
-                <tr><th class="bg-gray-300 border-b text-xl border border-gray-600 px-10 py-5">住所</th><td class="bg-gray-100 text-center border border-gray-600 px-10 py-5">〒{{$user->post_code}}<br>{{$user->address}}</td></tr>
+    <x-header-component></x-header-component><br>
+        <h1 style="text-align: center; font-size: 96px">UsenStudios</h1>
+        <p style="text-align: center; font-size:20px">ユーザー情報</p>
+        <div style="text-align: center">
+            <table border=1 style="margin-left: auto; margin-right: auto">
+                <tr style="background-color: rgb(219, 216, 216); padding: 20px"><th>お名前</th><td style="background-color: rgb(241, 238, 238); padding: 20px">{{$user->name}}</td></tr>
+                <tr style="background-color: rgb(219, 216, 216); padding: 20px"><th>Eメールアドレス</th><td style="background-color: rgb(241, 238, 238); padding: 20px">{{$user->email}}</td></tr>
+                <tr style="background-color: rgb(219, 216, 216); padding: 20px"><th>住所</th><td style="background-color: rgb(241, 238, 238); padding: 20px">〒{{$user->post_code}}<br>{{$user->address}}</td></tr>
             </table>
         </div><br>
-        <div class="flex justify-center">
+        <div style="text-align: center">
             <form action="/user/edit_user" method="get">
-                <input type="submit" value="編集" class="ml-2 rounded-lg bg-gray-500 p-2 text-white hover:bg-gray-800">
+                <input type="submit" value="編集" style="border: 2px solid black; ">
             </form>
         </div>
-        <br><br><br>
-        <p class="text-center text-3xl">購入履歴</p><br>
-        <div class="flex justify-center">
-            <table>
-                <tr class="bg-gray-300 border-b text-xl border border-gray-600">
-                    <th class="px-10 py-5">購入日時</th>
-                    <th class="px-10 py-5">商品名</th>
-                    <th class="px-10 py-5">個数</th>
-                    <th class="px-10 py-5">サイズ</th>
-                    <th class="px-10 py-5">金額</th>
-                    <th class="px-10 py-5">配送状況</th>
-                    <th class="px-10 py-5">もう一度買う</th>
+        <br>
+        <p style="text-align: center; font-size:20px">購入履歴</p>
+        <div style="text-align: center">
+            <table border=1 style="margin-left: auto; margin-right: auto">
+                <tr style="background-color: rgb(219, 216, 216)">
+                    <th style="padding: 20px">購入日時</th>
+                    <th style="padding: 20px">商品名</th>
+                    <th style="padding: 20px">個数</th>
+                    <th style="padding: 20px">サイズ</th>
+                    <th style="padding: 20px">金額</th>
+                    <th style="padding: 20px">配送状況</th>
+                    <th style="padding: 20px">領収書</th>
+                    <th style="padding: 20px">もう一度買う</th>
                 </tr>
                 @foreach($user->sale_details as $sale_detail)
-                    <tr class="bg-gray-100 text-center border border-gray-600">
-                        <td>{{$sale_detail->sale->date->format('Y/m/d')}}</td>
-                            <td>{{$sale_detail->product->name}}</td>
-                            <td>{{$sale_detail->quantity}}</td>
-                            <td>
-                                {{$sale_detail->size->size}}
-                                {{-- @if($sale_detail->size_id==1)XS --}}
-                                {{-- @elseif($sale_detail->size_id==2)S --}}
-                                {{-- @elseif($sale_detail->size_id==3)M --}}
-                                {{-- @elseif($sale_detail->size_id==4)L --}}
-                                {{-- @elseif($sale_detail->size_id==5)XL --}}
-                                {{-- @endif --}}
-                            </td>
-                            <td>{{$sale_detail->amount}}</td>
-                        <td>
+                    <tr style="background-color: rgb(241, 238, 238)">
+                        <td style="padding: 20px">{{$sale_detail->sale->date->format('Y/m/d')}}</td>
+                            <td style="padding: 20px">{{$sale_detail->product->name}}</td>
+                            <td style="padding: 20px">{{$sale_detail->quantity}}</td>
+                            <td style="padding: 20px">{{$sale_detail->size->size}}</td>
+                            <td style="padding: 20px">{{$sale_detail->amount}}円</td>
+                        <td style="padding: 20px">
                             @if($sale_detail->sale->delivery->is_delivered==0)
                                 準備中
                             @elseif($sale_detail->sale->delivery->is_delivered==1)
                                 配達中
-                            @else
+                            @elseif($sale_detail->sale->delivery->is_delivered==2)
                                 到着済み
+                            @else
+                                返品済み
                             @endif
                         </td>
-                        <td>
+                        <td style="padding: 20px">
+                            <form action="/sale/receipt/{{$sale_detail->sale_id}}" method="post">
+                                @csrf
+                                <button type="submit">領収書</button>
+                            </form>
+                        </td>
+                        <td style="padding: 20px">
                             <form action="/cart/add" method="post">
                                 @csrf
                                 <input type="hidden" value="{{$sale_detail->product->id}}" name="product_id">

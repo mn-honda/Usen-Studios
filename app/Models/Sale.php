@@ -27,11 +27,20 @@ class Sale extends Model
     ];
 
     public static function sale_month_list($year) {
-        $origin_data = Sale::whereYear('created_at', $year)->orderBy('created_at')->get()->groupBy(function ($row) {
+        // SalesとDeliveriesを結合して返却していないものを月ごとに集計
+        $origin_data = Sale::join('deliveries', 'sales.id', '=', 'deliveries.sale_id')
+        ->whereYear('sales.created_at', $year)
+        ->where('is_delivered', '!=', '3')
+        ->orderBy('sales.created_at')
+        ->get()
+        ->groupBy(function ($row) {
             return $row->created_at->format('m');
         })->map(function ($month) {
             return $month->sum('amount');
         });
+        // 集計した結果の連想配列をグラフにしやすそうな形に変換
+        // before: [ "01" => 100, "03" => 20]
+        // after: [ 1 => 100, 2 => 0, 3 => 20 .... ]
         $sale_list = [];
         for ( $i = 1; $i <= 12; $i++ ) {
             $origin_index = $i;
@@ -46,6 +55,5 @@ class Sale extends Model
         }
         return $sale_list;
     }
-
 
 }

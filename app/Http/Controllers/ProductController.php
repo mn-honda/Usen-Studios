@@ -26,11 +26,13 @@ class ProductController extends Controller
     public function list_fits_word(Request $request){
         if($request->search_word == ""){
             $products = Product::all();
+            $word = "ALL";
         }
         else{
             $products = Product::where("name","LIKE","%". $request->search_word ."%")->get();
+            $word = $request->search_word;
         }
-        $word = $request->search_word;
+        
         $category = "";
         return view("product.products_list",compact("products","word","category"));
     }

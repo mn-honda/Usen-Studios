@@ -9,12 +9,19 @@
     {{-- ヘッダーのインポート --}}
     <x-header-component></x-header-component>
     
-    <div>
+    <div class="comp">
         <h1 class="U-S">UsenStudios</h1>
         <h2>ご購入ありがとうございました！</h1>
         <br>
         <br>
         <h2>またのご利用お待ちしております！</h1>
+    </div>
+
+    <div>
+        <form action='/sale/receipt/{{$sale_id}}' method='post'>
+            @csrf
+            <button type='submit'>領収書</button>
+        </form>
     </div>
 
     {{-- フッターのインポート --}}

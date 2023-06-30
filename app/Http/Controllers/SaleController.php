@@ -15,6 +15,7 @@ use App\Models\Sale;
 use App\Models\SaleDetail;
 use Stripe\Exception\CardException;
 use App\Models\Delivery;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SaleController extends Controller
 {
@@ -27,11 +28,25 @@ class SaleController extends Controller
         if ( $user->cart->amount <= 0 ) {
             return redirect('/cart')->with('message', 'カートが空です。');
         }
+        // 在庫が足りてない
+        if ( !$this->is_sufficient_stock($user) ) {
+            return redirect('/cart')->with('message', '現在在庫が不足しております。再入荷までしばらくお待ちください。');
+        }
         // クレジットカードの登録確認
         if ( $card == null ) {
             return redirect('/sale/registration_credit');
         }
         return view('user.sale.confirm', compact('user', 'card'));
+    }
+
+    private function is_sufficient_stock($user) {
+        $cart_details = $user->cart->cart_details;
+        foreach ( $cart_details as $cart_detail ) {
+            if ( $cart_detail->product->stock->stock < $cart_detail->quantity ) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public function registration_credit() {
@@ -44,17 +59,22 @@ class SaleController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
 
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        // 購入時の処理は時間があれば記述したい
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         // 会計処理
         if ( $user->cart->amount <= 0 ) {
             // カートに商品がない
             return redirect('/index');
         }
-        $this->payment($user->cart->amount+800);
-        // カートの中の商品を購入履歴に追加
-        $sale_id = $this->move_cart_to_sale($user_id);
+        // 購入時の処理
+        $charge_id = $this->payment($user->cart->amount+800);
+        if ( $charge_id == false ) {
+            return redirect('/sale/confirm');
+        }
+        // カートの中身を購入済みテーブルに移動
+        // 在庫を減らす
+        $sale_id = $this->sale_process($user_id, $charge_id);
+        if ( $sale_id == false ) {
+            return redirect('/sale/confirm');
+        }
         $sale = Sale::find($sale_id);
         $this->send_mail($user, $sale);
 
@@ -73,12 +93,16 @@ class SaleController extends Controller
 
 
     public function complete($id) {
-        $user_id = auth()->user()->id;
-        $user = User::find($user_id);
-        $sale = Sale::find($id);
-        return view('user.sale.complete', compact('user', 'sale'));
+        $sale_id = $id;
+        return view('user.sale.complete', compact('sale_id'));
     }
 
+    public function receipt($id) {
+        $sale = Sale::find($id);
+        $pdf = Pdf::loadView('pdf.receipt', compact('sale'));
+        $pdf->setPaper('A4');
+        return $pdf->stream();
+    }
 
     public function list() {
         $user_id = auth()->user()->id;
@@ -129,16 +153,26 @@ class SaleController extends Controller
         });
     }
 
-    private function move_cart_to_sale($user_id) {
+    private function sale_process($user_id, $charge_id) {
         $user = User::find($user_id);
-
         $cart = $user->cart;
         $cart_details = $cart->cart_details;
+
+        foreach ( $cart_details as $val ) {
+            if ( $val->product->stock->stock < $val->quantity ) {
+                return false;
+            }
+        }
+        foreach ( $cart_details as $val ) {
+            $val->product->stock->stock -= $val->quantity;
+            $val->product->stock->save();
+        }
 
         $sale = new Sale();
         $sale->date = Carbon::now();
         $sale->user_id = $user_id;
         $sale->amount = 0;
+        $sale->charge_id = $charge_id;
         $sale->save();
 
         foreach ( $cart_details as $cart_detail ) {
@@ -175,8 +209,10 @@ class SaleController extends Controller
             ]);
         } catch (CardException $e) {
             // 決済失敗
-            return redirect('/sale/confirm');
+            return false;
+            // return redirect('/sale/confirm');
         }
+        return $charge->id;
     }
 
     public function registration_credit_into_stripe(Request $request) {

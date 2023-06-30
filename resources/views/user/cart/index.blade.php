@@ -52,7 +52,12 @@
                                         {{-- プルダウン --}}
                                         <form action='/cart/update' method='post' class='num_of_pulldown'>
                                             <select name='cart_detail_quantity' onchange="submit(this.form)">
-                                                @for ($i = 1; $i <= 10; $i++)
+                                                @if ( $cart_detail->quantity < 10 )
+                                                    {{ $length = 10 }}
+                                                @else
+                                                    {{ $length = $cart_detail->quantity }}
+                                                @endif
+                                                @for ($i = 1; $i <= $length; $i++)
                                                     @if ($i == $cart_detail->quantity)
                                                         <option value='{{$i}}' selected>{{$i}}</option>
                                                     @else
@@ -64,6 +69,9 @@
                                                 @csrf
                                             </select>
                                         </form>
+                                        @if( $cart_detail->product->stock->stock < $cart_detail->quantity )
+                                            <div class="error_message"> 在庫が不足しています </div>
+                                        @endif
                                     </p>
                                 </div>
                             </div>
@@ -103,14 +111,15 @@
             <button class="button" onclick="location.href='/sale/confirm'">
                 <div class='href_button_text'>購入画面へ</div>
             </button>
-        <div>
+        </div>
         @if ( session('message') != null )
-            <div> {{ session('message') }} <div>
+            <div class='error_message'> {{ session('message') }} </div>
         @endif
-    
-        
+
+    </div>
+    </div>    
         {{-- フッターのインポート --}}
         @include("/header_footer.footer")
-    </div>
+    
 </body>
 </html>
