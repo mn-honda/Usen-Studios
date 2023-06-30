@@ -1,5 +1,12 @@
-.detailForm{
+.container{
     margin-top: 200px;
+    text-align: center;
+}
+.alert{
+    color: red;
+}
+.detailForm{
+    
     margin-bottom: 100px;
     text-align: center;
     display: flex;
