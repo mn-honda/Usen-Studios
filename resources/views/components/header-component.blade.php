@@ -31,10 +31,9 @@
             
             <div class="acount_container">
                 <!-- アカウントアイコン -->
-                <a href="/user/list">
-                    <img class="acountIcon" src="/icon/account_icon.png">
-                </a>
-
+                <div class="openbtn2">
+                        <img class="acountIcon" src="/icon/account_icon.png">
+                </div>
                 <!-- カートアイコン -->
                 <a href="/cart">
                     <img class="cartIcon" src="/icon/cart_icon.png">
@@ -75,16 +74,17 @@
                 <ul>
                     @auth
                         <form action="{{route('logout')}}" method="post" name="form1">
-                            <li class="acountList"><a href="javascript:form1.submit()">サインアウト</a></li>
+                            <li class="acountList2"><a href="javascript:form1.submit()">サインアウト</a></li>
                             @csrf
                         </form>
+                        <li class="acountList"><a href="/user/list">マイページ</a></li>
                         @if(Auth::user()->is_admin == 1)
-                            <li class="acountList2"><a href="/admin">admin page</a></li>
+                            <li class="acountList3"><a href="/admin">admin page</a></li>
                         @endif
                     @endauth
                     @guest
                         <form action="/index" method="post" name="form2">
-                            <li class="acountList"><a href="javascript:form2.submit()">サインイン</a></li>
+                            <li class="acountList2"><a href="javascript:form2.submit()">サインイン</a></li>
                             @csrf
                         </form>
                     @endguest
