@@ -15,6 +15,7 @@ use App\Models\Sale;
 use App\Models\SaleDetail;
 use Stripe\Exception\CardException;
 use App\Models\Delivery;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SaleController extends Controller
 {
@@ -92,12 +93,16 @@ class SaleController extends Controller
 
 
     public function complete($id) {
-        $user_id = auth()->user()->id;
-        $user = User::find($user_id);
-        $sale = Sale::find($id);
-        return view('user.sale.complete', compact('user', 'sale'));
+        $sale_id = $id;
+        return view('user.sale.complete', compact('sale_id'));
     }
 
+    public function receipt($id) {
+        $sale = Sale::find($id);
+        $pdf = Pdf::loadView('pdf.receipt', compact('sale'));
+        $pdf->setPaper('A4');
+        return $pdf->stream();
+    }
 
     public function list() {
         $user_id = auth()->user()->id;
