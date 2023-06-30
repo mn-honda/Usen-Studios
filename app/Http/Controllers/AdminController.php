@@ -251,9 +251,9 @@ class AdminController extends Controller
         $stock = Stock::whereProduct_id($request->product_id)->first();
         if($request->deliveried){
             $sale_deliveried->is_delivered = "1";
+            $this->send_order_mail($user, $sale);
         }else if($request->arrived){
             $sale_deliveried->is_delivered = "2";
-            $this->send_order_mail($user, $sale);
         }else if($request->returned){
             $sale_deliveried->is_delivered = "3";
             $stock->stock += $request->quantity;

@@ -32,6 +32,7 @@
                     <th style="padding: 20px">サイズ</th>
                     <th style="padding: 20px">金額</th>
                     <th style="padding: 20px">配送状況</th>
+                    <th style="padding: 20px">領収書</th>
                     <th style="padding: 20px">もう一度買う</th>
                 </tr>
                 @foreach($user->sale_details as $sale_detail)
@@ -39,15 +40,7 @@
                         <td style="padding: 20px">{{$sale_detail->sale->date->format('Y/m/d')}}</td>
                             <td style="padding: 20px">{{$sale_detail->product->name}}</td>
                             <td style="padding: 20px">{{$sale_detail->quantity}}</td>
-                            <td style="padding: 20px">
-                                {{$sale_detail->size->size}}
-                                {{-- @if($sale_detail->size_id==1)XS --}}
-                                {{-- @elseif($sale_detail->size_id==2)S --}}
-                                {{-- @elseif($sale_detail->size_id==3)M --}}
-                                {{-- @elseif($sale_detail->size_id==4)L --}}
-                                {{-- @elseif($sale_detail->size_id==5)XL --}}
-                                {{-- @endif --}}
-                            </td>
+                            <td style="padding: 20px">{{$sale_detail->size->size}}</td>
                             <td style="padding: 20px">{{$sale_detail->amount}}円</td>
                         <td style="padding: 20px">
                             @if($sale_detail->sale->delivery->is_delivered==0)
@@ -59,6 +52,12 @@
                             @else
                                 返品済み
                             @endif
+                        </td>
+                        <td style="padding: 20px">
+                            <form action="/sale/receipt/{{$sale_detail->sale_id}}" method="post">
+                                @csrf
+                                <button type="submit">領収書</button>
+                            </form>
                         </td>
                         <td style="padding: 20px">
                             <form action="/cart/add" method="post">
