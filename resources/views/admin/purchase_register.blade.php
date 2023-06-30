@@ -11,7 +11,9 @@
     @foreach ($errors->all() as $error)
         <li class="flex justify-center"> <span class="error">{{ $error }}</span></li>
     @endforeach
-    <br><br><br>
+    <br>
+    <div class="flex justify-center">@if($success_message!=null){{$success_message}}@endif</div><br>
+    <br><br>
     <div class="flex justify-center">
         <form action="" method="post">
             <table>

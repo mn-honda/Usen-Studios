@@ -12,6 +12,7 @@
         <li class="flex justify-center"> <span class="error">{{ $error }}</span></li>
     @endforeach
     <br>
+    <div class="flex justify-center">@if($success_message!=null){{$success_message}}@endif</div><br>
     <div class="flex justify-center">
         <form action="" method="post" enctype="multipart/form-data">
         <table>
