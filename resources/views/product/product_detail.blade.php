@@ -46,12 +46,14 @@
                         @if($product->stock->stock <= 5 && $product->stock->stock != 0)
                             <p>在庫残り{{$product->stock->stock}}点</p>
                         @endif
-                        個数：
+                        個数（最大10個）：
                         @if($product->stock->stock != 0)
                             <select name="quantity">
                             @for($i = 1;$i <= $product->stock->stock;$i++)
-                                
                                     <option value="{{$i}}">{{$i}}</option>
+                                    @if ($i == 10)
+                                        @php break; @endphp                                      
+                                    @endif
                             @endfor
                             </select>
                             
