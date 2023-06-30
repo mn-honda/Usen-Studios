@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/inquiry.css" rel="stylesheet">
-    <title>Document</title>
+    <title>コンタクトフォーム</title>
 </head>
 <body>
 <x-header-component></x-header-component>
@@ -12,7 +12,7 @@
     @if(!empty($message))
         <p>{{$message}}</p>
     @endif
-    
+
         <h1>contact</h1>
         <p>お問い合わせ内容を入力してください</p>
 
