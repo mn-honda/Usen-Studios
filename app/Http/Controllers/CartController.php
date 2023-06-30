@@ -44,7 +44,7 @@ class CartController extends Controller
         $cart->save();
 
         // return redirect("/product_detail/{$request->product_id}");
-        return back();
+        return back()->with("message","カートに追加しました");
     }
 
 
