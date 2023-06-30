@@ -113,6 +113,10 @@
         <a href="stock_list">　　在庫一覧</a>
         <a href="contact_list">　　お問い合わせ一覧</a>
     </div><br>
+    <div class="text-center border divide-x">
+        <a href="/index">トップページへ</a>
+        <a href="/admin">　　管理者トップへ</a>
+    </div><br>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

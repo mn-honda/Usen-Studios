@@ -45,5 +45,9 @@
         <a href="stock_list">　　在庫一覧</a>
         <a href="sale_list">　　売上一覧</a>
     </div><br>
+    <div class="text-center border divide-x mb-4">
+        <a href="/index">トップページ</a>
+        <a href="/admin">　　管理者トップ</a>
+    </div><br>
 </body>
 </html>

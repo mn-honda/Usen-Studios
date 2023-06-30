@@ -106,6 +106,12 @@ class AdminController extends Controller
 
         $new_images1->save();
 
+        $new_products->sizes()->attach(['size_id'=>'1']);
+        $new_products->sizes()->attach(['size_id'=>'2']);
+        $new_products->sizes()->attach(['size_id'=>'3']);
+        $new_products->sizes()->attach(['size_id'=>'4']);
+        $new_products->sizes()->attach(['size_id'=>'5']);
+
         $new_stocks->product_id = $new_products->id;
         $new_stocks->stock = "0";
 
